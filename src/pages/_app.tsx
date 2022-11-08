@@ -6,6 +6,7 @@ import { Global } from '@emotion/react'
 import { globalStyles } from '@styles/globals'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@toast-ui/editor/dist/toastui-editor.css' // Editor's Style
+import { ChakraProvider } from '@chakra-ui/react'
 
 export type NextPageWithLayout<PageProps = {}> = NextPage<PageProps> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -31,7 +32,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <QueryClientProvider client={queryClient}>
         <Global styles={globalStyles} />
-        {getLayout(<Component {...pageProps} />)}
+        <ChakraProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </ChakraProvider>
       </QueryClientProvider>
     </>
   )
