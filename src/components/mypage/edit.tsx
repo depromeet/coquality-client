@@ -1,10 +1,13 @@
 import React from "react";
 import { Box, Image, Input, Button, Text } from "@chakra-ui/react";
+import useUpload from "@hooks/useUpload";
 
-type Props = {}
+type Props = {};
 
 const Edit: React.FC<Props> = ({}) => {
-  return (
+	const [upload, file] = useUpload();
+
+	return (
 		<Box>
 			<Box position='absolute' w='1920px' h='56px'>
 				<Text fontSize='20px'>COQUALITY (상단바)</Text>
@@ -31,16 +34,17 @@ const Edit: React.FC<Props> = ({}) => {
 						p='10px 30px'
 						fontSize='16px'
 						fontWeight='600'
+						onClick={upload}
 					>
 						이미지 업로드
 					</Button>
 					<Button
+						colorScheme='black'
+						variant='outline'
 						h='44px'
-						border='1px solid #060606'
 						fontSize='16px'
 						fontWeight='600'
 						borderRadius='50px'
-						gap='8px'
 						p='12px 30px'
 					>
 						이미지 제거
@@ -109,6 +113,6 @@ const Edit: React.FC<Props> = ({}) => {
 			</Button>
 		</Box>
 	);
-}; 
+};
 
-export default Edit
+export default Edit;
