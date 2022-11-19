@@ -1,7 +1,8 @@
 import React from "react";
+import Link from "next/link";
 import {
 	Box,
-	Image, 
+	Image,
 	Button,
 	Text,
 	Tabs,
@@ -13,6 +14,11 @@ import {
 type Props = {};
 
 const Mypage: React.FC<Props> = ({}) => {
+	function moveToEdit() {
+		<Link href='./edit.tsx'>
+			<a>dd</a>
+		</Link>;
+	}
 	return (
 		<>
 			<Box position='absolute' w='1920px' h='56px'>
@@ -70,22 +76,24 @@ const Mypage: React.FC<Props> = ({}) => {
 						3년차 공유 모빌리티 서비스 UI/UX 기획자입니다 :)
 					</Text>
 				</Box>
-				<Button
-					display='flex'
-					w='255px'
-					h='44px'
-					order='1'
-					borderRadius='50px'
-					color='white'
-					bg='black'
-					fontFamily='Pretendard'
-					fontStyle='normal'
-					fontSize='16px'
-					fontWeight='600'
-					variant='ghost'
-				>
-					프로필 수정
-				</Button>
+				<Link href='./mypage/edit'>
+					<Button
+						display='flex'
+						w='255px'
+						h='44px'
+						order='1'
+						borderRadius='50px'
+						color='white'
+						bg='black'
+						fontFamily='Pretendard'
+						fontStyle='normal'
+						fontSize='16px'
+						fontWeight='600'
+						variant='ghost'
+					>
+						<a>프로필 수정</a>
+					</Button>
+				</Link>
 			</Box>
 			<Tabs
 				position='absolute'
