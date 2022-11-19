@@ -6,7 +6,8 @@ type Props = {}
 const Index: React.FC<Props> = (props) => {
   return (
     <div>
-      <CircularProgress isIndeterminate color="green.300" />{' '}
+      fff
+      {/* <CircularProgress isIndeterminate color="green.300" />{' '} */}
     </div>
   )
 }
