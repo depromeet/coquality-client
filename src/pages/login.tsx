@@ -1,7 +1,7 @@
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@pages/_app'
-import Layout from '@components/_base/Layout'
-import Login from '@components/login'
+import { ReactElement } from "react"
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/_base/Layout"
+import Login from "@components/login"
 
 const LoginPage: NextPageWithLayout = () => {
   return <Login />

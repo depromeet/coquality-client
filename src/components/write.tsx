@@ -1,8 +1,8 @@
-import dynamic from 'next/dynamic'
-import React from 'react'
+import dynamic from "next/dynamic"
+import React from "react"
 
 const ArticleEditor = dynamic(
-  () => import('@components/_common/ArticleEditor'),
+  () => import("@components/_common/ArticleEditor"),
   {
     ssr: false,
   }

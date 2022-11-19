@@ -8,30 +8,30 @@ import {
   Heading,
   Text,
   Textarea,
-} from "@chakra-ui/react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-type Props = {};
+} from "@chakra-ui/react"
+import axios from "axios"
+import React, { useEffect, useState } from "react"
+type Props = {}
 
 interface ICommentProps {
-  authorName: string;
-  authorThumbnailUrl: string;
-  content: string;
-  publishedAt: string;
+  authorName: string
+  authorThumbnailUrl: string
+  content: string
+  publishedAt: string
 }
 
 interface PostType {
-  title: string;
-  contents: string;
-  primaryPostCategoryCode: string;
-  summary: string;
-  views: number;
+  title: string
+  contents: string
+  primaryPostCategoryCode: string
+  summary: string
+  views: number
 }
 
-const API_URL = "https://cba00c95-fc24-476e-87dc-0657339092eb.mock.pstmn.io";
+const API_URL = "https://cba00c95-fc24-476e-87dc-0657339092eb.mock.pstmn.io"
 
 const Comment: React.FC<ICommentProps> = (props) => {
-  const { authorName, authorThumbnailUrl, content, publishedAt } = props;
+  const { authorName, authorThumbnailUrl, content, publishedAt } = props
   return (
     <Box p="2">
       <Flex direction="row">
@@ -47,8 +47,8 @@ const Comment: React.FC<ICommentProps> = (props) => {
         </Flex>
       </Flex>
     </Box>
-  );
-};
+  )
+}
 
 // const fetchComments = (postId) => {
 //   return axios
@@ -71,18 +71,18 @@ const Slug: React.FC<Props> = ({}) => {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, velit expedita eveniet unde quidem nostrum voluptate atque repudiandae a non at aliquam asperiores laudantium ducimus, earum iste itaque laborum ratione!",
       publishedAt: "Date",
     },
-  ]);
+  ])
 
-  const [post, setPost] = useState<PostType>();
+  const [post, setPost] = useState<PostType>()
 
   useEffect(() => {
     axios
       .get(API_URL + "/api/v1/posts/{postId}")
       .then((response) => response.data)
       .then((data) => {
-        setPost(data.data);
-      });
-  }, []);
+        setPost(data.data)
+      })
+  }, [])
 
   return (
     <Flex direction="row" gap="8" className="common-container" py="16">
@@ -117,13 +117,15 @@ const Slug: React.FC<Props> = ({}) => {
           <Comment key={index} {...comment} />
         ))}
       </Flex>
-      <Flex direction="column" flex="1" ml="2" >
+      <Flex direction="column" flex="1" ml="2">
         <Avatar src="https://picsum.photos/200/200" size="xl" mb="4"></Avatar>
-        <Heading size="md" mb="2">미진</Heading>
+        <Heading size="md" mb="2">
+          미진
+        </Heading>
         <Text>3년차 공유 모빌리티 서비스 디자이너 ***입니다.</Text>
       </Flex>
     </Flex>
-  );
-};
+  )
+}
 
-export default Slug;
+export default Slug
