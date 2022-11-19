@@ -1,21 +1,34 @@
 import {
   Avatar,
   Box,
+  Button,
   Container,
   Divider,
   Flex,
   Heading,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 type Props = {};
 
 interface ICommentProps {
   authorName: string;
   authorThumbnailUrl: string;
   content: string;
-  publishedAt: Date;
+  publishedAt: string;
 }
+
+interface PostType {
+  title: string;
+  contents: string;
+  primaryPostCategoryCode: string;
+  summary: string;
+  views: number;
+}
+
+const API_URL = "https://cba00c95-fc24-476e-87dc-0657339092eb.mock.pstmn.io";
 
 const Comment: React.FC<ICommentProps> = (props) => {
   const { authorName, authorThumbnailUrl, content, publishedAt } = props;
@@ -37,44 +50,71 @@ const Comment: React.FC<ICommentProps> = (props) => {
   );
 };
 
+// const fetchComments = (postId) => {
+//   return axios
+//     .get(`/api/v1/posts/${postId}/comments`)
+//     .then((response) => response.data);
+// };
+
 const Slug: React.FC<Props> = ({}) => {
   const [comments, setComments] = useState<ICommentProps[]>([
     {
       authorName: "정시원",
       authorThumbnailUrl: "https://picsum.photos/50/50",
       content: "lorem",
-      publishedAt: new Date(),
+      publishedAt: "Date",
     },
     {
       authorName: "이상민",
       authorThumbnailUrl: "https://picsum.photos/50/50",
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, velit expedita eveniet unde quidem nostrum voluptate atque repudiandae a non at aliquam asperiores laudantium ducimus, earum iste itaque laborum ratione!",
-      publishedAt: new Date(),
+      content:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, velit expedita eveniet unde quidem nostrum voluptate atque repudiandae a non at aliquam asperiores laudantium ducimus, earum iste itaque laborum ratione!",
+      publishedAt: "Date",
     },
   ]);
 
-  
+  const [post, setPost] = useState<PostType>();
+
+  useEffect(() => {
+    axios
+      .get(API_URL + "/api/v1/posts/{postId}")
+      .then((response) => response.data)
+      .then((data) => {
+        setPost(data.data);
+      });
+  }, []);
+
   return (
     <Container>
-      <Heading fontSize="xl">
-        지금 연봉 10배가 오릅니다: '네트워킹 드리븐'으로 일하기
+      <Heading fontSize="xl" mb="2">
+        {post?.title}
       </Heading>
-      <Heading fontSize="md">
-        인지심리학자가 UX 용어 첫 사용, 그 이유는?
+      <Heading fontSize="md" mb="2">
+        {post?.summary}
       </Heading>
       <Flex display="flex" flexDirection="row">
         <Box mr="2">view 356</Box>
         <Box>2022.10.25</Box>
       </Flex>
       <Divider></Divider>
-      <Text py="8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum natus ab
-      </Text>
+      <Text py="8">{post?.contents}</Text>
       <Divider></Divider>
-      <Text>
-        <b>20</b>개의 댓글
-      </Text>
-      {comments.map(comment => <Comment {...comment} />)}
+      <Text>20개의 댓글</Text>
+      <Flex p="2" direction="column" gap="2">
+        <Flex direction="row">
+          <Textarea
+            placeholder="댓글 작성이 어렵다면 간단한 이모티콘으로 생각을 표현해보세요!"
+            border="none"
+          />
+        </Flex>
+        <Divider />
+        <Flex direction="row" justifyContent="flex-end">
+          <Button>작성 완료</Button>
+        </Flex>
+      </Flex>
+      {comments.map((comment, index) => (
+        <Comment key={index} {...comment} />
+      ))}
     </Container>
   );
 };
