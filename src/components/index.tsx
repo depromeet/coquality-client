@@ -1,12 +1,8 @@
 import React from "react";
 import {
-  CircularProgress,
-  CircularProgressLabel,
   Flex,
   Heading,
   Image,
-  Icon,
-  IconButton,
   Tab,
   TabList,
   TabPanel,
@@ -47,8 +43,8 @@ const PostPreview: React.FC<Props> = () => {
 
 const Index: React.FC<Props> = (props) => {
   return (
-    <Flex direction="column" p="20">
-      <Heading size="lg" pb="5">
+    <Flex direction="column" py="16" className="common-container">
+      <Heading size="lg" pb="4">
         당신을 위한 하이 퀄리티 글 👍🏻
       </Heading>
       <Tabs>
@@ -60,8 +56,8 @@ const Index: React.FC<Props> = (props) => {
           <Tab>광고/마케팅</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
-            <Flex direction="row" justifyContent="flex-end">
+          <TabPanel p="0">
+            <Flex direction="row" justifyContent="flex-end" p="8">
               조회순
             </Flex>
             <PostPreview />

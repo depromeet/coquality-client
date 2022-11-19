@@ -85,7 +85,7 @@ const Slug: React.FC<Props> = ({}) => {
   }, []);
 
   return (
-    <Flex direction="row" p="10">
+    <Flex direction="row" gap="8" className="common-container" py="16">
       <Flex direction="column" flex="2">
         <Heading fontSize="xl" mb="2">
           {post?.title}
@@ -117,9 +117,9 @@ const Slug: React.FC<Props> = ({}) => {
           <Comment key={index} {...comment} />
         ))}
       </Flex>
-      <Flex direction="column" flex="1" ml="2">
-        <Avatar src="https://picsum.photos/200/200" size="xl"></Avatar>
-        <Heading size="md">미진</Heading>
+      <Flex direction="column" flex="1" ml="2" >
+        <Avatar src="https://picsum.photos/200/200" size="xl" mb="4"></Avatar>
+        <Heading size="md" mb="2">미진</Heading>
         <Text>3년차 공유 모빌리티 서비스 디자이너 ***입니다.</Text>
       </Flex>
     </Flex>
