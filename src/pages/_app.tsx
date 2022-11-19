@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode, useState } from 'react'
-
 import { Global } from '@emotion/react'
 import { globalStyles } from '@styles/globals'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import '@toast-ui/editor/dist/toastui-editor.css' // Editor's Style
 import { ChakraProvider } from '@chakra-ui/react'
+import '@toast-ui/editor/dist/toastui-editor.css' // Editor's Style
+import { theme } from '@libs/chakra/theme'
 
 export type NextPageWithLayout<PageProps = {}> = NextPage<PageProps> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -32,7 +32,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <QueryClientProvider client={queryClient}>
         <Global styles={globalStyles} />
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           {getLayout(<Component {...pageProps} />)}
         </ChakraProvider>
       </QueryClientProvider>
