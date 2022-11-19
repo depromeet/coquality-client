@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Image, Input, Button, Text } from "@chakra-ui/react";
 import useUpload from "@hooks/useUpload";
 
@@ -6,6 +6,35 @@ type Props = {};
 
 const Edit: React.FC<Props> = ({}) => {
 	const [upload, file] = useUpload();
+	const [imageSrc, setImageSrc] = useState("");
+
+	const inputRef = useRef(null);
+	const getBase64 = (file: File) => new Promise((resolve, reject) => {
+		if (file === null) {
+			reject()
+		}
+
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function () {
+			resolve(reader.result);
+		};
+		reader.onerror = function (error) {
+			reject(error)
+		};
+	})
+
+	useEffect(() => {
+		if (file) {
+			getBase64(file).then((src: any) => {
+				setImageSrc(src)
+			}).catch(error => {
+				console.error(error)
+			})
+		} else {
+			setImageSrc('https://bit.ly/dan-abramov')
+		}
+	}, [file]);
 
 	return (
 		<Box>
@@ -21,8 +50,9 @@ const Edit: React.FC<Props> = ({}) => {
 					w='120px'
 					h='120px'
 					borderRadius='100%'
-					src='https://bit.ly/dan-abramov'
-					alt='Porfile Image'
+					ref={inputRef}
+					src={imageSrc}
+					alt='Profile Image'
 				/>
 				<Box display='flex' flexDirection='column' ml='20px'>
 					<Button
@@ -46,6 +76,7 @@ const Edit: React.FC<Props> = ({}) => {
 						fontWeight='600'
 						borderRadius='50px'
 						p='12px 30px'
+						onClick={() => setImageSrc('')}
 					>
 						이미지 제거
 					</Button>
