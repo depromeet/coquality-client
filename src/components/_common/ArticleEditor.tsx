@@ -1,5 +1,5 @@
-import { Editor } from '@toast-ui/react-editor'
-import React from 'react'
+import { Editor } from "@toast-ui/react-editor"
+import React from "react"
 
 type Props = {}
 
@@ -11,11 +11,11 @@ const ArticleEditor: React.FC<Props> = (props) => {
       height="300px"
       initialEditType="wysiwyg"
       toolbarItems={[
-        ['heading', 'bold', 'italic', 'strike'],
-        ['hr', 'quote'],
-        ['ul', 'ol', 'task', 'indent', 'outdent'],
-        ['table', 'image', 'link'],
-        ['code', 'codeblock'],
+        ["heading", "bold", "italic", "strike"],
+        ["hr", "quote"],
+        ["ul", "ol", "task", "indent", "outdent"],
+        ["table", "image", "link"],
+        ["code", "codeblock"],
       ]}
     />
   )

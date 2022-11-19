@@ -1,7 +1,7 @@
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@pages/_app'
-import Layout from '@components/_base/Layout'
-import Write from '@components/write'
+import { ReactElement } from "react"
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/_base/Layout"
+import Write from "@components/write"
 
 const WritePage: NextPageWithLayout = () => {
   return <Write />

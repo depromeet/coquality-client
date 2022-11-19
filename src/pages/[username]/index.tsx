@@ -1,7 +1,7 @@
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@pages/_app'
-import Index from '@components/index'
-import Layout from '@components/_base/Layout'
+import { ReactElement } from "react"
+import { NextPageWithLayout } from "@pages/_app"
+import Index from "@components/index"
+import Layout from "@components/_base/Layout"
 
 const UsernamePage: NextPageWithLayout = () => {
   return <Index />

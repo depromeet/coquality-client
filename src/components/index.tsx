@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Flex,
   Heading,
@@ -10,15 +10,15 @@ import {
   Tabs,
   Text,
   Divider,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-type Props = {};
+type Props = {}
 
 const PostPreview: React.FC<Props> = () => {
   return (
     <>
       <Flex direction="row" py="8" gap="8">
-        <Flex direction="column" flex="1"  justifyContent="space-between">
+        <Flex direction="column" flex="1" justifyContent="space-between">
           <Flex direction="column">
             <Heading size="md">프로젝트 관리를 위한 JIRA 활용기</Heading>
             <Text>
@@ -38,8 +38,8 @@ const PostPreview: React.FC<Props> = () => {
       </Flex>
       <Divider></Divider>
     </>
-  );
-};
+  )
+}
 
 const Index: React.FC<Props> = (props) => {
   return (
@@ -70,7 +70,7 @@ const Index: React.FC<Props> = (props) => {
         </TabPanels>
       </Tabs>
     </Flex>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

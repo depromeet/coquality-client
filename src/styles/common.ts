@@ -1,5 +1,5 @@
-import { css } from '@emotion/react'
-import { mobile } from './media'
+import { css } from "@emotion/react"
+import { mobile } from "./media"
 
 /**
  * 공통으로 사용하는 css를 정의합니다. prefix로 common 을 붙이고 선언해 사용합니다.

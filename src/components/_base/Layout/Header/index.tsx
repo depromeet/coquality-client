@@ -1,6 +1,6 @@
-import { Button } from '@chakra-ui/react'
-import styled from '@emotion/styled'
-import React from 'react'
+import { Button } from "@chakra-ui/react"
+import styled from "@emotion/styled"
+import React from "react"
 
 type Props = {}
 
