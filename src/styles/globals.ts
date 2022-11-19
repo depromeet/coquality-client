@@ -5,15 +5,16 @@ import common from './common'
  * 초기 세팅을 위한 css를 정의합니다.
  */
 export const globalStyles = css`
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
   html {
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+      Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+      'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol', sans-serif;
   }
-
   body {
-    font-family: 'Roboto', sans-serif;
     padding: 0;
     margin: 0;
+    background-color: #f9f9f9;
   }
   * {
     padding: 0;
