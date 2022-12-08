@@ -1,14 +1,15 @@
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@pages/_app'
-import Layout from '@components/_base/Layout'
-import Mypage from '@components/mypage'
+import { ReactElement } from "react"
 
-const IndexPage: NextPageWithLayout = () => {
-  return <Mypage />
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/Layout"
+import MypageContainer from "@containers/MyPage"
+
+const MyPage: NextPageWithLayout = () => {
+  return <MypageContainer />
 }
 
-IndexPage.getLayout = (page: ReactElement) => {
+MyPage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default IndexPage
+export default MyPage

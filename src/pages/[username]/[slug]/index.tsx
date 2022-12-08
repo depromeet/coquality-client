@@ -1,14 +1,14 @@
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "@pages/_app"
-import Layout from "@components/_base/Layout"
-import Slug from "@components/[username]/[slug]"
+import Layout from "@components/Layout"
+import ArticlePageContainer from "@containers/ArticlePage"
 
-const SlugPage: NextPageWithLayout = () => {
-  return <Slug />
+const ArticlePage: NextPageWithLayout = () => {
+  return <ArticlePageContainer />
 }
 
-SlugPage.getLayout = (page: ReactElement) => {
+ArticlePage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default SlugPage
+export default ArticlePage

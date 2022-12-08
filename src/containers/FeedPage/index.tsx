@@ -41,7 +41,7 @@ const PostPreview: React.FC<Props> = () => {
   )
 }
 
-const Index: React.FC<Props> = (props) => {
+const FeedPageContainer: React.FC<Props> = (props) => {
   return (
     <Flex direction="column" py="16" className="common-container">
       <Heading size="lg" pb="4">
@@ -73,4 +73,4 @@ const Index: React.FC<Props> = (props) => {
   )
 }
 
-export default Index
+export default FeedPageContainer

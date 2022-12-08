@@ -1,14 +1,15 @@
 import { ReactElement } from "react"
-import { NextPageWithLayout } from "@pages/_app"
-import Index from "@components/index"
-import Layout from "@components/_base/Layout"
 
-const UsernamePage: NextPageWithLayout = () => {
-  return <Index />
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/Layout"
+import ProfilePageContainer from "@containers/ProfilePage"
+
+const ProfilePage: NextPageWithLayout = () => {
+  return <ProfilePageContainer />
 }
 
-UsernamePage.getLayout = (page: ReactElement) => {
+ProfilePage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default UsernamePage
+export default ProfilePage
