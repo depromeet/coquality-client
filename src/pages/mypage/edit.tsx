@@ -1,14 +1,15 @@
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@pages/_app'
-import Layout from '@components/_base/Layout' 
-import Edit from '@components/mypage/edit'
+import { ReactElement } from "react"
 
-const IndexPage: NextPageWithLayout = () => {
-  return <Edit />
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/Layout"
+import ProfileEditPageContainer from "@containers/ProfileEditPage"
+
+const ProfileEditPage: NextPageWithLayout = () => {
+  return <ProfileEditPageContainer />
 }
 
-IndexPage.getLayout = (page: ReactElement) => {
+ProfileEditPage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default IndexPage
+export default ProfileEditPage

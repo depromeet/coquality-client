@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Button,
-  Container,
   Divider,
   Flex,
   Heading,
@@ -56,7 +55,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
 //     .then((response) => response.data);
 // };
 
-const Slug: React.FC<Props> = ({}) => {
+const ArticlePageContainer: React.FC<Props> = ({}) => {
   const [comments, setComments] = useState<ICommentProps[]>([
     {
       authorName: "정시원",
@@ -128,4 +127,4 @@ const Slug: React.FC<Props> = ({}) => {
   )
 }
 
-export default Slug
+export default ArticlePageContainer

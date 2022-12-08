@@ -1,14 +1,15 @@
 import { ReactElement } from "react"
-import { NextPageWithLayout } from "@pages/_app"
-import Layout from "@components/_base/Layout"
-import Write from "@components/write"
 
-const WritePage: NextPageWithLayout = () => {
-  return <Write />
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/Layout"
+import ArticleWritePageContainer from "@containers/ArticleWritePage"
+
+const ArticleWritePage: NextPageWithLayout = () => {
+  return <ArticleWritePageContainer />
 }
 
-WritePage.getLayout = (page: ReactElement) => {
+ArticleWritePage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default WritePage
+export default ArticleWritePage

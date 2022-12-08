@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "@pages/_app"
-import Layout from "@components/_base/Layout"
-import Edit from "@components/[username]/[slug]/edit"
+import Layout from "@components/Layout"
+import Edit from "@containers/ArticleEditPage"
 
 const EditPage: NextPageWithLayout = () => {
   return <Edit />
