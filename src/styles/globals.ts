@@ -1,20 +1,15 @@
+import { colors } from "@constants/colors"
 import { css } from "@emotion/react"
 import common from "./common"
 
-/**
- * 초기 세팅을 위한 css를 정의합니다.
- */
 export const globalStyles = css`
   html {
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
-      Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-      "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol", sans-serif;
+    font-family: Pretendard, Roboto, sans-serif;
   }
   body {
     padding: 0;
     margin: 0;
-    background-color: #f9f9f9;
+    background-color: ${colors.grey100};
   }
   * {
     padding: 0;
@@ -28,11 +23,41 @@ export const globalStyles = css`
     cursor: pointer;
   }
 
-  h1,
-  h2,
-  h3,
+  h1 {
+    font-size: 32px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 20px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
   h4 {
-    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  h5 {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  h6 {
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
   }
 
   ${common}

@@ -1,7 +1,10 @@
 import { Button } from "@chakra-ui/react"
+import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import Link from "next/link"
 import React from "react"
+import Logo from "./svgs/Logo.svg"
+import UserBtn from "./svgs/UserBtn.svg"
 
 type Props = {}
 
@@ -10,12 +13,19 @@ const Header = (props: Props) => {
     <StyledWrapper>
       <div className="container common-container">
         <Link href={"/"}>
-          <a className="logo">COQUALITY</a>
+          <a>
+            <Logo />
+          </a>
         </Link>
         <div className="rt">
-          <Button colorScheme="primary" borderRadius={50} variant="outline">
+          <Link href={"/myprofile"}>
+            <a>
+              <UserBtn />
+            </a>
+          </Link>
+          {/* <Button colorScheme="primary" borderRadius={50} variant="outline">
             로그인
-          </Button>
+          </Button> */}
         </div>
       </div>
     </StyledWrapper>
@@ -33,11 +43,7 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .logo {
-      font-weight: 700;
-      font-size: 20px;
-    }
   }
 
-  background-color: white;
+  background-color: ${colors.grey800};
 `
