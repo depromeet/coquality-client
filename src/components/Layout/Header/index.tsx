@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react"
 import styled from "@emotion/styled"
+import Link from "next/link"
 import React from "react"
 
 type Props = {}
@@ -8,7 +9,9 @@ const Header = (props: Props) => {
   return (
     <StyledWrapper>
       <div className="container common-container">
-        <div className="logo">COQUALITY</div>
+        <Link href={"/"}>
+          <a className="logo">COQUALITY</a>
+        </Link>
         <div className="rt">
           <Button colorScheme="primary" borderRadius={50} variant="outline">
             로그인
