@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios"
+import Repository from "./repository"
 
 // TODO: move common types to types folder
 type PostPrimaryCategoryType = "DESIGN" | "DEVELOPMENT" | "MARKETING" | "PM"
@@ -39,13 +39,7 @@ interface IModifyPostRequest {
   title: string
 }
 
-export class PostsRepository {
-  // client should be injected as singleton
-  constructor(
-    protected readonly client: AxiosInstance,
-    protected authToken: string
-  ) {}
-
+export class PostsRepository extends Repository {
   public async getPosts(
     sort: PostSortType,
     primaryCategory?: PostPrimaryCategoryType
