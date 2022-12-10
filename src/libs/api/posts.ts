@@ -1,13 +1,9 @@
-import { CoqualityAxiosClient } from "./client"
-
-interface IGetPostsParams {
-  sort: "LATEST"
-  primaryCategory?: "DEVELOPMENT"
-}
+import { AxiosInstance } from "axios"
 
 // TODO: move common types to types folder
 type PostPrimaryCategoryType = "DESIGN" | "DEVELOPMENT" | "MARKETING" | "PM"
 type PostStatusType = "DELETED" | "ISSUED" | "PRIVATE" | "TEMPORARY_SAVED"
+type PostSortType = "LATEST" | "VIEWS"
 
 interface IGetPostByIdParams {
   userId?: number
@@ -45,10 +41,23 @@ interface IModifyPostRequest {
 
 export class PostsRepository {
   // client should be injected as singleton
-  constructor(protected readonly client: CoqualityAxiosClient) {}
+  constructor(
+    protected readonly client: AxiosInstance,
+    protected authToken: string
+  ) {}
 
-  public async getPosts(params: IGetPostsParams): Promise<IPostType[]> {
-    const response = await this.client.get(`/posts`, { params })
+  public async getPosts(
+    sort: PostSortType,
+    primaryCategory?: PostPrimaryCategoryType
+  ): Promise<IPostType[]> {
+    const response = await this.client.get("/posts", {
+      params: {
+        sort,
+        primaryCategory,
+      },
+      headers: { AUTH: this.authToken },
+    })
+
     return response.data.data as IPostType[]
   }
 
@@ -60,13 +69,16 @@ export class PostsRepository {
       params: {
         userId: params.userId,
       },
+      headers: { AUTH: this.authToken },
     })
 
     return response.data.data as IPostType
   }
 
   public async createPost(params: IIssuePostRequest): Promise<IPostType> {
-    const response = await this.client.post("/posts/", params)
+    const response = await this.client.post("/posts/", params, {
+      headers: { AUTH: this.authToken },
+    })
 
     return response.data.data as IPostType
   }
@@ -74,13 +86,25 @@ export class PostsRepository {
   public async updatePost(
     id: number,
     params: IModifyPostRequest
-  ): Promise<IPostType> {
-    const response = await this.client.put(`/posts/${id}`, params)
-
-    return response.data.data as IPostType
+  ): Promise<void> {
+    await this.client.put(`/posts/${id}`, params, {
+      headers: { AUTH: this.authToken },
+    })
   }
 
   public async deletePost(id: number): Promise<void> {
-    const response = await this.client.delete(`/posts/${id}`)
+    await this.client.delete(`/posts/${id}`, {
+      headers: { AUTH: this.authToken },
+    })
+
+    // TODO: add result
+  }
+
+  public async getMyPosts(sort: PostSortType = "LATEST"): Promise<IPostType[]> {
+    const response = await this.client.get("/posts/users/my/", {
+      params: { sort: sort },
+      headers: { AUTH: this.authToken },
+    })
+    return response.data.data as IPostType[]
   }
 }
