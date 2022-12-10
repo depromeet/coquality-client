@@ -4,7 +4,7 @@ import useUpload from "@hooks/useUpload"
 
 type Props = {}
 
-const ProfileEditPageContainer: React.FC<Props> = ({}) => {
+const ProfileEdit: React.FC<Props> = ({}) => {
   const [upload, file] = useUpload()
 
   return (
@@ -138,4 +138,4 @@ const ProfileEditPageContainer: React.FC<Props> = ({}) => {
   )
 }
 
-export default ProfileEditPageContainer
+export default ProfileEdit

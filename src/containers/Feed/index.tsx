@@ -49,7 +49,7 @@ const PostPreview: React.FC<Props> = () => {
   )
 }
 
-const FeedPageContainer: React.FC<Props> = (props) => {
+const Feed: React.FC<Props> = (props) => {
   return (
     <Flex direction="column" py="16" className="common-container">
       <Heading size="lg" pb="4">
@@ -81,4 +81,4 @@ const FeedPageContainer: React.FC<Props> = (props) => {
   )
 }
 
-export default FeedPageContainer
+export default Feed

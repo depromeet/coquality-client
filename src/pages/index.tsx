@@ -2,10 +2,10 @@ import { ReactElement } from "react"
 
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import FeedPageContainer from "@containers/FeedPage"
+import Feed from "@containers/Feed"
 
 const FeedPage: NextPageWithLayout = () => {
-  return <FeedPageContainer />
+  return <Feed />
 }
 
 FeedPage.getLayout = (page: ReactElement) => {

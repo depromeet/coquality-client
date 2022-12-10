@@ -2,10 +2,10 @@ import { ReactElement } from "react"
 
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import LoginPageContainer from "@containers/LoginPage"
+import Login from "@containers/Login"
 
 const LoginPage: NextPageWithLayout = () => {
-  return <LoginPageContainer />
+  return <Login />
 }
 
 LoginPage.getLayout = (page: ReactElement) => {

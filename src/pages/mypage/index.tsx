@@ -2,14 +2,14 @@ import { ReactElement } from "react"
 
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import MypageContainer from "@containers/MyPage"
+import MyProfile from "@containers/MyProfile"
 
-const MyPage: NextPageWithLayout = () => {
-  return <MypageContainer />
+const MyProfilePage: NextPageWithLayout = () => {
+  return <MyProfile />
 }
 
-MyPage.getLayout = (page: ReactElement) => {
+MyProfilePage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default MyPage
+export default MyProfilePage

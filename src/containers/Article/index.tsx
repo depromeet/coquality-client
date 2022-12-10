@@ -55,7 +55,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
 //     .then((response) => response.data);
 // };
 
-const ArticlePageContainer: React.FC<Props> = ({}) => {
+const Article: React.FC<Props> = ({}) => {
   const [comments, setComments] = useState<ICommentProps[]>([
     {
       authorName: "정시원",
@@ -127,4 +127,4 @@ const ArticlePageContainer: React.FC<Props> = ({}) => {
   )
 }
 
-export default ArticlePageContainer
+export default Article
