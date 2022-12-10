@@ -3,9 +3,15 @@
 import coqualityAxiosClient from "./client"
 import { PostsRepository } from "./posts"
 
-// TODO: should deleted
+// TODO: integration tests should be deleted
 // TODO: add fixtures
-const postsRepository = new PostsRepository(coqualityAxiosClient)
+let postsRepository: PostsRepository
+
+beforeAll(() => {
+  postsRepository = new PostsRepository(coqualityAxiosClient)
+})
+
+afterAll(() => {})
 
 describe("PostsRepository", () => {
   test("getPosts", async () => {
