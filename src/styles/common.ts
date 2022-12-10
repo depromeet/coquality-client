@@ -19,6 +19,68 @@ const commonStyles = css`
   .common-mobile-only {
     display: none;
   }
+
+  .common-h1-sb {
+    font-size: 32px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  .common-h2-sb {
+    font-size: 24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  .common-h3-sb {
+    font-size: 20px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  .common-h3-rg {
+    font-size: 20px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 400;
+  }
+  .common-h4-sb {
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  .common-h4-rg {
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 400;
+  }
+  .common-h5-sb {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -1%;
+    font-weight: 600;
+  }
+  .common-h5-sb-spacing {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  .common-h6-sb {
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 600;
+  }
+  .common-h6-rg {
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-weight: 400;
+  }
+
   ${mobile} {
     .common-desktop-only {
       display: none;

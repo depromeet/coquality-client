@@ -24,7 +24,8 @@
       "@libs/*": ["src/libs/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"]
-    }
+    },
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
