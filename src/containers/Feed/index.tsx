@@ -1,84 +1,95 @@
 import React from "react"
-import {
-  Flex,
-  Heading,
-  Image,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  Divider,
-} from "@chakra-ui/react"
-import { useQuery } from "@tanstack/react-query"
-import { getPosts } from "@libs/api/posts"
+import styled from "@emotion/styled"
+import Button from "@components/inputs/Button"
+import { colors } from "@constants/colors"
+import Tabs from "./Tabs"
+import DeleteButton from "./svgs/DeleteButton.svg"
+import FilterIcon from "./svgs/FilterIcon.svg"
+import PostCard from "./PostCard"
 
 type Props = {}
 
-const PostPreview: React.FC<Props> = () => {
-  const { data, isLoading, error } = useQuery(["posts"], getPosts, {
-    retry: false,
-  })
+const tabsData = [
+  { label: "전체", value: "all" },
+  { label: "개발", value: "develop" },
+  { label: "디자인", value: "design" },
+  { label: "기획/PM/PO", value: "pm" },
+  { label: "광고/마케팅", value: "marketing" },
+]
 
-  console.log(data, isLoading, error)
-
+const Feed: React.FC<Props> = ({}) => {
   return (
-    <>
-      <Flex direction="row" py="8" gap="8">
-        <Flex direction="column" flex="1" justifyContent="space-between">
-          <Flex direction="column">
-            <Heading size="md">프로젝트 관리를 위한 JIRA 활용기</Heading>
-            <Text>
-              신규 프로젝트를 효과적으로 관리하기 위한 애자일 도구인 JIRA의 사용
-              경험에 대해 소개합니다.
-            </Text>
-          </Flex>
-          <Flex direction="row" justifyContent="space-between">
-            <small>JAY|2022.02.05</small>
-            <Flex direction="row" gap="2">
-              <small>356 views</small>
-              <small>12 comments</small>
-            </Flex>
-          </Flex>
-        </Flex>
-        <Image src="https://picsum.photos/150/150" rounded="2xl"></Image>
-      </Flex>
-      <Divider></Divider>
-    </>
-  )
-}
-
-const Feed: React.FC<Props> = (props) => {
-  return (
-    <Flex direction="column" py="16" className="common-container">
-      <Heading size="lg" pb="4">
-        당신을 위한 하이 퀄리티 글 👍🏻
-      </Heading>
-      <Tabs>
-        <TabList>
-          <Tab>전체</Tab>
-          <Tab>개발</Tab>
-          <Tab>디자인</Tab>
-          <Tab>기획/PM/PO</Tab>
-          <Tab>광고/마케팅</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel p="0">
-            <Flex direction="row" justifyContent="flex-end" p="8">
-              조회순
-            </Flex>
-            <PostPreview />
-            <PostPreview />
-            <PostPreview />
-            <PostPreview />
-            <PostPreview />
-            <PostPreview />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Flex>
+    <StyledWrapper className="common-container">
+      <div className="banner">
+        <DeleteButton className="btn" />
+        <div className="content common-h3-sb">
+          코컬리티에서 글쓰고 나의 커리어 퀄리티를 높여 봐요
+        </div>
+        <Button className="write-btn">글 쓰러가기</Button>
+      </div>
+      <div className="header common-h1-sb">당신을 위한 하이-퀄리티 글 👍🏻</div>
+      <Tabs className="tabs" data={tabsData} initalValue={"all"} />
+      <div className="filter">
+        <div className="filter-dropdown">
+          <FilterIcon />
+          <div>조회순</div>
+        </div>
+      </div>
+      <div className="post-list">
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </div>
+    </StyledWrapper>
   )
 }
 
 export default Feed
+
+const StyledWrapper = styled.div`
+  margin-top: 30px;
+  .banner {
+    position: relative;
+    padding: 36px;
+    background-color: ${colors.grey800};
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    .btn {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .content {
+      color: white;
+    }
+    .write-btn {
+      background-color: ${colors.grey700};
+      color: ${colors.primary400};
+      padding: 6px 16px;
+    }
+  }
+  .header {
+    margin-top: 50px;
+    margin-bottom: 52px;
+  }
+  .tabs {
+    margin-bottom: 30px;
+  }
+  .filter {
+    display: flex;
+    justify-content: flex-end;
+    .filter-dropdown {
+      cursor: pointer;
+      width: 100px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+`

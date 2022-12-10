@@ -46,7 +46,7 @@ const StyledWrapper = styled.div`
     background-color: white;
     .menu {
       display: block;
-      padding: 4px 12px;
+      padding: 10px 24px;
       color: ${colors.grey600};
     }
     &[data-open="true"] {
