@@ -11,10 +11,18 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react"
+import { useQuery } from "@tanstack/react-query"
+import { getPosts } from "@libs/api/posts"
 
 type Props = {}
 
 const PostPreview: React.FC<Props> = () => {
+  const { data, isLoading, error } = useQuery(["posts"], getPosts, {
+    retry: false,
+  })
+
+  console.log(data, isLoading, error)
+
   return (
     <>
       <Flex direction="row" py="8" gap="8">
