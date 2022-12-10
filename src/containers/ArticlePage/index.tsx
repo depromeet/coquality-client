@@ -8,6 +8,8 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react"
+import { axiosClient } from "@libs/api/client"
+import { createPost, getPosts } from "@libs/api/posts"
 import axios from "axios"
 import React, { useEffect, useState } from "react"
 type Props = {}
@@ -75,12 +77,7 @@ const ArticlePageContainer: React.FC<Props> = ({}) => {
   const [post, setPost] = useState<PostType>()
 
   useEffect(() => {
-    axios
-      .get(API_URL + "/api/v1/posts/{postId}")
-      .then((response) => response.data)
-      .then((data) => {
-        setPost(data.data)
-      })
+
   }, [])
 
   return (
