@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react"
+import Button from "@components/inputs/Button"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import Link from "next/link"
@@ -18,14 +18,16 @@ const Header = (props: Props) => {
           </a>
         </Link>
         <div className="rt">
-          <Link href={"/myprofile"}>
+          {/* <Link href={"/myprofile"}>
             <a>
               <UserBtn />
             </a>
+          </Link> */}
+          <Link href={"/login"}>
+            <Button className="login-btn" variant="outline">
+              로그인
+            </Button>
           </Link>
-          {/* <Button colorScheme="primary" borderRadius={50} variant="outline">
-            로그인
-          </Button> */}
         </div>
       </div>
     </StyledWrapper>
@@ -43,6 +45,11 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .login-btn {
+      outline: 1px solid white;
+      color: white;
+      height: 40px;
+    }
   }
 
   background-color: ${colors.grey800};
