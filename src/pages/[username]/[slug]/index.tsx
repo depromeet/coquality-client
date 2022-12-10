@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import ArticlePageContainer from "@containers/ArticlePage"
+import ArticlePageContainer from "src/containers/ArticlePage"
 
 const ArticlePage: NextPageWithLayout = () => {
   return <ArticlePageContainer />
