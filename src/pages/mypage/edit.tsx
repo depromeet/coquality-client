@@ -2,10 +2,10 @@ import { ReactElement } from "react"
 
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import ProfileEditPageContainer from "@containers/ProfileEditPage"
+import ProfileEdit from "@containers/ProfileEdit"
 
 const ProfileEditPage: NextPageWithLayout = () => {
-  return <ProfileEditPageContainer />
+  return <ProfileEdit />
 }
 
 ProfileEditPage.getLayout = (page: ReactElement) => {

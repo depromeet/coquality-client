@@ -2,10 +2,10 @@ import { ReactElement } from "react"
 
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import ArticleWritePageContainer from "@containers/ArticleWritePage"
+import ArticleWrite from "@containers/ArticleWrite"
 
 const ArticleWritePage: NextPageWithLayout = () => {
-  return <ArticleWritePageContainer />
+  return <ArticleWrite />
 }
 
 ArticleWritePage.getLayout = (page: ReactElement) => {

@@ -14,7 +14,7 @@ import {
 
 type Props = {}
 
-const Mypage: React.FC<Props> = ({}) => {
+const MyProfile: React.FC<Props> = ({}) => {
   return (
     <div className="common-container">
       <Box
@@ -262,4 +262,4 @@ const Mypage: React.FC<Props> = ({}) => {
   )
 }
 
-export default Mypage
+export default MyProfile

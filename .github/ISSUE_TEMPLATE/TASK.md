@@ -1,7 +1,7 @@
 ---
-name: "기능 템플릿 "
-about: "기능 개발 시 "
-title: "[feat]"
+name: "Task Template"
+about: "기능 개발 시 사용"
+title: "[feature]"
 labels: ""
 assignees: ""
 ---
