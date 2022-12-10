@@ -1,21 +1,26 @@
-import { createPost } from "@libs/api/posts"
+import { createPost, updatePost } from "@libs/api/posts"
 import { useEffect } from "react"
+
+const TEMP_AUTH_TOKEN =
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzA2NTEwNDIsImV4cCI6MTY3MzI0MzA0Mn0.xM13ga02kCNbWW02bSKSfc76hWC6C4fNUmAVxDrSJXmQhf91qwB7vCh74VPa-9inVobhHsDnqHI_HkFKOI5KLA"
 
 const ApiTestPage = () => {
   useEffect(() => {
     const func = async () => {
-      const created = await createPost(
+      const modified = await updatePost(
+        7,
         {
-          contents: "흐하하하하",
-          primaryCategory: "DESIGN",
-          summary: "흠핳하하핳",
-          thumbnail: "https://picsum.photos/200",
-          title: "후훗 힛 하핳 핫핫 흐핳",
+          contents: "업데이트 처리중입니다 ",
+          postStatus: "ISSUED",
+          primaryPostCategoryCode: "DESIGN",
+          summary: "업데이트 처리중입니다 ",
+          thumbnail: "업데이트 처리중입니다 ",
+          title: "업데이트 처리중입니다 ",
         },
-        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzA2NTEwNDIsImV4cCI6MTY3MzI0MzA0Mn0.xM13ga02kCNbWW02bSKSfc76hWC6C4fNUmAVxDrSJXmQhf91qwB7vCh74VPa-9inVobhHsDnqHI_HkFKOI5KLA"
+        TEMP_AUTH_TOKEN
       )
 
-      console.log(created)
+      console.log(modified)
     }
 
     func()

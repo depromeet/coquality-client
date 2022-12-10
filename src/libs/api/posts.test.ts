@@ -37,6 +37,17 @@ describe("posts api", () => {
   })
 
   test("updatePost", async () => {
-    // const updated = await updatePost()
+    const modified = await updatePost(
+      1,
+      {
+        contents: "string",
+        postStatus: "ISSUED",
+        primaryPostCategoryCode: "DESIGN",
+        summary: "string",
+        thumbnail: "https://picsum.photos/200",
+        title: "string",
+      },
+      TEMP_AUTH_TOKEN
+    )
   })
 })

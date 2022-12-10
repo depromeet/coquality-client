@@ -11,7 +11,7 @@ type PostPrimaryCategoryType = "DESIGN" | "DEVELOPMENT" | "MARKETING" | "PM"
 type PostStatusType = "DELETED" | "ISSUED" | "PRIVATE" | "TEMPORARY_SAVED"
 
 export const getPosts = async (params: IGetPostsParams) => {
-  const response = await axiosClient.get(`/v1/posts`, { params })
+  const response = await axiosClient.get(`/posts`, { params })
   return response.data.data as IPostType[]
 }
 
@@ -37,7 +37,7 @@ export const getPostById = async (
   params: IGetPostByIdParams,
   authToken: string
 ): Promise<IPostType> => {
-  const response = await axiosClient.get(`/v1/posts/${id}`, {
+  const response = await axiosClient.get(`/posts/${id}`, {
     params: {
       userId: params.userId,
     },
@@ -49,7 +49,7 @@ export const getPostById = async (
   return response.data.data as IPostType
 }
 
-interface ICreatePostParams {
+interface IIssuePostRequest {
   contents: string
   primaryCategory: PostPrimaryCategoryType
   summary: string
@@ -58,26 +58,19 @@ interface ICreatePostParams {
 }
 
 export const createPost = async (
-  params: ICreatePostParams,
+  params: IIssuePostRequest,
   authToken: string
 ): Promise<void> => {
-  const result = await axiosClient.post(
-    "/v1/posts/",
-    {
-      issuePostRequest: params,
-      // ...params
+  const result = await axiosClient.post("/posts/", params, {
+    headers: {
+      AUTH: authToken,
     },
-    {
-      headers: {
-        AUTH: authToken,
-      },
-    }
-  )
+  })
 
   return result.data
 }
 
-interface IUpdatePostParams {
+interface IModifyPostRequest {
   contents: string
   postStatus: PostStatusType
   primaryPostCategoryCode: PostPrimaryCategoryType
@@ -88,18 +81,12 @@ interface IUpdatePostParams {
 
 export const updatePost = async (
   id: number,
-  params: IUpdatePostParams,
+  params: IModifyPostRequest,
   authToken: string
 ): Promise<void> => {
-  const result = await axiosClient.put(
-    `/v1/posts/${id}`,
-    {
-      modifyPostRequest: params,
+  const result = await axiosClient.put(`/posts/${id}`, params, {
+    headers: {
+      AUTH: authToken,
     },
-    {
-      headers: {
-        AUTH: authToken,
-      },
-    }
-  )
+  })
 }
