@@ -5,7 +5,8 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  margin: 45px 0 40px;
+  padding: 45px 0 40px;
+  border-bottom: 1px solid ${colors.grey300};
   .lt {
     display: flex;
     flex-direction: column;
