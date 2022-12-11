@@ -1,17 +1,8 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react"
 import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
-import { css } from "@emotion/react"
 import { ColorType, VariantType } from "./index.types"
 import { getCss } from "./index.module"
-
-const colorSet = {
-  primary: {
-    default: colors.primary600,
-    hover: colors.primary600,
-    disabled: colors.grey300,
-  },
-}
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string

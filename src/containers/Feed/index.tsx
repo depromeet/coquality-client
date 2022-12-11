@@ -1,11 +1,9 @@
 import React from "react"
 import styled from "@emotion/styled"
-import Button from "@components/inputs/Button"
-import { colors } from "@constants/colors"
 import Tabs from "./Tabs"
-import DeleteButton from "./svgs/DeleteButton.svg"
 import FilterIcon from "./svgs/FilterIcon.svg"
 import PostCard from "./PostCard"
+import Banner from "./Banner"
 
 type Props = {}
 
@@ -20,13 +18,7 @@ const tabsData = [
 const Feed: React.FC<Props> = ({}) => {
   return (
     <StyledWrapper className="common-container">
-      <div className="banner">
-        <DeleteButton className="btn" />
-        <div className="content common-h3-sb">
-          코컬리티에서 글쓰고 나의 커리어 퀄리티를 높여 봐요
-        </div>
-        <Button className="write-btn">글 쓰러가기</Button>
-      </div>
+      <Banner />
       <div className="header common-h1-sb">당신을 위한 하이-퀄리티 글 👍🏻</div>
       <Tabs className="tabs" data={tabsData} initalValue={"all"} />
       <div className="filter">
@@ -49,30 +41,7 @@ export default Feed
 
 const StyledWrapper = styled.div`
   margin-top: 30px;
-  .banner {
-    position: relative;
-    padding: 36px;
-    background-color: ${colors.grey800};
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    .btn {
-      cursor: pointer;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-    .content {
-      color: white;
-    }
-    .write-btn {
-      background-color: ${colors.grey700};
-      color: ${colors.primary400};
-      padding: 6px 16px;
-    }
-  }
+
   .header {
     margin-top: 50px;
     margin-bottom: 52px;
