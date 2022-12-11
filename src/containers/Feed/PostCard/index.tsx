@@ -1,8 +1,8 @@
 import Tag from "@components/Tag"
-import { colors } from "@constants/colors"
-import styled from "@emotion/styled"
+import Link from "next/link"
 import React from "react"
 import DefaultImg from "./DefaultImg.svg"
+import StyledWrapper from "./index.styled"
 import MessageIcon from "./MessageIcon.svg"
 import ViewIcon from "./ViewIcon.svg"
 
@@ -13,7 +13,11 @@ const PostCard: React.FC<Props> = ({}) => {
     <StyledWrapper>
       <div className="lt">
         <div className="top">
-          <a className="title common-h2-sb">프로젝트 관리를 위한 JIRA 활용기</a>
+          <Link href={"/username/postid"}>
+            <a className="title common-h2-sb">
+              프로젝트 관리를 위한 JIRA 활용기
+            </a>
+          </Link>
           <div className="sub-title common-h4-rg">
             신규 프로젝트를 효과적으로 관리하기 위한 애자일 도구인 JIRA의 사용
             경험에 대해 소개합니다.
@@ -48,49 +52,3 @@ const PostCard: React.FC<Props> = ({}) => {
 }
 
 export default PostCard
-
-const StyledWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  margin: 45px 0 40px;
-  .lt {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    .top {
-      .title {
-        margin-bottom: 8px;
-      }
-      .sub-title {
-        color: ${colors.grey500};
-      }
-    }
-    .bottom {
-      .tag-list {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 20px;
-      }
-      .footer {
-        display: flex;
-        justify-content: space-between;
-        .lt {
-          color: ${colors.grey500};
-        }
-        .rt {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          .count {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: ${colors.grey500};
-          }
-        }
-      }
-    }
-  }
-`

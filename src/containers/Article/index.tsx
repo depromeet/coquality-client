@@ -8,8 +8,11 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react"
-import axios from "axios"
-import React, { useEffect, useState } from "react"
+import Tag from "@components/Tag"
+import { colors } from "@constants/colors"
+import styled from "@emotion/styled"
+import React, { useState } from "react"
+import CommentForm from "./CommentForm"
 type Props = {}
 
 interface ICommentProps {
@@ -26,8 +29,6 @@ interface PostType {
   summary: string
   views: number
 }
-
-const API_URL = "https://cba00c95-fc24-476e-87dc-0657339092eb.mock.pstmn.io"
 
 const Comment: React.FC<ICommentProps> = (props) => {
   const { authorName, authorThumbnailUrl, content, publishedAt } = props
@@ -49,12 +50,6 @@ const Comment: React.FC<ICommentProps> = (props) => {
   )
 }
 
-// const fetchComments = (postId) => {
-//   return axios
-//     .get(`/api/v1/posts/${postId}/comments`)
-//     .then((response) => response.data);
-// };
-
 const Article: React.FC<Props> = ({}) => {
   const [comments, setComments] = useState<ICommentProps[]>([
     {
@@ -74,48 +69,46 @@ const Article: React.FC<Props> = ({}) => {
 
   const [post, setPost] = useState<PostType>()
 
-  useEffect(() => {
-    axios
-      .get(API_URL + "/api/v1/posts/{postId}")
-      .then((response) => response.data)
-      .then((data) => {
-        setPost(data.data)
-      })
-  }, [])
-
   return (
-    <Flex direction="row" gap="8" className="common-container" py="16">
-      <Flex direction="column" flex="2">
-        <Heading fontSize="xl" mb="2">
-          {post?.title}
-        </Heading>
-        <Heading fontSize="md" mb="2">
-          {post?.summary}
-        </Heading>
-        <Flex display="flex" flexDirection="row">
-          <Box mr="2">view 356</Box>
-          <Box>2022.10.25</Box>
-        </Flex>
-        <Divider></Divider>
-        <Text py="8">{post?.contents}</Text>
-        <Divider></Divider>
-        <Text>20개의 댓글</Text>
-        <Flex py="4" direction="column" gap="2">
-          <Flex direction="row">
-            <Textarea
-              placeholder="댓글 작성이 어렵다면 간단한 이모티콘으로 생각을 표현해보세요!"
-              border="none"
-            />
-          </Flex>
-          <Divider />
-          <Flex direction="row" justifyContent="flex-end">
-            <Button>작성 완료</Button>
-          </Flex>
-        </Flex>
-        {comments.map((comment, index) => (
-          <Comment key={index} {...comment} />
-        ))}
-      </Flex>
+    <StyledWrapper className="common-container">
+      <div className="lt">
+        <div className="post-wrapper">
+          <div className="post-header">
+            <div className="lt common-h6-rg">디자인</div>
+            <div className="rt common-h6-rg">누적 후원 ₩140,000</div>
+          </div>
+          <div className="post-info">
+            <div className="title common-h1-sb">
+              {`지금 연봉 10배가 오릅니다 : '네트워킹 드리븐'으로 일하기`}
+            </div>
+            <div className="subtitle common-h3-rg">
+              인지심리학자가 UX 용어 첫 사용, 그 이유는?
+            </div>
+            <div className="footer common-h6-rg">
+              <div>view 356</div>
+              <div>2022.10.25</div>
+            </div>
+          </div>
+          <div className="post-content">content</div>
+          <div className="tag-list">
+            <Tag>JIRA</Tag>
+            <Tag>스프린트</Tag>
+            <Tag>애자일</Tag>
+            <Tag>Tag</Tag>
+            <Tag>스프린트</Tag>
+            <Tag>애자일</Tag>
+            <Tag>Tag</Tag>
+            <Tag>Tag</Tag>
+            <Tag>Tag</Tag>
+          </div>
+        </div>
+        <div className="comment-wrapper">
+          <div className="comment-header common-h6-rg">
+            <b>20</b>개의 댓글
+          </div>
+          <CommentForm />
+        </div>
+      </div>
       <Flex direction="column" flex="1" ml="2">
         <Avatar src="https://picsum.photos/200/200" size="xl" mb="4"></Avatar>
         <Heading size="md" mb="2">
@@ -123,8 +116,61 @@ const Article: React.FC<Props> = ({}) => {
         </Heading>
         <Text>3년차 공유 모빌리티 서비스 디자이너 ***입니다.</Text>
       </Flex>
-    </Flex>
+    </StyledWrapper>
   )
 }
 
 export default Article
+
+const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 622px) minmax(0, 347px);
+  justify-content: space-between;
+  padding-top: 80px;
+  .post-wrapper {
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      .lt {
+        color: ${colors.grey600};
+      }
+      .rt {
+        color: ${colors.grey500};
+        padding: 8px 10px;
+        outline: 1px solid ${colors.grey500};
+        border-radius: 4px;
+      }
+    }
+    .post-info {
+      .title {
+      }
+      .subtitle {
+        padding: 16px 0;
+      }
+      .footer {
+        display: flex;
+        padding: 12px 0;
+        gap: 10px;
+        color: ${colors.grey500};
+      }
+      border-bottom: 1px solid ${colors.grey300};
+    }
+    .post-content {
+      padding: 80px 0;
+    }
+    .tag-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-bottom: 70px;
+      border-bottom: 1px solid ${colors.grey300};
+    }
+  }
+  .comment-wrapper {
+    .comment-header {
+      padding: 20px 0 30px;
+    }
+  }
+`

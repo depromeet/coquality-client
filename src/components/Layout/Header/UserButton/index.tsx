@@ -1,6 +1,7 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import useDropdown from "@hooks/useDropdown"
+import Link from "next/link"
 import React from "react"
 import UserBtn from "./UserBtn.svg"
 
@@ -15,7 +16,9 @@ const UserButton = (props: Props) => {
         <UserBtn onClick={handleDropDownBtn} />
       </div>
       <div className="menu-list " data-open={open}>
-        <a className="menu common-h6-sb">내 프로필</a>
+        <Link href={"/username"}>
+          <a className="menu common-h6-sb">내 프로필</a>
+        </Link>
         <a className="menu common-h6-sb">저장한 글</a>
       </div>
     </StyledWrapper>
