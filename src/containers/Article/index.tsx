@@ -1,74 +1,13 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  Text,
-  Textarea,
-} from "@chakra-ui/react"
+import { Avatar, Flex, Heading, Text } from "@chakra-ui/react"
 import Tag from "@components/Tag"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import React, { useState } from "react"
+import React from "react"
+import Comment from "./Comment"
 import CommentForm from "./CommentForm"
 type Props = {}
 
-interface ICommentProps {
-  authorName: string
-  authorThumbnailUrl: string
-  content: string
-  publishedAt: string
-}
-
-interface PostType {
-  title: string
-  contents: string
-  primaryPostCategoryCode: string
-  summary: string
-  views: number
-}
-
-const Comment: React.FC<ICommentProps> = (props) => {
-  const { authorName, authorThumbnailUrl, content, publishedAt } = props
-  return (
-    <Box p="2">
-      <Flex direction="row">
-        <Flex direction="column" mr="2">
-          <Avatar src={authorThumbnailUrl}></Avatar>
-        </Flex>
-        <Flex direction="column" flex={1}>
-          <Heading fontSize="sm">{authorName}</Heading>
-          <Text fontSize="md">{content}</Text>
-        </Flex>
-        <Flex direction="column">
-          <Text fontSize="xs">{publishedAt.toLocaleString()}</Text>
-        </Flex>
-      </Flex>
-    </Box>
-  )
-}
-
 const Article: React.FC<Props> = ({}) => {
-  const [comments, setComments] = useState<ICommentProps[]>([
-    {
-      authorName: "정시원",
-      authorThumbnailUrl: "https://picsum.photos/50/50",
-      content: "lorem",
-      publishedAt: "Date",
-    },
-    {
-      authorName: "이상민",
-      authorThumbnailUrl: "https://picsum.photos/50/50",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, velit expedita eveniet unde quidem nostrum voluptate atque repudiandae a non at aliquam asperiores laudantium ducimus, earum iste itaque laborum ratione!",
-      publishedAt: "Date",
-    },
-  ])
-
-  const [post, setPost] = useState<PostType>()
-
   return (
     <StyledWrapper className="common-container">
       <div className="lt">
@@ -89,7 +28,37 @@ const Article: React.FC<Props> = ({}) => {
               <div>2022.10.25</div>
             </div>
           </div>
-          <div className="post-content">content</div>
+          <div className="post-content">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam,
+            minus. Labore voluptatum sit facilis nisi. Voluptas, nihil? Suscipit
+            odio odit beatae earum aut accusantium consequuntur, provident ea
+            laborum voluptates recusandae. Laboriosam modi fuga, ut dolorem
+            temporibus natus expedita quis tempora perspiciatis maxime nemo
+            officia? Eius doloremque, adipisci, voluptatem laboriosam
+            architecto, a animi assumenda unde beatae reiciendis doloribus saepe
+            distinctio at! Doloribus, esse, dolores officiis repellat soluta
+            neque exercitationem ullam aut blanditiis autem, nam impedit. Illum
+            laborum dolor consequatur ex? Natus tempora sed facere assumenda
+            quia nulla veritatis fuga. Architecto, dignissimos! Delectus, totam
+            eligendi deserunt commodi vero recusandae pariatur nostrum porro,
+            impedit, rem distinctio alias atque rerum natus? Error, aut. Sint
+            ratione delectus fuga nihil dignissimos reprehenderit atque placeat
+            perspiciatis quisquam. Lorem ipsum dolor, sit amet consectetur
+            adipisicing elit. Veniam, minus. Labore voluptatum sit facilis nisi.
+            Voluptas, nihil? Suscipit odio odit beatae earum aut accusantium
+            consequuntur, provident ea laborum voluptates recusandae. Laboriosam
+            modi fuga, ut dolorem temporibus natus expedita quis tempora
+            perspiciatis maxime nemo officia? Eius doloremque, adipisci,
+            voluptatem laboriosam architecto, a animi assumenda unde beatae
+            reiciendis doloribus saepe distinctio at! Doloribus, esse, dolores
+            officiis repellat soluta neque exercitationem ullam aut blanditiis
+            autem, nam impedit. Illum laborum dolor consequatur ex? Natus
+            tempora sed facere assumenda quia nulla veritatis fuga. Architecto,
+            dignissimos! Delectus, totam eligendi deserunt commodi vero
+            recusandae pariatur nostrum porro, impedit, rem distinctio alias
+            atque rerum natus? Error, aut. Sint ratione delectus fuga nihil
+            dignissimos reprehenderit atque placeat perspiciatis quisquam.
+          </div>
           <div className="tag-list">
             <Tag>JIRA</Tag>
             <Tag>스프린트</Tag>
@@ -107,6 +76,13 @@ const Article: React.FC<Props> = ({}) => {
             <b>20</b>개의 댓글
           </div>
           <CommentForm />
+          <div className="comment-list">
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+          </div>
         </div>
       </div>
       <Flex direction="column" flex="1" ml="2">
@@ -169,8 +145,11 @@ const StyledWrapper = styled.div`
     }
   }
   .comment-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     .comment-header {
-      padding: 20px 0 30px;
+      padding-top: 20px;
     }
   }
 `
