@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "@emotion/styled"
 import Tabs from "./Tabs"
-import FilterIcon from "./svgs/FilterIcon.svg"
-import PostCard from "./PostCard"
+import PostCard from "../../components/PostCard"
 import Banner from "./Banner"
+import Dropdown from "@components/Dropdown"
 
 type Props = {}
 
@@ -22,10 +22,7 @@ const Feed: React.FC<Props> = ({}) => {
       <div className="header common-h1-sb">당신을 위한 하이-퀄리티 글 👍🏻</div>
       <Tabs className="tabs" data={tabsData} initalValue={"all"} />
       <div className="filter">
-        <div className="filter-dropdown">
-          <FilterIcon />
-          <div>조회순</div>
-        </div>
+        <Dropdown />
       </div>
       <div className="post-list">
         <PostCard />
@@ -52,13 +49,5 @@ const StyledWrapper = styled.div`
   .filter {
     display: flex;
     justify-content: flex-end;
-    .filter-dropdown {
-      cursor: pointer;
-      width: 100px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
   }
 `
