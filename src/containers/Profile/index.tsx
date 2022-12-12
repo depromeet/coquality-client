@@ -1,15 +1,5 @@
 import React from "react"
 import Link from "next/link"
-import {
-  Box,
-  Image,
-  Text,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@chakra-ui/react"
 import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
 import WriterLevelChip from "./WriterLevelChip.svg"
@@ -43,7 +33,9 @@ const Profile: React.FC<Props> = ({}) => {
           </div>
         </div>
         <div className="rt">
-          <Button className="btn">내 정보 수정</Button>
+          <Link href={"/username/edit"}>
+            <Button className="btn">내 정보 수정</Button>
+          </Link>
         </div>
       </div>
       <div className="two-box">
