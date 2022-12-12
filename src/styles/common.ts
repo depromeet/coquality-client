@@ -68,6 +68,12 @@ const commonStyles = css`
     letter-spacing: 0%;
     font-weight: 600;
   }
+  .common-h5-rg {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -1%;
+    font-weight: 400;
+  }
   .common-h6-sb {
     font-size: 14px;
     line-height: 150%;

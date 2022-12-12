@@ -19,7 +19,9 @@ const UserButton = (props: Props) => {
         <Link href={"/username"}>
           <a className="menu common-h6-sb">내 프로필</a>
         </Link>
-        <a className="menu common-h6-sb">저장한 글</a>
+        <Link href={"/username/bookmark"}>
+          <a className="menu common-h6-sb">저장한 글</a>
+        </Link>
       </div>
     </StyledWrapper>
   )

@@ -6,7 +6,7 @@ import React, { ReactNode, useEffect, useState } from "react"
 
 type TAnimation = "left" | "fade" | "bottom"
 
-export interface IFModalProps {
+export interface ModalProps {
   children?: ReactNode
   open?: boolean
   onClose?: () => void
@@ -17,7 +17,7 @@ export interface IFModalProps {
 /**
  * @todo onClose 애니메이션 및 root 스크롤 방지 적용 필요합니다.
  */
-const Modal: React.FC<IFModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   children,
   open = false,
   onClose = () => {},
@@ -84,6 +84,6 @@ const StyledWrapper = styled.div<{
     left: 0px;
     right: 0px;
     bottom: 0px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
   }
 `
