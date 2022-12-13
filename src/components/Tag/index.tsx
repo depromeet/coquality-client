@@ -1,13 +1,18 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode
+  className?: string
 }
 
-const Tag: React.FC<Props> = ({ children }) => {
-  return <StyledWrapper>{children}</StyledWrapper>
+const Tag: React.FC<Props> = ({ className, children, ...props }) => {
+  return (
+    <StyledWrapper className={className} {...props}>
+      {children}
+    </StyledWrapper>
+  )
 }
 
 export default Tag

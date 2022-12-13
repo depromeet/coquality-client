@@ -6,8 +6,9 @@ import DeleteButton from "./svgs/DeleteButton.svg"
 import Button from "@components/inputs/Button"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
+import Link from "next/link"
 
-// todo: banner로 감싸기
+// todo: Banner로 감싸기
 
 type Props = {}
 
@@ -20,7 +21,9 @@ const Banner: React.FC<Props> = ({}) => {
       <div className="content common-h3-sb">
         코컬리티에서 글쓰고 나의 커리어 퀄리티를 높여 봐요
       </div>
-      <Button className="write-btn">글 쓰러가기</Button>
+      <Link href={"/write"}>
+        <Button className="write-btn">글 쓰러가기</Button>
+      </Link>
     </StyledWrapper>
   )
 }
