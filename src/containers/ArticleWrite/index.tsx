@@ -20,7 +20,9 @@ const ArticleWrite: React.FC<Props> = ({}) => {
       <div className="lt">
         <Textfield className="title common-h1-sb" placeholder="제목" />
         <Textfield className="subtitle common-h3-rg" placeholder="소제목" />
-        <div>텍스트에디터</div>
+        <div>
+          <ArticleEditor />
+        </div>
       </div>
       <div className="rt">
         <div className="btns">
@@ -68,11 +70,13 @@ const StyledWrapper = styled.div`
     .title {
       input {
         padding: 0;
+        border: none;
       }
     }
     .subtitle {
       input {
         padding: 16px 0;
+        border: none;
       }
     }
   }
