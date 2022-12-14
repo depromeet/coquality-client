@@ -67,20 +67,20 @@ describe("FollowsRepository", () => {
 
   describe("getFollowing", () => {
     it("should get all followings", async () => {
-        await repository.followUser(2)
-    
-        const followings = await repository.getFollowings(2)
-        expect(followings).toBeTruthy()
-        expect(followings.length).toBeGreaterThan(0)
-    
-        followings.forEach((follow) => {
-            expect(follow).toHaveProperty("userId")
-            expect(follow).toHaveProperty("nickname")
-            expect(follow).toHaveProperty("profileImage")
-        })
-    
-        // cleanup
-        await repository.unfollowUser(2)
+      await repository.followUser(2)
+
+      const followings = await repository.getFollowings(2)
+      expect(followings).toBeTruthy()
+      expect(followings.length).toBeGreaterThan(0)
+
+      followings.forEach((follow) => {
+        expect(follow).toHaveProperty("userId")
+        expect(follow).toHaveProperty("nickname")
+        expect(follow).toHaveProperty("profileImage")
+      })
+
+      // cleanup
+      await repository.unfollowUser(2)
     })
   })
 })
