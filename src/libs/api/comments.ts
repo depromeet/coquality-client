@@ -15,13 +15,6 @@ export class CommentsRepository extends Repository {
     })
 
     return response.data.data
-
-    // TODO: 백엔드 문의(500)
-    // TODO: add response types
-
-    throw new Error("not implemented")
-
-    return []
   }
 
   public async createCommentOnPost(
