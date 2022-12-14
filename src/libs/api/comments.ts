@@ -34,8 +34,7 @@ export class CommentsRepository extends Repository {
   public async updateCommentOnPost(
     commentId: number,
     contents: string,
-    postId: number,
-    userId?: number
+    postId: number
   ): Promise<IComment> {
     const response = await this.client
       .put(
@@ -43,7 +42,6 @@ export class CommentsRepository extends Repository {
         {
           postId,
           contents,
-          userId,
         },
         { headers: { AUTH: this.authToken } }
       )
@@ -53,5 +51,14 @@ export class CommentsRepository extends Repository {
       })
 
     return response.data.data
+  }
+
+  public async deleteCommentOnPost(
+    postId: number,
+    commentId: number
+  ): Promise<void> {
+    await this.client.delete(`/posts/${postId}/comments/${commentId}`, {
+      headers: { AUTH: this.authToken },
+    })
   }
 }

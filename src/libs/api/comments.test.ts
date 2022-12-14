@@ -56,4 +56,26 @@ describe("CommentsRepository", () => {
       expect(updatedComment).toHaveProperty("createdAt")
     })
   })
+
+  describe("deleteCommentOnPost", () => {
+    it("should delete comment on post", async () => {
+      await repository.createCommentOnPost(5, "마지막 댓글")
+
+      const commentsBeforeDelete = await repository.getCommentsOfPost(5)
+      expect(commentsBeforeDelete.length).toBeGreaterThan(0)
+
+      const targetComment =
+        commentsBeforeDelete[commentsBeforeDelete.length - 1]
+      expect(targetComment.userId).toBe(2)
+
+      await repository.deleteCommentOnPost(
+        targetComment.postId,
+        targetComment.id
+      )
+
+      const commentsAfterDelete = await repository.getCommentsOfPost(5)
+      expect(commentsAfterDelete.length).toBe(commentsBeforeDelete.length - 1)
+      expect(commentsAfterDelete).not.toContainEqual(targetComment)
+    })
+  })
 })
