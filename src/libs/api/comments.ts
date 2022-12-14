@@ -30,4 +30,28 @@ export class CommentsRepository extends Repository {
       { headers: { AUTH: this.authToken } }
     )
   }
+
+  public async updateCommentOnPost(
+    commentId: number,
+    contents: string,
+    postId: number,
+    userId?: number
+  ): Promise<IComment> {
+    const response = await this.client
+      .put(
+        `/comments/${commentId}`,
+        {
+          postId,
+          contents,
+          userId,
+        },
+        { headers: { AUTH: this.authToken } }
+      )
+      .catch((error) => {
+        console.log(error)
+        return error
+      })
+
+    return response.data.data
+  }
 }

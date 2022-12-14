@@ -24,7 +24,36 @@ describe("CommentsRepository", () => {
   describe("getCommentsOfPost", () => {
     it("should get all comments of post", async () => {
       const comments = await repository.getCommentsOfPost(5)
-      // TODO: comment가 있는 api들은 500 code가 뜬다. 백엔드에 서버 로그 확인해서 고쳐야 할듯.
+      expect(comments).toBeTruthy()
+      comments.forEach((comment) => {
+        expect(comment).toHaveProperty("id")
+        expect(comment).toHaveProperty("contents")
+        expect(comment).toHaveProperty("userId")
+        expect(comment).toHaveProperty("postId")
+        expect(comment).toHaveProperty("createdAt")
+      })
+    })
+  })
+
+  describe("updateCommentOnPost", () => {
+    it("should update comment on post", async () => {
+      const comments = await repository.getCommentsOfPost(5)
+      expect(comments.length).toBeGreaterThan(0)
+      const targetComment = comments[0]
+      expect(targetComment.userId).toBe(2)
+      const updatedComment = await repository.updateCommentOnPost(
+        targetComment.id,
+        "테스트 댓글 1 수정",
+        2
+      )
+
+      expect(updatedComment).toBeTruthy()
+      expect(updatedComment).toHaveProperty("id")
+      expect(targetComment.id).toEqual(updatedComment.id)
+      expect(updatedComment).toHaveProperty("contents")
+      expect(updatedComment).toHaveProperty("userId")
+      expect(updatedComment).toHaveProperty("postId")
+      expect(updatedComment).toHaveProperty("createdAt")
     })
   })
 })
