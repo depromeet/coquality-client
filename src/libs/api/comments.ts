@@ -36,19 +36,14 @@ export class CommentsRepository extends Repository {
     contents: string,
     postId: number
   ): Promise<IComment> {
-    const response = await this.client
-      .put(
-        `/comments/${commentId}`,
-        {
-          postId,
-          contents,
-        },
-        { headers: { AUTH: this.authToken } }
-      )
-      .catch((error) => {
-        console.log(error)
-        return error
-      })
+    const response = await this.client.put(
+      `/comments/${commentId}`,
+      {
+        postId,
+        contents,
+      },
+      { headers: { AUTH: this.authToken } }
+    )
 
     return response.data.data
   }
