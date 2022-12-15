@@ -9,7 +9,7 @@ const FeedPage: NextPageWithLayout = () => {
 }
 
 FeedPage.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <Layout title="Feed">{page}</Layout>
 }
 
 export default FeedPage

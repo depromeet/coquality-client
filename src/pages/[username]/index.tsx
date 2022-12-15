@@ -9,7 +9,7 @@ const ProfilePage: NextPageWithLayout = () => {
 }
 
 ProfilePage.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <Layout title="[Username]">{page}</Layout>
 }
 
 export default ProfilePage
