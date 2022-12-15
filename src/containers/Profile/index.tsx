@@ -5,7 +5,7 @@ import { colors } from "@constants/colors"
 import WriterLevelChip from "./WriterLevelChip.svg"
 import Button from "@components/inputs/Button"
 import Dropdown from "@components/Dropdown"
-import PostCard from "@components/PostCard"
+import PostCardExample from "@components/PostCard/index.example"
 
 type Props = {}
 
@@ -59,10 +59,10 @@ const Profile: React.FC<Props> = ({}) => {
           <Dropdown />
         </div>
         <div className="post-list">
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          <PostCardExample />
+          <PostCardExample />
+          <PostCardExample />
+          <PostCardExample />
         </div>
       </div>
     </StyledWrapper>
