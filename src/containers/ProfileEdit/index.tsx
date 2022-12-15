@@ -30,7 +30,9 @@ const ProfileEdit: React.FC<Props> = ({}) => {
       </div>
       <div className="btns">
         <Link href={"/username"}>
-          <Button className="submit-btn">수정완료</Button>
+          <a>
+            <Button className="submit-btn">수정완료</Button>
+          </a>
         </Link>
       </div>
     </StyledWrapper>

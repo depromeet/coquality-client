@@ -7,7 +7,7 @@ const StyledWrapper = styled.div`
   gap: 40px;
   padding: 45px 0 40px;
   border-bottom: 1px solid ${colors.grey300};
-  .lt {
+  > .lt {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -45,6 +45,13 @@ const StyledWrapper = styled.div`
         }
       }
     }
+  }
+  > .rt {
+    flex-shrink: 0;
+    width: 190px;
+    height: 190px;
+    overflow: hidden;
+    border-radius: 16px;
   }
 `
 

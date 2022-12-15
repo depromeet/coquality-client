@@ -34,7 +34,9 @@ const Profile: React.FC<Props> = ({}) => {
         </div>
         <div className="rt">
           <Link href={"/username/edit"}>
-            <Button className="btn">내 정보 수정</Button>
+            <a>
+              <Button className="btn">내 정보 수정</Button>
+            </a>
           </Link>
         </div>
       </div>

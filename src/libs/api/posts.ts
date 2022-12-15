@@ -1,15 +1,25 @@
+import coqualityAxiosClient from "./client"
 import Repository from "./repository"
 
 // TODO: move common types to types folder
-type PostPrimaryCategoryType = "DESIGN" | "DEVELOPMENT" | "MARKETING" | "PM"
-type PostStatusType = "DELETED" | "ISSUED" | "PRIVATE" | "TEMPORARY_SAVED"
-type PostSortType = "LATEST" | "VIEWS"
+export type PostPrimaryCategoryType =
+  | "ALL"
+  | "DESIGN"
+  | "DEVELOPMENT"
+  | "MARKETING"
+  | "PM"
+export type PostStatusType =
+  | "DELETED"
+  | "ISSUED"
+  | "PRIVATE"
+  | "TEMPORARY_SAVED"
+export type PostSortType = "LATEST" | "VIEWS"
 
 interface IGetPostByIdParams {
   userId?: number
 }
 
-interface IPostType {
+export interface IPostType {
   id: number
   userId: number
   title: string
@@ -102,3 +112,6 @@ export class PostsRepository extends Repository {
     return response.data.data as IPostType[]
   }
 }
+
+const postsRepository = new PostsRepository(coqualityAxiosClient)
+export default postsRepository
