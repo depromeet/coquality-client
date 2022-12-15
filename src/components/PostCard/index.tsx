@@ -1,27 +1,33 @@
-import Tag from "@components/Tag"
-import Link from "next/link"
 import React from "react"
+import Link from "next/link"
+
+import Tag from "@components/Tag"
+import { IPostType } from "@libs/api/posts"
+
 import DefaultImg from "./DefaultImg.svg"
 import StyledWrapper from "./index.styled"
 import MessageIcon from "./MessageIcon.svg"
 import ViewIcon from "./ViewIcon.svg"
+import { toStringByFormatting } from "@libs/utils/time"
+import Image from "next/image"
 
-type Props = {}
+// TODO: Tag, Username, CommentCount 없음
+// TODO : username 나오면 Link 적용
 
-const PostCard: React.FC<Props> = ({}) => {
+type Props = {
+  data: IPostType
+}
+
+const PostCard: React.FC<Props> = ({ data }) => {
+  const createdAt = toStringByFormatting(new Date(data.createdAt), ".")
   return (
     <StyledWrapper>
       <div className="lt">
         <div className="top">
           <Link href={"/username/postid"}>
-            <a className="title common-h2-sb">
-              프로젝트 관리를 위한 JIRA 활용기
-            </a>
+            <a className="title common-h2-sb">{data.title}</a>
           </Link>
-          <div className="sub-title common-h4-rg">
-            신규 프로젝트를 효과적으로 관리하기 위한 애자일 도구인 JIRA의 사용
-            경험에 대해 소개합니다.
-          </div>
+          <div className="sub-title common-h4-rg">{data.summary}</div>
         </div>
         <div className="bottom">
           <div className="tag-list">
@@ -30,11 +36,11 @@ const PostCard: React.FC<Props> = ({}) => {
             <Tag>Tag</Tag>
           </div>
           <div className="footer common-h6-rg">
-            <div className="lt">Jay | 2022.11.05</div>
+            <div className="lt">Jay | {createdAt}</div>
             <div className="rt">
               <div className="count">
                 <ViewIcon />
-                356
+                {data.views}
               </div>
               <div className="count">
                 <MessageIcon />
@@ -45,7 +51,11 @@ const PostCard: React.FC<Props> = ({}) => {
         </div>
       </div>
       <div className="rt">
-        <DefaultImg />
+        {data.thumbnail ? (
+          <Image src={data.thumbnail} width={190} height={190} />
+        ) : (
+          <DefaultImg />
+        )}
       </div>
     </StyledWrapper>
   )

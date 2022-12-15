@@ -20,9 +20,11 @@ const Header = (props: Props) => {
         <div className="rt">
           <UserButton />
           <Link href={"/login"}>
-            <Button className="login-btn" variant="outline">
-              로그인
-            </Button>
+            <a>
+              <Button className="login-btn" variant="outline">
+                로그인
+              </Button>
+            </a>
           </Link>
         </div>
       </div>

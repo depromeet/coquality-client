@@ -22,7 +22,9 @@ const Banner: React.FC<Props> = ({}) => {
         코컬리티에서 글쓰고 나의 커리어 퀄리티를 높여 봐요
       </div>
       <Link href={"/write"}>
-        <Button className="write-btn">글 쓰러가기</Button>
+        <a>
+          <Button className="write-btn">글 쓰러가기</Button>
+        </a>
       </Link>
     </StyledWrapper>
   )
