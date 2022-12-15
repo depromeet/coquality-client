@@ -1,14 +1,14 @@
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@pages/_app'
-import Layout from '@components/_base/Layout'
-import Edit from '@components/[username]/[slug]/edit'
+import { ReactElement } from "react"
+import { NextPageWithLayout } from "@pages/_app"
+import Layout from "@components/Layout"
+import ArticleEdit from "@containers/ArticleEdit"
 
-const EditPage: NextPageWithLayout = () => {
-  return <Edit />
+const ArticleEditPage: NextPageWithLayout = () => {
+  return <ArticleEdit />
 }
 
-EditPage.getLayout = (page: ReactElement) => {
+ArticleEditPage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default EditPage
+export default ArticleEditPage
