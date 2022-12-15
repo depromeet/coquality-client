@@ -42,6 +42,9 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 40px;
+    .rt {
+      cursor: pointer;
+    }
   }
   .post-list {
     display: grid;

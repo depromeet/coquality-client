@@ -11,7 +11,7 @@ const DeleteAllModal: React.FC<Props> = ({ ...props }) => {
     <Modal {...props}>
       <StyledWrapper>
         <div className="top">
-          <div className="common-h2-sb">저장한 글을 모두 삭제하시겠습니까?</div>
+          <div className="common-h2-sb">정말로 삭제하시겠습니까?</div>
           <div className="common-h5-rg">삭제한 글은 복구할 수 없습니다.</div>
         </div>
         <div className="bottom">
@@ -30,7 +30,7 @@ export default DeleteAllModal
 const StyledWrapper = styled.div`
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 50%; 
   width: 448px;
   height: 246px;
   background-color: white;
@@ -48,7 +48,7 @@ const StyledWrapper = styled.div`
   }
   .bottom {
     display: flex;
-    gap: 15px; 
+    gap: 15px;
     .cancle {
       outline: 1px solid ${colors.grey500};
       color: ${colors.grey500};
