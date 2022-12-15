@@ -9,7 +9,7 @@ const SignupPage: NextPageWithLayout = () => {
 }
 
 SignupPage.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <Layout title="Signup">{page}</Layout>
 }
 
 export default SignupPage

@@ -8,7 +8,7 @@ const ArticleEditPage: NextPageWithLayout = () => {
 }
 
 ArticleEditPage.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <Layout title="Edit">{page}</Layout>
 }
 
 export default ArticleEditPage
