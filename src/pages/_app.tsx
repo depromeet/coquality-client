@@ -27,6 +27,7 @@ const queryClientConfig: QueryClientConfig = {
       refetchOnWindowFocus: false,
       retry: false,
       suspense: true,
+      useErrorBoundary: true,
     },
   },
 }
