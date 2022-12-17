@@ -16,13 +16,13 @@ type Props = {}
 const PostList: React.FC<Props> = ({}) => {
   const router = useRouter()
 
-  const currentCategory = useMemo<PostPrimaryCategoryType | undefined>(() => {
-    if (!router.query.tab) return undefined
-    return `${router.query.tab}`.toUpperCase() as PostPrimaryCategoryType
-  }, [router])
-
   const currentSort = useMemo<PostSortType>(() => {
     return `${router.query.sort || `VIEWS`}`.toUpperCase() as PostSortType
+  }, [router])
+
+  const currentCategory = useMemo<PostPrimaryCategoryType | undefined>(() => {
+    if (!router.query.tab || router.query.tab === "all") return undefined
+    return `${router.query.tab}`.toUpperCase() as PostPrimaryCategoryType
   }, [router])
 
   const { data } = useQuery(
