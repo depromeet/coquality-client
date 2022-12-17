@@ -1,11 +1,15 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import React from "react"
+import React, { useState } from "react"
 import DeleteIco from "./DeleteIco.svg"
+import DeleteOneModal from "../DeleteOneModal"
+
 type Props = {}
 
 const PostCard: React.FC<Props> = ({}) => {
+  const [open, setOpen] = useState(false)
   return (
+    <>
     <StyledWrapper>
       <div className="top">
         <div className="lt">
@@ -24,10 +28,12 @@ const PostCard: React.FC<Props> = ({}) => {
       <div className="bottom">
         <div className="btn common-h6-rg">
           <DeleteIco />
-          <div>삭제</div>
+          <div onClick={() => setOpen(true)}>삭제</div>
         </div>
       </div>
     </StyledWrapper>
+    <DeleteOneModal open={open} onClose={() => setOpen(false)} />
+    </>
   )
 }
 
