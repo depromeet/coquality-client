@@ -4,8 +4,7 @@ import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
 import Button from "@components/inputs/Button"
 import Textfield from "@components/inputs/Textfield"
-import Link from "next/link"
-import Image from "next/image"
+import Link from "next/link" 
 
 type Props = {}
 
@@ -43,11 +42,12 @@ const ProfileEdit: React.FC<Props> = ({}) => {
     <StyledWrapper className="common-container">
       <div className="header common-h1-sb">프로필 수정</div>
       <div className="profile-info">
+       <div className="lt">
         <img 
-					className="lt"
 					src={imageSrc}
           ref={inputRef}
-          alt='' />
+          alt='' /> 
+       </div>
         <div className="rt">
           <Button className="img-btn upload-btn common-h5-sb" onClick={upload}>
             이미지 업로드
@@ -87,6 +87,11 @@ const StyledWrapper = styled.div`
       height: 120px;
       border-radius: 50%;
       background-color: ${colors.grey400};
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%
+      }
     }
     .rt {
       display: flex;
