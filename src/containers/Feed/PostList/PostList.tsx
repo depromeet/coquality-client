@@ -34,7 +34,7 @@ const PostList: React.FC<Props> = ({}) => {
 
   return (
     <div className="post-list">
-      {data!.map((post) => (
+      {data?.map((post) => (
         <PostCard key={post.id} data={post} />
       ))}
     </div>
