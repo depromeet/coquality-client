@@ -19,7 +19,11 @@ const Profile: React.FC<Props> = ({}) => {
             <div className="top">
               <div className="common-h1-sb">Jay</div>
               <div className="chip">
-                <WriterLevelChip />
+                <Link href='/username/grade'> 
+                  <a> 
+                    <WriterLevelChip />
+                  </a>
+                </Link>
               </div>
             </div>
             <div className="mid common-h3-rg">
