@@ -15,7 +15,7 @@ import ErrorBoundary from "@components/ErrorBoundary/ErrorBoundary"
 type Props = {}
 
 const tabsData = [
-  // { label: "전체", value: "all" },
+  { label: "전체", value: "all" },
   { label: "개발", value: "development" },
   { label: "디자인", value: "design" },
   { label: "기획/PM/PO", value: "pm" },
