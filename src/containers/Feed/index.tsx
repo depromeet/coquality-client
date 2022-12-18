@@ -1,13 +1,11 @@
-import React, { Suspense } from "react"
+import React from "react"
 import styled from "@emotion/styled"
 
 import Dropdown from "@components/Dropdown"
 
 import Tabs from "./Tabs"
 import Banner from "./Banner"
-import PostList from "./PostList/PostList"
-import { PostListError, PostListLoading } from "./PostList"
-import ErrorBoundary from "@components/ErrorBoundary/ErrorBoundary"
+import PostList from "./PostList"
 
 // TODO : 드롭다운 디자인 나오면 적용
 // TODO : 전체 조회 쿼리 나오면 적용
@@ -31,11 +29,7 @@ const Feed: React.FC<Props> = ({}) => {
       <div className="filter">
         <Dropdown />
       </div>
-      <ErrorBoundary fallback={<PostListError />}>
-        <Suspense fallback={<PostListLoading />}>
-          <PostList />
-        </Suspense>
-      </ErrorBoundary>
+      <PostList />
     </StyledWrapper>
   )
 }
