@@ -8,9 +8,6 @@ import postsRepository, {
   PostSortType,
 } from "@libs/api/posts"
 
-// TODO : module useFeedQuery
-// TODO : error boundary
-
 type Props = {}
 
 const PostList: React.FC<Props> = ({}) => {
