@@ -2,11 +2,18 @@ import Button from "@components/inputs/Button"
 import Select from "@components/inputs/Select"
 import Tags from "@components/inputs/Tags"
 import Textfield from "@components/inputs/Textfield"
-import Toggle from "@components/inputs/Toggle"
 import styled from "@emotion/styled"
+import postsRepository, { ICreatePostRequest } from "@libs/api/posts"
+import { useMutation } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
+import PostStatusToggle from "./PostStatusToggle"
+
+type ArticleWriteFormType = Pick<
+  ICreatePostRequest,
+  "title" | "summary" | "contents" | "primaryCategory" | "postStatus"
+>
 
 const ArticleEditor = dynamic(
   () => import("@components/inputs/ArticleEditor"),
@@ -22,9 +29,14 @@ const ArticleWrite: React.FC<Props> = ({}) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm<ArticleWriteFormType>()
+  const mutation = useMutation({
+    mutationFn: postsRepository.createPost,
+  })
 
-  const onSubmit = (data: any) => console.log(data)
+  const onSubmit = (data: ArticleWriteFormType) => {
+    console.log(data)
+  }
 
   return (
     <StyledWrapper className="common-container">
@@ -41,9 +53,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
           defaultValue=""
           {...register("summary")}
         />
-        <div>
-          <ArticleEditor defaultValue="" {...register("content")} />
-        </div>
+        <ArticleEditor defaultValue="" {...register("contents")} />
       </div>
       <div className="rt">
         <div className="btns">
@@ -52,7 +62,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         </div>
         <div className="is-public">
           <div className="label common-h3-sb">공개 여부</div>
-          <Toggle {...register("isPublic")} />
+          <PostStatusToggle {...register("postStatus")} />
         </div>
         <div className="thumbnail">
           <div className="label common-h3-sb">썸네일</div>
@@ -62,18 +72,17 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         </div>
         <div className="category">
           <div className="label common-h3-sb">카테고리</div>
-          <div className="input">
-            <Select {...register("category")}>
-              <option value="1">개발</option>
-              <option value="2">내발</option>
-            </Select>
-          </div>
+          <Select {...register("primaryCategory")}>
+            <option value="DEVELOPMENT">개발</option>
+            <option value="DESIGN">디자인</option>
+            <option value="PM">기획/PM/PO</option>
+            <option value="MARKETING">마케팅</option>
+          </Select>
         </div>
         <div className="tag">
           <div className="label common-h3-sb">태그</div>
-          <div>
-            <Tags defaultValue={[]} {...register("tags")} />
-          </div>
+          <Tags disabled />
+          {/* <Tags {...register("tags")} /> */}
         </div>
       </div>
     </StyledWrapper>

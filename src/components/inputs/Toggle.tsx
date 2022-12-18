@@ -8,12 +8,12 @@ import React, {
 import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: Exclude<ReactNode, boolean | null | undefined>
   error?: string
 }
 
-const Toggle: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+const Toggle: ForwardRefRenderFunction<HTMLInputElement, ToggleProps> = (
   { className, label, ...props },
   ref
 ) => {

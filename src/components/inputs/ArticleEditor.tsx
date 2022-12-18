@@ -2,9 +2,15 @@ import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import { generateOnChangeEvent } from "@libs/utils"
 import ToastuiEditor from "@toast-ui/editor"
-import { Editor, EditorProps } from "@toast-ui/react-editor"
-import React, { useEffect, useRef, useState } from "react"
-import { ChangeHandler, RefCallBack } from "react-hook-form"
+import { Editor } from "@toast-ui/react-editor"
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { ChangeHandler } from "react-hook-form"
 
 interface Props {
   name?: string
@@ -13,12 +19,10 @@ interface Props {
   onBlur?: ChangeHandler
 }
 
-const ArticleEditor: React.FC<Props> = ({
-  name = "content",
-  defaultValue = "",
-  onChange,
-  onBlur,
-}) => {
+const ArticleEditor: ForwardRefRenderFunction<Editor, Props> = (
+  { name = "content", defaultValue = "", onChange, onBlur },
+  ref
+) => {
   const editorRef = useRef<Editor>(null)
   const [editorInstanse, setEditorInstanse] = useState<
     ToastuiEditor | undefined
@@ -63,7 +67,7 @@ const ArticleEditor: React.FC<Props> = ({
   )
 }
 
-export default ArticleEditor
+export default forwardRef(ArticleEditor)
 
 const StyledWrapper = styled.div`
   .toastui-editor-defaultUI {

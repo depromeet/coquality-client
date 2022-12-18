@@ -3,7 +3,6 @@ import Repository from "./repository"
 
 // TODO: move common types to types folder
 export type PostPrimaryCategoryType =
-  | "ALL"
   | "DESIGN"
   | "DEVELOPMENT"
   | "MARKETING"
@@ -32,12 +31,13 @@ export interface IPostType {
   createdAt: Date
 }
 
-interface IIssuePostRequest {
+export interface ICreatePostRequest {
   contents: string
   primaryCategory: PostPrimaryCategoryType
   summary: string
   thumbnail: string
   title: string
+  postStatus: PostStatusType
 }
 
 interface IModifyPostRequest {
@@ -79,7 +79,7 @@ export class PostsRepository extends Repository {
     return response.data.data as IPostType
   }
 
-  public async createPost(params: IIssuePostRequest): Promise<IPostType> {
+  public async createPost(params: ICreatePostRequest): Promise<IPostType> {
     const response = await this.client.post("/posts/", params, {
       headers: { AUTH: this.authToken },
     })
