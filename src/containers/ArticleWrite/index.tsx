@@ -6,32 +6,53 @@ import Toggle from "@components/inputs/Toggle"
 import styled from "@emotion/styled"
 import dynamic from "next/dynamic"
 import React, { useState } from "react"
+import { useForm } from "react-hook-form"
 
-const ArticleEditor = dynamic(() => import("@components/ArticleEditor"), {
-  ssr: false,
-})
+const ArticleEditor = dynamic(
+  () => import("@components/inputs/ArticleEditor"),
+  {
+    ssr: false,
+  }
+)
 
 type Props = {}
 
 const ArticleWrite: React.FC<Props> = ({}) => {
-  const [state, setState] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data: any) => console.log(data)
+
   return (
     <StyledWrapper className="common-container">
       <div className="lt">
-        <Textfield className="title common-h1-sb" placeholder="제목" />
-        <Textfield className="subtitle common-h3-rg" placeholder="소제목" />
+        <Textfield
+          className="title common-h1-sb"
+          placeholder="제목"
+          defaultValue=""
+          {...register("title")}
+        />
+        <Textfield
+          className="subtitle common-h3-rg"
+          placeholder="소제목"
+          defaultValue=""
+          {...register("summary")}
+        />
         <div>
-          <ArticleEditor />
+          <ArticleEditor defaultValue="" {...register("content")} />
         </div>
       </div>
       <div className="rt">
         <div className="btns">
           <Button variant="outline">임시 저장</Button>
-          <Button>발행하기</Button>
+          <Button onClick={handleSubmit(onSubmit)}>발행하기</Button>
         </div>
         <div className="is-public">
           <div className="label common-h3-sb">공개 여부</div>
-          <Toggle value={state} onChange={() => setState(!state)} />
+          <Toggle {...register("isPublic")} />
         </div>
         <div className="thumbnail">
           <div className="label common-h3-sb">썸네일</div>
@@ -42,7 +63,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         <div className="category">
           <div className="label common-h3-sb">카테고리</div>
           <div className="input">
-            <Select>
+            <Select {...register("category")}>
               <option value="1">개발</option>
               <option value="2">내발</option>
             </Select>
@@ -51,7 +72,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         <div className="tag">
           <div className="label common-h3-sb">태그</div>
           <div>
-            <Tags wrap />
+            <Tags defaultValue={[]} {...register("tags")} />
           </div>
         </div>
       </div>

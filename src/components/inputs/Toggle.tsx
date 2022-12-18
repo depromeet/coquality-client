@@ -1,40 +1,31 @@
-import React, { InputHTMLAttributes, ReactNode } from "react"
+import React, {
+  forwardRef,
+  ForwardRefRenderFunction,
+  InputHTMLAttributes,
+  ReactNode,
+} from "react"
 
 import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
 
-interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "value"> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: Exclude<ReactNode, boolean | null | undefined>
   error?: string
-  value: boolean
 }
 
-const Toggle: React.FC<Props> = ({
-  className,
-  name,
-  label,
-  value,
-  ...props
-}) => {
+const Toggle: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+  { className, label, ...props },
+  ref
+) => {
   return (
     <StyledWrapper className={className}>
-      {label && (
-        <label className="label" htmlFor={name}>
-          {label}
-        </label>
-      )}
-      <input
-        id={name}
-        name={name}
-        type="checkbox"
-        checked={!!value}
-        {...props}
-      />
+      {label && <label className="label">{label}</label>}
+      <input ref={ref} type="checkbox" {...props} />
     </StyledWrapper>
   )
 }
 
-export default Toggle
+export default forwardRef(Toggle)
 
 const StyledWrapper = styled.div`
   display: flex;
