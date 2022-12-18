@@ -1,17 +1,17 @@
-import PostList from "./PostList"
 import PostListLoading from "./PostList.loading"
 import PostListError from "./PostList.error"
 import ErrorBoundary from "@components/ErrorBoundary/ErrorBoundary"
 import { Suspense } from "react"
+import PostListView from "./PostList.view"
 
-const PostListWrapper: React.FC = () => {
+const PostList: React.FC = () => {
   return (
     <ErrorBoundary fallback={<PostListError />}>
       <Suspense fallback={<PostListLoading />}>
-        <PostList />
+        <PostListView />
       </Suspense>
     </ErrorBoundary>
   )
 }
 
-export default PostListWrapper
+export default PostList

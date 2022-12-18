@@ -10,7 +10,7 @@ import postsRepository, {
 
 type Props = {}
 
-const PostList: React.FC<Props> = ({}) => {
+const PostListView: React.FC<Props> = ({}) => {
   const router = useRouter()
 
   const currentSort = useMemo<PostSortType>(() => {
@@ -28,6 +28,8 @@ const PostList: React.FC<Props> = ({}) => {
     {}
   )
 
+  console.log(data)
+
   return (
     <div className="post-list">
       {data!.map((post) => (
@@ -37,4 +39,4 @@ const PostList: React.FC<Props> = ({}) => {
   )
 }
 
-export default PostList
+export default PostListView

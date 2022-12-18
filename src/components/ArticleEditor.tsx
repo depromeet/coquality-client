@@ -5,11 +5,11 @@ import React from "react"
 
 type Props = {}
 
-const ArticleEditor: React.FC<Props> = (props) => {
+const ArticleEditor: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <Editor
-        placeholder="내용을 입력해주세요."
+        placeholder="내용"
         previewStyle="vertical"
         initialValue=""
         // height="300px"

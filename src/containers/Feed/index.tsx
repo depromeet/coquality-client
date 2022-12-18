@@ -5,7 +5,7 @@ import Dropdown from "@components/Dropdown"
 
 import Tabs from "./Tabs"
 import Banner from "./Banner"
-import PostList from "./PostList/PostList"
+import PostList from "./PostList"
 
 // TODO : 드롭다운 디자인 나오면 적용
 // TODO : 전체 조회 쿼리 나오면 적용
