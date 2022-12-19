@@ -1,4 +1,8 @@
-import React, { ButtonHTMLAttributes, ReactNode } from "react"
+import {
+  ButtonHTMLAttributes,
+  forwardRef,
+  ForwardRefRenderFunction,
+} from "react"
 import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
 import { ColorType, VariantType } from "./index.types"
@@ -10,13 +14,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantType
 }
 
-const Button: React.FC<Props> = ({
-  className,
-  color = "primary",
-  variant = "contained",
-  children,
-  ...props
-}) => {
+const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { className, color = "primary", variant = "contained", children, ...props },
+  ref
+) => {
   return (
     <StyledWrapper
       className={["common-h5-sb", className].join(" ")}
@@ -28,7 +29,7 @@ const Button: React.FC<Props> = ({
   )
 }
 
-export default Button
+export default forwardRef(Button)
 
 const StyledWrapper = styled.button`
   padding: 0px 30px;

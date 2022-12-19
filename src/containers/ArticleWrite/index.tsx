@@ -10,6 +10,8 @@ import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import PostStatusToggle from "./PostStatusToggle"
 
+// TODO: 태그 api 나오면 연동이 필요해요.
+
 type ArticleWriteFormType = Pick<
   ICreatePostRequest,
   "title" | "summary" | "contents" | "primaryCategory" | "postStatus"
@@ -31,11 +33,23 @@ const ArticleWrite: React.FC<Props> = ({}) => {
     formState: { errors },
   } = useForm<ArticleWriteFormType>()
   const mutation = useMutation({
-    mutationFn: postsRepository.createPost,
+    mutationFn: (params: ICreatePostRequest) =>
+      postsRepository.createPost(params),
+    onSuccess: (data, variables, context) => {
+      console.log(data)
+    },
   })
 
   const onSubmit = (data: ArticleWriteFormType) => {
     console.log(data)
+    mutation.mutate({
+      title: data.title,
+      summary: data.summary,
+      contents: data.contents,
+      primaryCategory: data.primaryCategory,
+      postStatus: "ISSUED",
+      thumbnail: "https://picsum.photos/300",
+    })
   }
 
   return (

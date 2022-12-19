@@ -113,5 +113,8 @@ export class PostsRepository extends Repository {
   }
 }
 
-const postsRepository = new PostsRepository(coqualityAxiosClient)
+const postsRepository = new PostsRepository(
+  coqualityAxiosClient,
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzA2NTEwNDIsImV4cCI6MTY3MzI0MzA0Mn0.xM13ga02kCNbWW02bSKSfc76hWC6C4fNUmAVxDrSJXmQhf91qwB7vCh74VPa-9inVobhHsDnqHI_HkFKOI5KLA"
+)
 export default postsRepository
