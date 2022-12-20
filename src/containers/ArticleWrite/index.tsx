@@ -21,6 +21,7 @@ const ArticleEditor = dynamic(
   () => import("@components/inputs/ArticleEditor"),
   {
     ssr: false,
+    loading: () => <></>,
   }
 )
 
