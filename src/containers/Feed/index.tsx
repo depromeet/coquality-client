@@ -6,26 +6,19 @@ import Dropdown from "@components/Dropdown"
 import Tabs from "./Tabs"
 import Banner from "./Banner"
 import PostList from "./PostList"
+import { category } from "@constants/category"
 
 // TODO : 드롭다운 디자인 나오면 적용
 // TODO : 전체 조회 쿼리 나오면 적용
 
 type Props = {}
 
-const tabsData = [
-  { label: "전체", value: "all" },
-  { label: "개발", value: "development" },
-  { label: "디자인", value: "design" },
-  { label: "기획/PM/PO", value: "pm" },
-  { label: "광고/마케팅", value: "marketing" },
-]
-
 const Feed: React.FC<Props> = ({}) => {
   return (
     <StyledWrapper className="common-container">
       <Banner />
       <div className="header common-h1-sb">당신을 위한 하이-퀄리티 글 👍🏻</div>
-      <Tabs className="tabs" data={tabsData} initalValue={"development"} />
+      <Tabs className="tabs" data={category} initalValue={"all"} />
       <div className="filter">
         <Dropdown />
       </div>

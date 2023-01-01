@@ -6,7 +6,7 @@ import styled from "@emotion/styled"
 import postsRepository, { ICreatePostRequest } from "@libs/api/posts"
 import { useMutation } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
-import React, { useState } from "react"
+import React from "react"
 import { useForm } from "react-hook-form"
 import PostStatusToggle from "./PostStatusToggle"
 
@@ -14,7 +14,7 @@ import PostStatusToggle from "./PostStatusToggle"
 
 type ArticleWriteFormType = Pick<
   ICreatePostRequest,
-  "title" | "summary" | "contents" | "primaryCategory" | "postStatus"
+  "title" | "summary" | "contents" | "primaryCategory" | "postStatus" | "tags"
 >
 
 const ArticleEditor = dynamic(
@@ -33,6 +33,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
     handleSubmit,
     formState: { errors },
   } = useForm<ArticleWriteFormType>()
+
   const mutation = useMutation({
     mutationFn: (params: ICreatePostRequest) =>
       postsRepository.createPost(params),
@@ -50,6 +51,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
       primaryCategory: data.primaryCategory,
       postStatus: "ISSUED",
       thumbnail: "https://picsum.photos/300",
+      tags: data.tags,
     })
   }
 
@@ -59,16 +61,16 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         <Textfield
           className="title common-h1-sb"
           placeholder="제목"
-          defaultValue=""
+          defaultValue="제목 테스트"
           {...register("title")}
         />
         <Textfield
           className="subtitle common-h3-rg"
           placeholder="소제목"
-          defaultValue=""
+          defaultValue="소제목 테스트"
           {...register("summary")}
         />
-        <ArticleEditor defaultValue="" {...register("contents")} />
+        <ArticleEditor defaultValue="내용 테스트" {...register("contents")} />
       </div>
       <div className="rt">
         <div className="btns">
@@ -77,7 +79,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         </div>
         <div className="is-public">
           <div className="label common-h3-sb">공개 여부</div>
-          <PostStatusToggle {...register("postStatus")} />
+          <PostStatusToggle defaultValue={true} {...register("postStatus")} />
         </div>
         <div className="thumbnail">
           <div className="label common-h3-sb">썸네일</div>
@@ -87,7 +89,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         </div>
         <div className="category">
           <div className="label common-h3-sb">카테고리</div>
-          <Select {...register("primaryCategory")}>
+          <Select defaultValue={"DESIGN"} {...register("primaryCategory")}>
             <option value="DEVELOPMENT">개발</option>
             <option value="DESIGN">디자인</option>
             <option value="PM">기획/PM/PO</option>
@@ -96,8 +98,7 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         </div>
         <div className="tag">
           <div className="label common-h3-sb">태그</div>
-          <Tags disabled />
-          {/* <Tags {...register("tags")} /> */}
+          <Tags {...register("tags")} />
         </div>
       </div>
     </StyledWrapper>

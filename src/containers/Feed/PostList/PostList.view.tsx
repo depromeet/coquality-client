@@ -33,7 +33,7 @@ const PostListView: React.FC<Props> = ({}) => {
   return (
     <div className="post-list">
       {data!.map((post) => (
-        <PostCard key={post.id} data={post} />
+        <PostCard key={`PostListView-${post.id}`} data={post} />
       ))}
     </div>
   )

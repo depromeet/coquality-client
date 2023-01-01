@@ -1,57 +1,65 @@
+import React from "react"
+import { useQuery } from "@tanstack/react-query"
 import Tag from "@components/Tag"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import React from "react"
+import postsRepository from "@libs/api/posts"
+import { useRouter } from "next/router"
+import { category } from "@constants/category"
+import dynamic from "next/dynamic"
+
+const ArticleEditor = dynamic(
+  () => import("@components/inputs/ArticleEditor"),
+  {
+    ssr: false,
+    loading: () => <></>,
+  }
+)
+
+// TODO: formatting createdAt
+// TODO: Tags
+// TODO: 후원금
+// TODO: contents 에디터 readonly
+// TODO: username -> user-id
+
 type Props = {}
 
 const ArticleView: React.FC<Props> = ({}) => {
+  const router = useRouter()
+
+  const userId = +`${router.query["username"]}`
+  const postId = +`${router.query["post-id"]}`
+
+  const { data } = useQuery(
+    ["getPostById", { postId, userId }],
+    () => postsRepository.getPostById(postId, { userId }),
+    {
+      enabled: !!(userId && postId),
+    }
+  )
+
+  if (!data) return null
+
+  const categoryLabel = category.find(
+    (val) => val.value.toUpperCase() === data.primaryCategory
+  )?.label
+
   return (
     <StyledWrapper>
       <div className="post-header">
-        <div className="lt common-h6-rg">디자인</div>
+        <div className="lt common-h6-rg">{categoryLabel}</div>
         <div className="rt common-h6-rg">누적 후원 ₩140,000</div>
       </div>
       <div className="post-info">
-        <div className="title common-h1-sb">
-          {`지금 연봉 10배가 오릅니다 : '네트워킹 드리븐'으로 일하기`}
-        </div>
-        <div className="subtitle common-h3-rg">
-          인지심리학자가 UX 용어 첫 사용, 그 이유는?
-        </div>
+        <div className="title common-h1-sb">{data.title}</div>
+        <div className="subtitle common-h3-rg">{data.summary}</div>
         <div className="footer common-h6-rg">
-          <div>view 356</div>
-          <div>2022.10.25</div>
+          <div>view {data.views}</div>
+          <div>{data.createdAt}</div>
         </div>
       </div>
       <div className="post-content">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam, minus.
-        Labore voluptatum sit facilis nisi. Voluptas, nihil? Suscipit odio odit
-        beatae earum aut accusantium consequuntur, provident ea laborum
-        voluptates recusandae. Laboriosam modi fuga, ut dolorem temporibus natus
-        expedita quis tempora perspiciatis maxime nemo officia? Eius doloremque,
-        adipisci, voluptatem laboriosam architecto, a animi assumenda unde
-        beatae reiciendis doloribus saepe distinctio at! Doloribus, esse,
-        dolores officiis repellat soluta neque exercitationem ullam aut
-        blanditiis autem, nam impedit. Illum laborum dolor consequatur ex? Natus
-        tempora sed facere assumenda quia nulla veritatis fuga. Architecto,
-        dignissimos! Delectus, totam eligendi deserunt commodi vero recusandae
-        pariatur nostrum porro, impedit, rem distinctio alias atque rerum natus?
-        Error, aut. Sint ratione delectus fuga nihil dignissimos reprehenderit
-        atque placeat perspiciatis quisquam. Lorem ipsum dolor, sit amet
-        consectetur adipisicing elit. Veniam, minus. Labore voluptatum sit
-        facilis nisi. Voluptas, nihil? Suscipit odio odit beatae earum aut
-        accusantium consequuntur, provident ea laborum voluptates recusandae.
-        Laboriosam modi fuga, ut dolorem temporibus natus expedita quis tempora
-        perspiciatis maxime nemo officia? Eius doloremque, adipisci, voluptatem
-        laboriosam architecto, a animi assumenda unde beatae reiciendis
-        doloribus saepe distinctio at! Doloribus, esse, dolores officiis
-        repellat soluta neque exercitationem ullam aut blanditiis autem, nam
-        impedit. Illum laborum dolor consequatur ex? Natus tempora sed facere
-        assumenda quia nulla veritatis fuga. Architecto, dignissimos! Delectus,
-        totam eligendi deserunt commodi vero recusandae pariatur nostrum porro,
-        impedit, rem distinctio alias atque rerum natus? Error, aut. Sint
-        ratione delectus fuga nihil dignissimos reprehenderit atque placeat
-        perspiciatis quisquam.
+        <ArticleEditor defaultValue={data.contents} />
       </div>
       <div className="tag-list">
         <Tag>JIRA</Tag>

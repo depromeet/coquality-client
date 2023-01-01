@@ -22,13 +22,14 @@ export interface IPostType {
   id: number
   userId: number
   title: string
+  contents: string
   thumbnail: null
   primaryCategory: string
   postStatusCode: string
   summary: string
   views: number
   commentCount: number
-  createdAt: Date
+  createdAt: string
 }
 
 export interface ICreatePostRequest {
@@ -38,6 +39,7 @@ export interface ICreatePostRequest {
   thumbnail: string
   title: string
   postStatus: PostStatusType
+  tags: string[]
 }
 
 interface IModifyPostRequest {

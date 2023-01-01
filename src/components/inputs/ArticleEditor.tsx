@@ -2,7 +2,7 @@ import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import { generateOnChangeEvent } from "@libs/utils"
 import ToastuiEditor from "@toast-ui/editor"
-import { Editor } from "@toast-ui/react-editor"
+import { Editor, EditorProps } from "@toast-ui/react-editor"
 import {
   forwardRef,
   ForwardRefRenderFunction,
@@ -52,6 +52,7 @@ const ArticleEditor: ForwardRefRenderFunction<Editor, Props> = (
         previewStyle="vertical"
         initialEditType="wysiwyg"
         hideModeSwitch
+        viewer={true}
         toolbarItems={[
           ["heading", "bold", "italic", "strike"],
           ["hr", "quote"],
