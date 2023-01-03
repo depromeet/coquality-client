@@ -8,13 +8,10 @@ import { useRouter } from "next/router"
 import { category } from "@constants/category"
 import dynamic from "next/dynamic"
 
-const ArticleEditor = dynamic(
-  () => import("@components/inputs/ArticleEditor"),
-  {
-    ssr: false,
-    loading: () => <></>,
-  }
-)
+const ContentsViewer = dynamic(() => import("@components/ContentsViewer"), {
+  ssr: false,
+  loading: () => <></>,
+})
 
 // TODO: formatting createdAt
 // TODO: Tags
@@ -59,7 +56,7 @@ const ArticleView: React.FC<Props> = ({}) => {
         </div>
       </div>
       <div className="post-content">
-        <ArticleEditor defaultValue={data.contents} />
+        <ContentsViewer initialValue={data.contents} />
       </div>
       <div className="tag-list">
         <Tag>JIRA</Tag>
