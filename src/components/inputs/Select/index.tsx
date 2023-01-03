@@ -1,13 +1,20 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import React, { SelectHTMLAttributes } from "react"
+import React, {
+  forwardRef,
+  ForwardRefRenderFunction,
+  SelectHTMLAttributes,
+} from "react"
 import Down from "./Down.svg"
-interface IFProps extends SelectHTMLAttributes<HTMLSelectElement> {}
+interface Props extends SelectHTMLAttributes<HTMLSelectElement> {}
 
-const Select: React.FC<IFProps> = ({ className, children, ...props }) => {
+const Select: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
+  { className, children, ...props },
+  ref
+) => {
   return (
     <StyledWrapper className={className}>
-      <select className="common-h5-sb" {...props}>
+      <select ref={ref} className="common-h5-sb" {...props}>
         {children}
       </select>
       <div className="icon">
@@ -17,7 +24,7 @@ const Select: React.FC<IFProps> = ({ className, children, ...props }) => {
   )
 }
 
-export default Select
+export default forwardRef(Select)
 
 const StyledWrapper = styled.div<{}>`
   position: relative;

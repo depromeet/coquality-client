@@ -37,6 +37,7 @@ describe("PostsRepository", () => {
       summary: "흡뽜핫",
       thumbnail: "https://picsum.photos/300",
       title: "후훗 힛 하핳 핫핫 흐핳 ㅏㅏ",
+      postStatus: "ISSUED",
     })
 
     expect(created).toBeTruthy()
@@ -50,6 +51,7 @@ describe("PostsRepository", () => {
       summary: "돼지국밥 주문",
       thumbnail: "https://picsum.photos/300",
       title: "돼지국밥 주문입니다",
+      postStatus: "ISSUED",
     })
 
     await postsRepository.updatePost(created.id, {
@@ -69,6 +71,7 @@ describe("PostsRepository", () => {
       summary: "흡뽜핫",
       thumbnail: "https://picsum.photos/300",
       title: "후훗 힛 하핳 핫핫 흐핳 ㅏㅏ",
+      postStatus: "ISSUED",
     })
 
     await postsRepository.deletePost(created.id)

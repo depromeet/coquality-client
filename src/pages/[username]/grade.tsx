@@ -9,7 +9,7 @@ const GradePage: NextPageWithLayout = () => {
 }
 
 GradePage.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <Layout title="내 작가 등급">{page}</Layout>
 }
 
 export default GradePage

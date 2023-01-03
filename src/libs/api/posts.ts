@@ -3,7 +3,6 @@ import Repository from "./repository"
 
 // TODO: move common types to types folder
 export type PostPrimaryCategoryType =
-  | "ALL"
   | "DESIGN"
   | "DEVELOPMENT"
   | "MARKETING"
@@ -23,21 +22,24 @@ export interface IPostType {
   id: number
   userId: number
   title: string
+  contents: string
   thumbnail: null
   primaryCategory: string
   postStatusCode: string
   summary: string
   views: number
   commentCount: number
-  createdAt: Date
+  createdAt: string
 }
 
-interface IIssuePostRequest {
+export interface ICreatePostRequest {
   contents: string
   primaryCategory: PostPrimaryCategoryType
   summary: string
   thumbnail: string
   title: string
+  postStatus: PostStatusType
+  tags: string[]
 }
 
 interface IModifyPostRequest {
@@ -79,7 +81,7 @@ export class PostsRepository extends Repository {
     return response.data.data as IPostType
   }
 
-  public async createPost(params: IIssuePostRequest): Promise<IPostType> {
+  public async createPost(params: ICreatePostRequest): Promise<IPostType> {
     const response = await this.client.post("/posts/", params, {
       headers: { AUTH: this.authToken },
     })
@@ -113,5 +115,8 @@ export class PostsRepository extends Repository {
   }
 }
 
-const postsRepository = new PostsRepository(coqualityAxiosClient)
+const postsRepository = new PostsRepository(
+  coqualityAxiosClient,
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzA2NTEwNDIsImV4cCI6MTY3MzI0MzA0Mn0.xM13ga02kCNbWW02bSKSfc76hWC6C4fNUmAVxDrSJXmQhf91qwB7vCh74VPa-9inVobhHsDnqHI_HkFKOI5KLA"
+)
 export default postsRepository

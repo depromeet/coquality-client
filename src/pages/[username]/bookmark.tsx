@@ -9,7 +9,7 @@ const BookmarkPage: NextPageWithLayout = () => {
 }
 
 BookmarkPage.getLayout = (page: ReactElement) => {
-  return <Layout title="Bookmark">{page}</Layout>
+  return <Layout title="저장한 글">{page}</Layout>
 }
 
 export default BookmarkPage

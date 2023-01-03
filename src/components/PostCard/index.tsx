@@ -24,7 +24,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
     <StyledWrapper>
       <div className="lt">
         <div className="top">
-          <Link href={"/username/postid"}>
+          <Link href={`/${data.userId}/${data.id}`}>
             <a className="title common-h2-sb">{data.title}</a>
           </Link>
           <div className="sub-title common-h4-rg">{data.summary}</div>

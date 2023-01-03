@@ -7,6 +7,7 @@ import postsRepository, {
   PostPrimaryCategoryType,
   PostSortType,
 } from "@libs/api/posts"
+import PostListEmpty from "./PostList.empty"
 
 type Props = {}
 
@@ -28,12 +29,11 @@ const PostListView: React.FC<Props> = ({}) => {
     {}
   )
 
-  console.log(data)
-
+  if (data!.length === 0) return <PostListEmpty />
   return (
     <div className="post-list">
       {data!.map((post) => (
-        <PostCard key={post.id} data={post} />
+        <PostCard key={`PostListView-${post.id}`} data={post} />
       ))}
     </div>
   )

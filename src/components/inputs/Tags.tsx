@@ -1,6 +1,8 @@
 import React, {
   ChangeEventHandler,
   FormEventHandler,
+  forwardRef,
+  ForwardRefRenderFunction,
   InputHTMLAttributes,
   KeyboardEventHandler,
   ReactNode,
@@ -10,49 +12,46 @@ import styled from "@emotion/styled"
 
 import Tag from "@components/Tag"
 import { colors } from "@constants/colors"
-
-export const generateFormEvent = (name: string, value: string | any[]) => {
-  const event: any = {
-    target: {
-      name: name,
-      value: value,
-    },
-  }
-  return event
-}
+import { generateOnChangeEvent } from "@libs/utils"
+import { ChangeHandler } from "react-hook-form"
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: Exclude<ReactNode, boolean | null | undefined>
   hint?: string
   error?: string
-  wrap?: boolean
-  onChange?: any
-  value?: string[]
+
+  name?: string
+  defaultValue?: string[]
+  onChange?: ChangeHandler
+  onBlur?: ChangeHandler
 }
 
-const Tags: React.FC<Props> = ({
-  className,
-  label,
-  hint,
-  error,
-  wrap = false,
-  name,
-  value,
-  onChange = () => {},
-  ...props
-}) => {
-  const [tagValue, setTagValue] = useState<Set<string>>(new Set(value))
+const Tags: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+  {
+    className,
+    label,
+    hint,
+    error,
+    name,
+    defaultValue,
+    onChange,
+    onBlur,
+    ...props
+  },
+  ref
+) => {
+  const [tagValue, setTagValue] = useState<Set<string>>(new Set(defaultValue))
   const [inputValue, setInputValue] = useState<string>("")
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputValue(e.target.value)
   }
 
   const addTag = (value: string) => {
-    if (value.trim() === "") return
+    if (value.trim() === "" || !onChange) return
     const newTagValue = new Set([...Array.from(tagValue)])
     newTagValue.add(value)
     setTagValue(newTagValue)
-    onChange(generateFormEvent(name!, [...Array.from(newTagValue)]))
+    onChange(generateOnChangeEvent(name!, [...Array.from(newTagValue)]))
   }
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
@@ -61,11 +60,11 @@ const Tags: React.FC<Props> = ({
   }
 
   const deleteTag = (value: string) => {
-    if (props.disabled) return
+    if (props.disabled || !onChange) return
     const newTagValue = new Set([...Array.from(tagValue)])
     newTagValue.delete(value)
     setTagValue(newTagValue)
-    onChange(generateFormEvent(name!, [...Array.from(newTagValue)]))
+    onChange(generateOnChangeEvent(name!, [...Array.from(newTagValue)]))
   }
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
@@ -79,8 +78,13 @@ const Tags: React.FC<Props> = ({
     }
   }
 
+  const handleBlur = () => {
+    if (!onBlur) return
+    onBlur(generateOnChangeEvent(name!, [...Array.from(tagValue)]))
+  }
+
   return (
-    <StyledWrapper className={className} data-wrap={wrap}>
+    <StyledWrapper className={className}>
       {label && <div className="label">{label}</div>}
       <form className="input-wrapper" onSubmit={handleSubmit}>
         {Array.from(tagValue).map((tag, idx) => (
@@ -102,6 +106,7 @@ const Tags: React.FC<Props> = ({
           value={inputValue}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
+          onBlur={handleBlur}
           {...props}
         />
       </form>
@@ -111,7 +116,7 @@ const Tags: React.FC<Props> = ({
   )
 }
 
-export default Tags
+export default forwardRef(Tags)
 
 const StyledWrapper = styled.div`
   .label {
@@ -153,10 +158,5 @@ const StyledWrapper = styled.div`
   }
   .input-wrapper {
     flex-wrap: "wrap";
-  }
-  &[data-wrap="false"] {
-    .input-wrapper {
-      flex-wrap: "nowrap";
-    }
   }
 `

@@ -1,7 +1,12 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 
-import React, { InputHTMLAttributes, ReactNode } from "react"
+import React, {
+  forwardRef,
+  ForwardRefRenderFunction,
+  InputHTMLAttributes,
+  ReactNode,
+} from "react"
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: Exclude<ReactNode, boolean | null | undefined>
@@ -10,18 +15,15 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   focus?: boolean
 }
 
-const Textfield: React.FC<Props> = ({
-  className,
-  label,
-  hint,
-  error,
-  focus = true,
-  ...props
-}) => {
+const Textfield: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+  { className, label, hint, error, focus = true, ...props },
+  ref
+) => {
   return (
     <StyledWrapper className={className}>
       {label && <div className="label common-h6-sb">{label}</div>}
       <input
+        ref={ref}
         type="text"
         spellCheck="false"
         autoComplete="off"
@@ -35,7 +37,7 @@ const Textfield: React.FC<Props> = ({
   )
 }
 
-export default Textfield
+export default forwardRef(Textfield)
 
 const StyledWrapper = styled.div`
   .label {

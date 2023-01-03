@@ -9,7 +9,7 @@ const ArticleWritePage: NextPageWithLayout = () => {
 }
 
 ArticleWritePage.getLayout = (page: ReactElement) => {
-  return <Layout title="Write">{page}</Layout>
+  return <Layout title="게시글 작성">{page}</Layout>
 }
 
 export default ArticleWritePage

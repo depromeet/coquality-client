@@ -2,36 +2,81 @@ import Button from "@components/inputs/Button"
 import Select from "@components/inputs/Select"
 import Tags from "@components/inputs/Tags"
 import Textfield from "@components/inputs/Textfield"
-import Toggle from "@components/inputs/Toggle"
 import styled from "@emotion/styled"
+import postsRepository, { ICreatePostRequest } from "@libs/api/posts"
+import { useMutation } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
-import React, { useState } from "react"
+import React from "react"
+import { useForm } from "react-hook-form"
+import PostStatusToggle from "./PostStatusToggle"
+import { useRouter } from "next/router"
 
-const ArticleEditor = dynamic(() => import("@components/ArticleEditor"), {
-  ssr: false,
-})
+// TODO: 태그 api 나오면 연동이 필요해요.
+
+type ArticleWriteFormType = Pick<
+  ICreatePostRequest,
+  "title" | "summary" | "contents" | "primaryCategory" | "postStatus" | "tags"
+>
+
+const ArticleEditor = dynamic(
+  () => import("@components/inputs/ArticleEditor"),
+  {
+    ssr: false,
+    loading: () => <></>,
+  }
+)
 
 type Props = {}
 
 const ArticleWrite: React.FC<Props> = ({}) => {
-  const [state, setState] = useState(false)
+  const router = useRouter()
+  const { register, handleSubmit } = useForm<ArticleWriteFormType>()
+
+  const mutation = useMutation({
+    mutationFn: (params: ICreatePostRequest) =>
+      postsRepository.createPost(params),
+    onSuccess: (data, variables, context) => {
+      router.push(`/${data.userId}/${data.id}`)
+    },
+  })
+
+  const onSubmit = (data: ArticleWriteFormType) => {
+    mutation.mutate({
+      title: data.title,
+      summary: data.summary,
+      contents: data.contents,
+      primaryCategory: data.primaryCategory,
+      postStatus: "ISSUED",
+      thumbnail: "https://picsum.photos/300",
+      tags: data.tags,
+    })
+  }
+
   return (
     <StyledWrapper className="common-container">
       <div className="lt">
-        <Textfield className="title common-h1-sb" placeholder="제목" />
-        <Textfield className="subtitle common-h3-rg" placeholder="소제목" />
-        <div>
-          <ArticleEditor />
-        </div>
+        <Textfield
+          className="title common-h1-sb"
+          placeholder="제목"
+          defaultValue="제목 테스트"
+          {...register("title")}
+        />
+        <Textfield
+          className="subtitle common-h3-rg"
+          placeholder="소제목"
+          defaultValue="소제목 테스트"
+          {...register("summary")}
+        />
+        <ArticleEditor defaultValue="내용 테스트" {...register("contents")} />
       </div>
       <div className="rt">
         <div className="btns">
           <Button variant="outline">임시 저장</Button>
-          <Button>발행하기</Button>
+          <Button onClick={handleSubmit(onSubmit)}>발행하기</Button>
         </div>
         <div className="is-public">
           <div className="label common-h3-sb">공개 여부</div>
-          <Toggle value={state} onChange={() => setState(!state)} />
+          <PostStatusToggle defaultValue={true} {...register("postStatus")} />
         </div>
         <div className="thumbnail">
           <div className="label common-h3-sb">썸네일</div>
@@ -41,18 +86,16 @@ const ArticleWrite: React.FC<Props> = ({}) => {
         </div>
         <div className="category">
           <div className="label common-h3-sb">카테고리</div>
-          <div className="input">
-            <Select>
-              <option value="1">개발</option>
-              <option value="2">내발</option>
-            </Select>
-          </div>
+          <Select defaultValue={"DESIGN"} {...register("primaryCategory")}>
+            <option value="DEVELOPMENT">개발</option>
+            <option value="DESIGN">디자인</option>
+            <option value="PM">기획/PM/PO</option>
+            <option value="MARKETING">마케팅</option>
+          </Select>
         </div>
         <div className="tag">
           <div className="label common-h3-sb">태그</div>
-          <div>
-            <Tags wrap />
-          </div>
+          <Tags {...register("tags")} />
         </div>
       </div>
     </StyledWrapper>
