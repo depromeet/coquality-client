@@ -2,27 +2,66 @@ import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import React from "react"
 import TrashIco from "./TrashIco.svg"
+import commentsRepository, { IComment } from "@libs/api/comments"
+import { toStringByFormatting } from "@libs/utils/time"
+import UserBtn from "./UserAvatar.svg"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 
-type Props = {}
+// TODO: username, user img
+// TODO: 로그인 연동시, 내 댓글만 삭제 가능하도록 수정
 
-const Comment: React.FC<Props> = ({}) => {
+type Props = {
+  data: IComment
+}
+
+const Comment: React.FC<Props> = ({ data }) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
+  const postId = +`${router.query["post-id"]}`
+
+  const mutation = useMutation({
+    mutationFn: ({
+      postId,
+      commentId,
+    }: {
+      postId: number
+      commentId: number
+    }) => commentsRepository.deleteCommentOnPost(postId, commentId),
+  })
+
+  const handleDelete = () => {
+    mutation.mutate(
+      {
+        postId,
+        commentId: data.id,
+      },
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries(["getCommentsOfPost", { postId }])
+        },
+      }
+    )
+  }
+
+  const createdAt = toStringByFormatting(new Date(data.createdAt), ".")
   return (
     <StyledWrapper>
-      <div className="lt"></div>
+      <div className="lt">
+        <UserBtn />
+      </div>
       <div className="rt">
         <div className="top common-h6-rg">
           <div className="lt">
-            <div className="nickname">닉네임</div>
-            <div className="date">2022.10.25</div>
+            <div className="nickname">{"username"}</div>
+            <div className="date">{createdAt}</div>
           </div>
-          <div className="rt ">
+          <a className="rt" onClick={handleDelete}>
             <TrashIco />
             <div>삭제</div>
-          </div>
+          </a>
         </div>
-        <div className="mid common-h5-rg">
-          정말 유익한 글이네요. 미진님의 글 잘 읽고 있습니다. 후원하고가요!
-        </div>
+        <div className="mid common-h5-rg">{data.contents}</div>
       </div>
     </StyledWrapper>
   )
@@ -41,6 +80,9 @@ const StyledWrapper = styled.div`
     height: 32px;
     background-color: ${colors.grey300};
     border-radius: 50%;
+    svg {
+      font-size: 30px;
+    }
   }
   > .rt {
     width: 100%;

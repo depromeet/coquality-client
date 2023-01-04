@@ -5,15 +5,7 @@ import Comment from "./Comment"
 type Props = {}
 
 const CommentListError: React.FC<Props> = ({}) => {
-  return (
-    <StyledWrapper>
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-    </StyledWrapper>
-  )
+  return <StyledWrapper>에러가 발생했습니다.</StyledWrapper>
 }
 
 export default CommentListError

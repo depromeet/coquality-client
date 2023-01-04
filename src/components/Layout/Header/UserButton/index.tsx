@@ -1,9 +1,9 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import useDropdown from "@hooks/useDropdown"
+import UserBtn from "./UserBtn.svg"
 import Link from "next/link"
 import React from "react"
-import UserBtn from "./UserBtn.svg"
 
 type Props = {}
 

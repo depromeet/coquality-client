@@ -7,17 +7,21 @@ import postsRepository from "@libs/api/posts"
 import { useRouter } from "next/router"
 import { category } from "@constants/category"
 import dynamic from "next/dynamic"
+import { toStringByFormatting } from "@libs/utils/time"
 
-const ContentsViewer = dynamic(() => import("@components/ContentsViewer"), {
-  ssr: false,
-  loading: () => <></>,
-})
+const ContentsViewer = dynamic(
+  () => import("@containers/ArticleDetail/components/Article/ContentsViewer"),
+  {
+    ssr: false,
+    loading: () => <></>,
+  }
+)
 
-// TODO: formatting createdAt
 // TODO: Tags
 // TODO: 후원금
 // TODO: contents 에디터 readonly
 // TODO: username -> user-id
+// TODO: 댓글 수
 
 type Props = {}
 
@@ -41,6 +45,7 @@ const ArticleView: React.FC<Props> = ({}) => {
     (val) => val.value.toUpperCase() === data.primaryCategory
   )?.label
 
+  const createdAt = toStringByFormatting(new Date(data.createdAt), ".")
   return (
     <StyledWrapper>
       <div className="post-header">
@@ -52,7 +57,7 @@ const ArticleView: React.FC<Props> = ({}) => {
         <div className="subtitle common-h3-rg">{data.summary}</div>
         <div className="footer common-h6-rg">
           <div>view {data.views}</div>
-          <div>{data.createdAt}</div>
+          <div>{createdAt}</div>
         </div>
       </div>
       <div className="post-content">

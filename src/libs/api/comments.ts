@@ -1,6 +1,7 @@
+import coqualityAxiosClient from "./client"
 import Repository from "./repository"
 
-interface IComment {
+export interface IComment {
   id: number
   contents: string
   userId: number
@@ -20,8 +21,8 @@ export class CommentsRepository extends Repository {
   public async createCommentOnPost(
     postId: number,
     contents: string
-  ): Promise<void> {
-    await this.client.post(
+  ): Promise<number> {
+    const response = await this.client.post(
       `/comments/`,
       {
         postId,
@@ -29,6 +30,7 @@ export class CommentsRepository extends Repository {
       },
       { headers: { AUTH: this.authToken } }
     )
+    return response.data.data as number
   }
 
   public async updateCommentOnPost(
@@ -57,3 +59,10 @@ export class CommentsRepository extends Repository {
     })
   }
 }
+
+const commentsRepository = new CommentsRepository(
+  coqualityAxiosClient,
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
+)
+
+export default commentsRepository
