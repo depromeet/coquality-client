@@ -41,6 +41,8 @@ const ArticleWrite: React.FC<Props> = ({}) => {
   })
 
   const onSubmit = (data: ArticleWriteFormType) => {
+    console.log(data)
+
     mutation.mutate({
       title: data.title,
       summary: data.summary,

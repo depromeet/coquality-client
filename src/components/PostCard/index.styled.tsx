@@ -12,6 +12,7 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    overflow: hidden;
     .top {
       .title {
         margin-bottom: 8px;
@@ -25,6 +26,14 @@ const StyledWrapper = styled.div`
         display: flex;
         gap: 8px;
         margin-bottom: 20px;
+        overflow-x: scroll;
+        & {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
       .footer {
         display: flex;
