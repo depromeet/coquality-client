@@ -1,5 +1,6 @@
 import { AxiosError } from "axios"
 import Repository from "./repository"
+import coqualityAxiosClient from "./client"
 
 function logResponseErrorMessageAndBypass<T extends AxiosError>(x: T) {
   console.log((x.response as any)?.data?.message)
@@ -66,3 +67,9 @@ export class FollowsRepository extends Repository {
     return response.data.data as IFollower[]
   }
 }
+
+const followRepository = new FollowsRepository(
+  coqualityAxiosClient,
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
+)
+export default followRepository
