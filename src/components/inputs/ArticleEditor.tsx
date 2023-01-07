@@ -1,6 +1,8 @@
 import { colors } from "@constants/colors"
+import { css } from "@emotion/css"
 import styled from "@emotion/styled"
 import { generateOnChangeEvent } from "@libs/utils"
+import { toastCss } from "@styles/toast"
 import ToastuiEditor from "@toast-ui/editor"
 import { Editor, EditorProps } from "@toast-ui/react-editor"
 import {
@@ -44,15 +46,18 @@ const ArticleEditor: ForwardRefRenderFunction<Editor, Props> = (
     onBlur(generateOnChangeEvent(name, editorInstanse.getMarkdown()))
   }
 
+  console.log(editorInstanse?.isViewer())
+
   return (
-    <StyledWrapper>
+    <StyledWrapper css={toastCss}>
       <Editor
         ref={editorRef}
+        viewer={true}
+        initialValue={defaultValue}
         placeholder="내용"
         previewStyle="vertical"
         initialEditType="wysiwyg"
         hideModeSwitch
-        viewer={true}
         toolbarItems={[
           ["heading", "bold", "italic", "strike"],
           ["hr", "quote"],
@@ -60,7 +65,6 @@ const ArticleEditor: ForwardRefRenderFunction<Editor, Props> = (
           ["table", "image", "link"],
           ["code", "codeblock"],
         ]}
-        initialValue={defaultValue}
         onChange={handleChange}
         onBlur={handleBlur}
       />

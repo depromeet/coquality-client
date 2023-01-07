@@ -1,13 +1,21 @@
 import styled from "@emotion/styled"
-import React, { TextareaHTMLAttributes } from "react"
+import React, {
+  forwardRef,
+  ForwardRefRenderFunction,
+  TextareaHTMLAttributes,
+} from "react"
 
-interface IFProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string
 }
 
-const Textarea: React.FC<IFProps> = ({ className, children, ...props }) => {
+const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = (
+  { className, children, ...props },
+  ref
+) => {
   return (
     <StyledWrapper
+      ref={ref}
       className={className}
       rows={3}
       autoComplete="off"
@@ -16,7 +24,7 @@ const Textarea: React.FC<IFProps> = ({ className, children, ...props }) => {
   )
 }
 
-export default Textarea
+export default forwardRef(Textarea)
 
 const StyledWrapper = styled.textarea`
   font-family: inherit;

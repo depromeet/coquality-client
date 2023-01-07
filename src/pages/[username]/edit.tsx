@@ -9,7 +9,7 @@ const ProfileEditPage: NextPageWithLayout = () => {
 }
 
 ProfileEditPage.getLayout = (page: ReactElement) => {
-  return <Layout title="Edit">{page}</Layout>
+  return <Layout title="프로필 수정">{page}</Layout>
 }
 
 export default ProfileEditPage

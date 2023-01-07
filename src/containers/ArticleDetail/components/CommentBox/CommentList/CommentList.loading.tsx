@@ -5,15 +5,7 @@ import Comment from "./Comment"
 type Props = {}
 
 const CommentListLoading: React.FC<Props> = ({}) => {
-  return (
-    <StyledWrapper>
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-    </StyledWrapper>
-  )
+  return <StyledWrapper>로딩중인데요.</StyledWrapper>
 }
 
 export default CommentListLoading

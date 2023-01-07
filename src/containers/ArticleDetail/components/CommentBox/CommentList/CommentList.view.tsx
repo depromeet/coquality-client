@@ -1,17 +1,23 @@
 import styled from "@emotion/styled"
 import React from "react"
 import Comment from "./Comment"
+import CommentListEmpty from "./CommentList.empty"
+import useCommentsQuery from "@containers/ArticleDetail/hooks/useCommentsQuery"
 
 type Props = {}
 
 const CommentListView: React.FC<Props> = ({}) => {
+  const { data } = useCommentsQuery()
+
+  if (!data || data?.length === 0) return <CommentListEmpty />
   return (
     <StyledWrapper>
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
+      {data
+        .concat()
+        .reverse()
+        .map((comment) => (
+          <Comment key={comment.id} data={comment} />
+        ))}
     </StyledWrapper>
   )
 }

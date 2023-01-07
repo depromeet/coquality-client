@@ -31,12 +31,14 @@ const PostCard: React.FC<Props> = ({ data }) => {
         </div>
         <div className="bottom">
           <div className="tag-list">
-            <Tag>Tag</Tag>
-            <Tag>Tag</Tag>
-            <Tag>Tag</Tag>
+            {data.tags.map((tag, idx) => (
+              <Tag key={idx}>{tag}</Tag>
+            ))}
           </div>
           <div className="footer common-h6-rg">
-            <div className="lt">Jay | {createdAt}</div>
+            <div className="lt">
+              {"username"} | {createdAt}
+            </div>
             <div className="rt">
               <div className="count">
                 <ViewIcon />
@@ -44,7 +46,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
               </div>
               <div className="count">
                 <MessageIcon />
-                51
+                {data.commentCount}
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ const ArticlePage: NextPageWithLayout = () => {
 }
 
 ArticlePage.getLayout = (page: ReactElement) => {
-  return <Layout title="[article-title]">{page}</Layout>
+  return <Layout title="게시글 상세">{page}</Layout>
 }
 
 export default ArticlePage

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import Designer from "./svgs/Designer.svg"
 import Marketor from "./svgs/Marketor.svg"
@@ -8,16 +8,17 @@ import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import Link from "next/link"
 
-// todo: Banner로 감싸기
-
 type Props = {}
 
 const Banner: React.FC<Props> = ({}) => {
+  const [isClosed, setIsClosed] = useState(false)
+
+  if (isClosed) return null
   return (
     <StyledWrapper>
       <Designer className="designer" />
       <Marketor className="marketor" />
-      <DeleteButton className="btn" />
+      <DeleteButton className="btn" onClick={() => setIsClosed(true)} />
       <div className="content common-h3-sb">
         코컬리티에서 글쓰고 나의 커리어 퀄리티를 높여 봐요
       </div>

@@ -9,7 +9,7 @@ const LoginPage: NextPageWithLayout = () => {
 }
 
 LoginPage.getLayout = (page: ReactElement) => {
-  return <Layout title="Login">{page}</Layout>
+  return <Layout title="로그인">{page}</Layout>
 }
 
 export default LoginPage
