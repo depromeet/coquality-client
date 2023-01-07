@@ -1,3 +1,4 @@
+import useArticleQuery from "@containers/ArticleDetail/hooks/useArticleQuery"
 import styled from "@emotion/styled"
 import React from "react"
 import CommentForm from "./CommentForm"
@@ -6,11 +7,15 @@ import CommentList from "./CommentList"
 type Props = {}
 
 const CommentBox: React.FC<Props> = ({}) => {
+  const { data } = useArticleQuery()
+
+  console.log(data)
+
   return (
     <StyledWrapper>
       <div className="comment-wrapper">
         <div className="comment-header common-h6-rg">
-          <b>20</b>개의 댓글
+          <b>{data?.commentCount}</b>개의 댓글
         </div>
         <CommentForm />
         <CommentList />
