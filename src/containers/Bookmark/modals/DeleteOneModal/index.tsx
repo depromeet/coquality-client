@@ -6,7 +6,7 @@ import React from "react"
 
 interface Props extends ModalProps {}
 
-const DeleteAllModal: React.FC<Props> = ({ ...props }) => {
+const DeleteOneModal: React.FC<Props> = ({ ...props }) => {
   return (
     <Modal {...props}>
       <StyledWrapper>
@@ -25,12 +25,12 @@ const DeleteAllModal: React.FC<Props> = ({ ...props }) => {
   )
 }
 
-export default DeleteAllModal
+export default DeleteOneModal
 
 const StyledWrapper = styled.div`
   position: fixed;
   top: 50%;
-  left: 50%; 
+  left: 50%;
   width: 448px;
   height: 246px;
   background-color: white;
@@ -43,7 +43,7 @@ const StyledWrapper = styled.div`
   gap: 40px;
   justify-content: space-between;
   text-align: center;
-  .top > .common-h5-rg { 
+  .top > .common-h5-rg {
     margin-top: 12px;
   }
   .bottom {

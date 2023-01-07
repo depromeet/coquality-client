@@ -1,8 +1,8 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import React, { useState } from "react"
+import DeleteOneModal from "../modals/DeleteOneModal"
 import DeleteIco from "./DeleteIco.svg"
-import DeleteOneModal from "../DeleteOneModal"
 
 type Props = {}
 
@@ -10,29 +10,29 @@ const PostCard: React.FC<Props> = ({}) => {
   const [open, setOpen] = useState(false)
   return (
     <>
-    <StyledWrapper>
-      <div className="top">
-        <div className="lt">
-          <div className="title common-h4-sb">
-            쿠팡 로켓배송의 가치는 어떻게 측정할 수 있을까?
+      <StyledWrapper>
+        <div className="top">
+          <div className="lt">
+            <div className="title common-h4-sb">
+              쿠팡 로켓배송의 가치는 어떻게 측정할 수 있을까?
+            </div>
+            <div className="subtitle common-h6-rg">Jay | 2022.11.05</div>
           </div>
-          <div className="subtitle common-h6-rg">Jay | 2022.11.05</div>
+          <div className="rt"></div>
         </div>
-        <div className="rt"></div>
-      </div>
-      <div className="mid common-h5-rg">
-        기술은 항상 변화하고 있고 여러분의 프로세스와 관행은 이러한 변화를
-        따라잡아야 합니다. npm이 출시된 지 12년이 되었지만, npm 패키지 생성에
-        대한 당신의 관행은 훨씬 더 현대적이기를 바랍니다.
-      </div>
-      <div className="bottom">
-        <div className="btn common-h6-rg">
-          <DeleteIco />
-          <div onClick={() => setOpen(true)}>삭제</div>
+        <div className="mid common-h5-rg">
+          기술은 항상 변화하고 있고 여러분의 프로세스와 관행은 이러한 변화를
+          따라잡아야 합니다. npm이 출시된 지 12년이 되었지만, npm 패키지 생성에
+          대한 당신의 관행은 훨씬 더 현대적이기를 바랍니다.
         </div>
-      </div>
-    </StyledWrapper>
-    <DeleteOneModal open={open} onClose={() => setOpen(false)} />
+        <div className="bottom">
+          <div className="btn common-h6-rg">
+            <DeleteIco />
+            <div onClick={() => setOpen(true)}>삭제</div>
+          </div>
+        </div>
+      </StyledWrapper>
+      <DeleteOneModal open={open} onClose={() => setOpen(false)} />
     </>
   )
 }
