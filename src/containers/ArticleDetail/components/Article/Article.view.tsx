@@ -8,12 +8,13 @@ import { useRouter } from "next/router"
 import { category } from "@constants/category"
 import dynamic from "next/dynamic"
 import { toStringByFormatting } from "@libs/utils/time"
+import useArticleQuery from "@containers/ArticleDetail/hooks/useArticleQuery"
 
 const ContentsViewer = dynamic(
   () => import("@containers/ArticleDetail/components/Article/ContentsViewer"),
   {
     ssr: false,
-    loading: () => <></>,
+    loading: () => <>loading</>,
   }
 )
 
@@ -26,18 +27,7 @@ const ContentsViewer = dynamic(
 type Props = {}
 
 const ArticleView: React.FC<Props> = ({}) => {
-  const router = useRouter()
-
-  const userId = +`${router.query["username"]}`
-  const postId = +`${router.query["post-id"]}`
-
-  const { data } = useQuery(
-    ["getPostById", { postId, userId }],
-    () => postsRepository.getPostById(postId, { userId }),
-    {
-      enabled: !!(userId && postId),
-    }
-  )
+  const { data } = useArticleQuery()
 
   if (!data) return null
 
@@ -50,7 +40,7 @@ const ArticleView: React.FC<Props> = ({}) => {
     <StyledWrapper>
       <div className="post-header">
         <div className="lt common-h6-rg">{categoryLabel}</div>
-        <div className="rt common-h6-rg">누적 후원 ₩140,000</div>
+        {/* <div className="rt common-h6-rg">누적 후원 ₩140,000</div> */}
       </div>
       <div className="post-info">
         <div className="title common-h1-sb">{data.title}</div>
@@ -64,15 +54,9 @@ const ArticleView: React.FC<Props> = ({}) => {
         <ContentsViewer initialValue={data.contents} />
       </div>
       <div className="tag-list">
-        <Tag>JIRA</Tag>
-        <Tag>스프린트</Tag>
-        <Tag>애자일</Tag>
-        <Tag>Tag</Tag>
-        <Tag>스프린트</Tag>
-        <Tag>애자일</Tag>
-        <Tag>Tag</Tag>
-        <Tag>Tag</Tag>
-        <Tag>Tag</Tag>
+        {data.tags.map((tag, idx) => (
+          <Tag key={idx}>{tag}</Tag>
+        ))}
       </div>
     </StyledWrapper>
   )
