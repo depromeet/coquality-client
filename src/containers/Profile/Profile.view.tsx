@@ -23,11 +23,11 @@ const Profile: React.FC<Props> = ({}) => {
   const { data: myPosts } = useQuery(
     ["userPosts"], () => postsRepository.getMyPosts()
   )    
-  const { data: myFollowers } = useQuery(
-    ["userFollows"], () => followsRepository.getFollowers(myInfo?.data?.userId)
+  const { data: myFollowerCount } = useQuery(
+    ["userFollowerCount"], () => followsRepository.getFollowerCount()
   )    
-  const { data: myFollowing } = useQuery(
-    ["userFollows"], () => followsRepository.getFollowings(myInfo?.data?.userId)
+  const { data: myFollowingCount } = useQuery(
+    ["userFollowingCount"], () => followsRepository.getFollowingCount()
   )    
   
   return (
@@ -51,8 +51,8 @@ const Profile: React.FC<Props> = ({}) => {
               {`3년차 공유 모빌리티 서비스 UI/UX 기획자입니다 :)`}
             </div>
             <div className="bottom common-h3-rg">
-              <div>팔로워 {myFollowers?.length}</div>
-              <div>팔로잉 {myFollowing.length}</div>
+              <div>팔로워 {myFollowerCount}</div>
+              <div>팔로잉 {myFollowingCount}</div>
             </div>
           </div>
         </div>
