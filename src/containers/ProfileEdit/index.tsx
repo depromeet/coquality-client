@@ -1,16 +1,35 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect, useCallback } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"  
 import useUpload from "@hooks/useUpload"
 import styled from "@emotion/styled"
 import { colors } from "@constants/colors"
 import Button from "@components/inputs/Button"
 import Textfield from "@components/inputs/Textfield"
-import Link from "next/link" 
+import Link from "next/link"   
+import userRepository, { ProfileModifyType } from "@libs/api/users"
+import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 
 type Props = {}
 
+type ProfileModifyFormType = Pick<
+ProfileModifyType,
+  'email' | 'nickname' | "userSummary" 
+>
+
 const ProfileEdit: React.FC<Props> = ({}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProfileModifyFormType>()
+
   const [upload, file] = useUpload();
 	const [imageSrc, setImageSrc] = useState("");
+  const { data: myInfo } = useQuery(
+    ["userInfos"], () => userRepository.readMyInfo()
+  ) 
 
 	const inputRef = useRef(null);
 	const getBase64 = (file: File) => new Promise((resolve, reject) => {
@@ -28,6 +47,37 @@ const ProfileEdit: React.FC<Props> = ({}) => {
 		};
 	})
 
+  const [inputs, setInputs] = useState({ 
+    email: '기존 이메일',
+    nickname: myInfo?.data?.nickname,
+    userSummary: myInfo?.data?.userSummary
+  })
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value
+    })
+  }
+
+  const mutation = useMutation({
+    mutationFn: (params: ProfileModifyType) =>
+      userRepository.modifyUser(params.email, params.nickname, params.userSummary),
+    onSuccess: (data, variables, context) => {
+      console.log(data)
+    },
+  })
+
+  const onSubmit = (data: ProfileModifyFormType) => {
+    console.log(data)
+    mutation.mutate({
+      email: data.email,
+      nickname: data.nickname,
+      userSummary: data.userSummary, 
+    })
+  }
+
 	useEffect(() => {
 		if (file) {
 			getBase64(file).then((src: any) => {
@@ -42,12 +92,12 @@ const ProfileEdit: React.FC<Props> = ({}) => {
     <StyledWrapper className="common-container">
       <div className="header common-h1-sb">프로필 수정</div>
       <div className="profile-info">
-       <div className="lt">
+      <div className="lt">
         <img 
 					src={imageSrc}
           ref={inputRef}
           alt='' /> 
-       </div>
+      </div>
         <div className="rt">
           <Button className="img-btn upload-btn common-h5-sb" onClick={upload}>
             이미지 업로드
@@ -58,16 +108,16 @@ const ProfileEdit: React.FC<Props> = ({}) => {
         </div>
       </div>
       <div className="inputs">
-        <Textfield label="닉네임" placeholder="닉네임을 입력해주세요" />
-        <Textfield label="이메일" placeholder="이메일을 입력해주세요" />
-        <Textfield label="한 줄 소개" placeholder="한 줄 소개 입력해주세요" />
+        <Textfield onChange={onChange} name='nickname' label="닉네임" placeholder={inputs.nickname}/>
+        <Textfield onChange={onChange} name='email' label="이메일" placeholder={inputs.email}/>
+        <Textfield onChange={onChange} name='userSummary' label="한 줄 소개" placeholder={inputs.userSummary}/>
       </div>
       <div className="btns">
-        <Link href={"/username"}>
-          <a>
-            <Button className="submit-btn">수정완료</Button>
-          </a>
-        </Link>
+        {/* <Link href={"/username"}>
+          <a> */}
+            <Button onClick={handleSubmit(onSubmit)} className="submit-btn">수정완료</Button>
+          {/* </a>
+        </Link> */}
       </div>
     </StyledWrapper>
   )

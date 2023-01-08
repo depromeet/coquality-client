@@ -1,5 +1,6 @@
 import { AxiosError } from "axios"
 import Repository from "./repository"
+import coqualityAxiosClient from "./client"
 
 function logResponseErrorMessageAndBypass<T extends AxiosError>(x: T) {
   console.log((x.response as any)?.data?.message)
@@ -11,18 +12,20 @@ interface IFollower {
   userId: number
   nickname: string
   profileImage: string
+  followerCount: number
+  followingCount: number
 }
 
 export class FollowsRepository extends Repository {
-  public async getFollowerCount(userId: number): Promise<number> {
-    const response = await this.client
-      .get(`/follows/users/${userId}`, {
-        headers: { AUTH: this.authToken },
-      })
-      .catch(logResponseErrorMessageAndBypass)
+  // public async getFollowerCount(userId: number): Promise<number> {
+  //   const response = await this.client
+  //     .get(`/follows/`, {
+  //       headers: { AUTH: this.authToken },
+  //     })
+  //     .catch(logResponseErrorMessageAndBypass)
 
-    return response.data.data
-  }
+  //   return response.data.data
+  // }
 
   public async followUser(targetUserId: number): Promise<void> {
     await this.client
@@ -42,27 +45,29 @@ export class FollowsRepository extends Repository {
       .catch(logResponseErrorMessageAndBypass)
   }
 
-  public async getFollowers(userId: number): Promise<IFollower[]> {
-    // TODO: api does not match REST API standard (suggest to change to /follows/users/:userId/followers)
-
+  public async getFollowerCount(): Promise<number> { 
     const response = await this.client
-      .get(`/follows/users/followers/${userId}`, {
+      .get(`/follows`, {
         headers: { AUTH: this.authToken },
       })
       .catch(logResponseErrorMessageAndBypass)
 
-    return response.data.data as IFollower[]
-  }
+    return response.data.data.followerCount  
+  } 
 
-  public async getFollowings(userId: number): Promise<IFollower[]> {
-    // TODO: api does not match REST API standard (suggest to change to /follows/users/:userId/followings)
-
+  public async getFollowingCount(): Promise<number> { 
     const response = await this.client
-      .get(`/follows/users/followings/${userId}`, {
+      .get(`/follows`, {
         headers: { AUTH: this.authToken },
       })
       .catch(logResponseErrorMessageAndBypass)
 
-    return response.data.data as IFollower[]
-  }
+    return response.data.data.followerCount  
+  } 
 }
+
+const followRepository = new FollowsRepository(
+  coqualityAxiosClient,
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
+)
+export default followRepository

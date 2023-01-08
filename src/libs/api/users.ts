@@ -1,5 +1,6 @@
 import coqualityAxiosClient from "./client"
 import Repository from "./repository"
+import coqualityAxiosClient from "./client"
 
 interface IUser {
   nickname: string
@@ -11,6 +12,31 @@ interface IUser {
 //   return x
 // }
 
+interface IGetPostByIdParams {
+  userId?: number
+}
+
+export type PostSortType = "LATEST" | "VIEWS"
+
+export interface IPostType {
+  id: number
+  userId: number
+  title: string 
+  contents: string
+  thumbnail: null
+  primaryCategory: string
+  postStatusCode: string
+  summary: string
+  views: number
+  commentCount: number
+  createdAt: string
+}
+
+export interface ProfileModifyType {
+  email: string,
+  nickname: string,
+  userSummary: string
+}
 export class UsersRepository extends Repository {
   public async readMyInfo(): Promise<IUser> {
     const response = await this.client.get(`/users/read`, {
@@ -43,4 +69,4 @@ const usersRepository = new UsersRepository(
   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
 )
 
-export default usersRepository
+export default usersRepository 
