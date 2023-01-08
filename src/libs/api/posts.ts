@@ -109,7 +109,7 @@ export class PostsRepository extends Repository {
   }
 
   public async getMyPosts(sort: PostSortType = "LATEST"): Promise<IPostType[]> {
-    const response = await this.client.get("/posts/users/my/", {
+    const response = await this.client.get("/posts/my/", {
       params: { sort: sort },
       headers: { AUTH: this.authToken },
     })
