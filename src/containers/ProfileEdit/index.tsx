@@ -7,9 +7,10 @@ import { colors } from "@constants/colors"
 import Button from "@components/inputs/Button"
 import Textfield from "@components/inputs/Textfield"
 import Link from "next/link"   
-import userRepository, { ProfileModifyType } from "@libs/api/users"
+import usersRepository, { ProfileModifyType } from "@libs/api/users"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
+import { useRouter } from "next/router"
 
 type Props = {}
 
@@ -18,7 +19,8 @@ ProfileModifyType,
   'email' | 'nickname' | "userSummary" 
 >
 
-const ProfileEdit: React.FC<Props> = ({}) => {
+const ProfileEdit: React.FC<Props> = ({}) => { 
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -28,7 +30,7 @@ const ProfileEdit: React.FC<Props> = ({}) => {
   const [upload, file] = useUpload();
 	const [imageSrc, setImageSrc] = useState("");
   const { data: myInfo } = useQuery(
-    ["userInfos"], () => userRepository.readMyInfo()
+    ["userInfo"], () => usersRepository.readMyInfo()
   ) 
 
 	const inputRef = useRef(null);
@@ -63,8 +65,9 @@ const ProfileEdit: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: (params: ProfileModifyType) =>
-      userRepository.modifyUser(params.email, params.nickname, params.userSummary),
-    onSuccess: (data, variables, context) => {
+      usersRepository.modifyUser(params.email, params.nickname, params.userSummary),
+    onSuccess: (data, variables, context) => {  
+      router.push('/username')
       console.log(data)
     },
   })
@@ -76,7 +79,7 @@ const ProfileEdit: React.FC<Props> = ({}) => {
       nickname: data.nickname,
       userSummary: data.userSummary, 
     })
-  }
+  } 
 
 	useEffect(() => {
 		if (file) {
@@ -108,16 +111,16 @@ const ProfileEdit: React.FC<Props> = ({}) => {
         </div>
       </div>
       <div className="inputs">
-        <Textfield onChange={onChange} name='nickname' label="닉네임" placeholder={inputs.nickname}/>
-        <Textfield onChange={onChange} name='email' label="이메일" placeholder={inputs.email}/>
-        <Textfield onChange={onChange} name='userSummary' label="한 줄 소개" placeholder={inputs.userSummary}/>
+        <Textfield label="닉네임" {...register("nickname")} placeholder={inputs.nickname}/>
+        <Textfield label="이메일" {...register("email")} placeholder={inputs.email}/>
+        <Textfield label="한 줄 소개" {...register("userSummary")} placeholder={inputs.userSummary}/>
       </div>
       <div className="btns">
-        {/* <Link href={"/username"}>
-          <a> */}
+        <Link href={"/username"}>
+          <a>  
             <Button onClick={handleSubmit(onSubmit)} className="submit-btn">수정완료</Button>
-          {/* </a>
-        </Link> */}
+          </a>
+        </Link>  
       </div>
     </StyledWrapper>
   )

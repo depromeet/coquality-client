@@ -31,7 +31,7 @@ export interface IPostType {
   createdAt: string
 }
 
-export interface ProfileModifyType {
+export interface ProfileModifyType { 
   email: string,
   nickname: string,
   userSummary: string
@@ -42,7 +42,6 @@ export class UsersRepository extends Repository {
       headers: { AUTH: this.authToken },
     })
 
-    // TODO: 백엔드에 data.data가 아니라 data로 바꾸기
     return response.data as IUser
   }
 
