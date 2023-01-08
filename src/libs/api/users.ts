@@ -1,6 +1,5 @@
 import coqualityAxiosClient from "./client"
-import Repository from "./repository"
-import coqualityAxiosClient from "./client"
+import Repository from "./repository" 
 
 interface IUser {
   nickname: string

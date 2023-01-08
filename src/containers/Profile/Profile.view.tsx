@@ -8,7 +8,7 @@ import Button from "@components/inputs/Button"
 import Dropdown from "@components/Dropdown"
 
 import PostCard from "@components/PostCard"  
-import userRepository from "@libs/api/users"
+import usersRepository from "@libs/api/users"
 import postsRepository from "@libs/api/posts"
 import followsRepository from "@libs/api/follows"
 import { IPostType } from "@libs/api/posts"
@@ -18,7 +18,7 @@ type Props = {}
 const Profile: React.FC<Props> = ({}) => {
     
   const { data: myInfo } = useQuery(
-    ["userInfo"], () => userRepository.readMyInfo()
+    ["userInfo"], () => usersRepository.readMyInfo()
   ) 
   const { data: myPosts } = useQuery(
     ["userPosts"], () => postsRepository.getMyPosts()
