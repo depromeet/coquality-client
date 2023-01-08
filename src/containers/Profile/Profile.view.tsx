@@ -10,7 +10,7 @@ import Dropdown from "@components/Dropdown"
 import PostCard from "@components/PostCard"  
 import userRepository from "@libs/api/users"
 import postsRepository from "@libs/api/posts"
-import followsRepository, { FollowsRepository } from "@libs/api/follows"
+import followsRepository from "@libs/api/follows"
 import { IPostType } from "@libs/api/posts"
 
 type Props = {} 
@@ -28,13 +28,13 @@ const Profile: React.FC<Props> = ({}) => {
   )    
   const { data: myFollowingCount } = useQuery(
     ["userFollowingCount"], () => followsRepository.getFollowingCount()
-  )    
-  
+  )     
+  console.log(myInfo);
   return (
     <StyledWrapper className="common-container">
       <div className="profile-info">
         <div className="lt">
-          <div className="lt"></div>
+          <img className="lt" src={myInfo?.data?.profileImageUrl}></img>
           <div className="rt">
             <div className="top">
               <div className="common-h1-sb">{myInfo?.data?.nickname}</div>
@@ -47,8 +47,7 @@ const Profile: React.FC<Props> = ({}) => {
               </div>
             </div>
             <div className="mid common-h3-rg">
-              안녕하세요 <br />
-              {`3년차 공유 모빌리티 서비스 UI/UX 기획자입니다 :)`}
+              {myInfo?.data?.userSummary}
             </div>
             <div className="bottom common-h3-rg">
               <div>팔로워 {myFollowerCount}</div>
