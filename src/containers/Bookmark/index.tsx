@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import React, { useState } from "react"
-import DeleteAllModal from "./DeleteAllModal"
+import DeleteAllModal from "./modals/DeleteAllModal"
 import PostCard from "./PostCard"
 
 type Props = {}

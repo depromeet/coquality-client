@@ -12,6 +12,7 @@ export interface ModalProps {
   onClose?: () => void
   className?: string
   animation?: TAnimation
+  disableDimmed?: boolean
 }
 
 /**
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   open = false,
   onClose = () => {},
   animation = "fade",
+  disableDimmed = false,
 }) => {
   const [openAnimationEnded, setOpenAnimationEnded] = useState(false)
 
@@ -45,7 +47,9 @@ const Modal: React.FC<ModalProps> = ({
         openAnimationEnded={openAnimationEnded}
         onAnimationEnd={handleAnimationEnd}
       >
-        <div className="dimmed" onClick={() => setOpenAnimationEnded(true)} />
+        {!disableDimmed && (
+          <div className="dimmed" onClick={() => setOpenAnimationEnded(true)} />
+        )}
         <div onClick={(e) => e.stopPropagation()} className="content">
           {children}
         </div>

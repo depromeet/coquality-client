@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import React from "react"
 import Comment from "./Comment"
 import CommentListEmpty from "./CommentList.empty"
-import useCommentsQuery from "@containers/ArticleDetail/hooks/useCommentsQuery"
+import useCommentsQuery from "@containers/ArticleDetail/hooks/useCommentListQuery"
 
 type Props = {}
 

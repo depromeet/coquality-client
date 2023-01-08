@@ -5,23 +5,13 @@ import React, {
   TextareaHTMLAttributes,
 } from "react"
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  className?: string
-}
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = (
-  { className, children, ...props },
+  { rows = 3, children, ...props },
   ref
 ) => {
-  return (
-    <StyledWrapper
-      ref={ref}
-      className={className}
-      rows={3}
-      autoComplete="off"
-      {...props}
-    />
-  )
+  return <StyledWrapper ref={ref} rows={rows} autoComplete="off" {...props} />
 }
 
 export default forwardRef(Textarea)

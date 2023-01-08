@@ -25,6 +25,7 @@ const CommentForm: React.FC<Props> = ({}) => {
   const router = useRouter()
 
   const postId = +`${router.query["post-id"]}`
+  const userId = +`${router.query["username"]}`
 
   const { register, handleSubmit, reset, setValue, getValues } =
     useForm<CommentFormType>()
@@ -46,6 +47,7 @@ const CommentForm: React.FC<Props> = ({}) => {
             contents: "",
           })
           queryClient.refetchQueries(["getCommentsOfPost", { postId }])
+          queryClient.refetchQueries(["getPostById", { postId, userId }])
         },
       }
     )

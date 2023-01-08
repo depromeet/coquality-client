@@ -1,3 +1,4 @@
+import coqualityAxiosClient from "./client"
 import Repository from "./repository"
 import coqualityAxiosClient from "./client"
 
@@ -63,8 +64,9 @@ export class UsersRepository extends Repository {
   }
 }
 
-const userRepository = new UsersRepository(
+const usersRepository = new UsersRepository(
   coqualityAxiosClient,
   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
 )
-export default userRepository
+
+export default usersRepository 

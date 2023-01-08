@@ -20,6 +20,7 @@ type Props = {
 
 const PostCard: React.FC<Props> = ({ data }) => {
   const createdAt = toStringByFormatting(new Date(data.createdAt), ".")
+
   return (
     <StyledWrapper>
       <div className="lt">

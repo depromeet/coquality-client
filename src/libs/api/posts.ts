@@ -28,6 +28,7 @@ export interface IPostType {
   postStatusCode: string
   summary: string
   views: number
+  clapCount: number
   commentCount: number
   createdAt: string
   tags: string[]
