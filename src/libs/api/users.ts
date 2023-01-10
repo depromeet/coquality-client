@@ -27,12 +27,13 @@ export interface IPostType {
   commentCount: number
   createdAt: string
 }
-
-export interface ProfileModifyType {
-  email: string
-  nickname: string
+ 
+export interface ProfileModifyType { 
+  email: string,
+  nickname: string, 
   userSummary: string
 }
+
 export class UsersRepository extends Repository {
   public async readUserInfo(id: number): Promise<IUser> {
     const response = await this.client.get(`/users/${id}/read`, {
@@ -48,7 +49,6 @@ export class UsersRepository extends Repository {
       headers: { AUTH: this.authToken },
     })
 
-    // TODO: 백엔드에 data.data가 아니라 data로 바꾸기
     return response.data as IUser
   }
 
