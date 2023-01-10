@@ -44,6 +44,8 @@ const Comment: React.FC<Props> = ({ data }) => {
     )
   }
 
+  console.log(data)
+
   const createdAt = toStringByFormatting(new Date(data.createdAt), ".")
   return (
     <StyledWrapper>

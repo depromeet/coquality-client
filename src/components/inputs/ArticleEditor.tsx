@@ -33,7 +33,6 @@ const ArticleEditor: ForwardRefRenderFunction<Editor, Props> = (
   useEffect(() => {
     if (!editorRef.current) return
     const instanse = editorRef.current.getInstance()
-
     setEditorInstanse(instanse)
     return () => {}
   }, [editorRef])

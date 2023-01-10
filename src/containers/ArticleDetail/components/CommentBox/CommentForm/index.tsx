@@ -122,7 +122,6 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     padding-top: 12px;
     align-items: center;
-
     .lt {
       display: flex;
       gap: 7px;

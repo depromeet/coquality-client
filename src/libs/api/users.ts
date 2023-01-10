@@ -11,6 +11,31 @@ interface IUser {
 //   return x
 // }
 
+interface IGetPostByIdParams {
+  userId?: number
+}
+
+export type PostSortType = "LATEST" | "VIEWS"
+
+export interface IPostType {
+  id: number
+  userId: number
+  title: string
+  contents: string
+  thumbnail: null
+  primaryCategory: string
+  postStatusCode: string
+  summary: string
+  views: number
+  commentCount: number
+  createdAt: string
+}
+
+export interface ProfileModifyType {
+  email: string
+  nickname: string
+  userSummary: string
+}
 export class UsersRepository extends Repository {
   public async readUserInfo(id: number): Promise<IUser> {
     const response = await this.client.get(`/users/${id}/read`, {
