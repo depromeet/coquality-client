@@ -8,7 +8,7 @@ import UserButton from "./UserButton"
 
 type Props = {}
 
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <StyledWrapper>
       <div className="container common-container">
@@ -19,13 +19,13 @@ const Header = (props: Props) => {
         </Link>
         <div className="rt">
           <UserButton />
-          <Link href={"/login"}>
+          {/* <Link href={"/login"}>
             <a>
               <Button className="login-btn" variant="outline">
                 로그인
               </Button>
             </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </StyledWrapper>

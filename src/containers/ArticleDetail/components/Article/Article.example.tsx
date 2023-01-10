@@ -19,8 +19,6 @@ const ArticleView: React.FC<Props> = ({}) => {
     {}
   )
 
-  console.log(data)
-
   return (
     <StyledWrapper>
       <div className="post-header">
