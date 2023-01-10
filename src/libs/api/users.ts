@@ -1,10 +1,7 @@
 import coqualityAxiosClient from "./client"
 import Repository from "./repository"
 
-interface IUser {
-  nickname: string
-  userId: number
-}
+type IUser = any
 
 // function logAndBypass<T>(x: T) {
 //   console.log(x)
