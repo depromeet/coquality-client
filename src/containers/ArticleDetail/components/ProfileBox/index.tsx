@@ -8,7 +8,7 @@ type Props = {}
 
 const ProfileBox: React.FC<Props> = () => {
   return (
-    <ErrorBoundary fallback={<ProfileBoxError />}>
+    <ErrorBoundary fallback={<ProfileBoxView />}>
       <Suspense fallback={<ProfileBoxLoading />}>
         <ProfileBoxView />
       </Suspense>
