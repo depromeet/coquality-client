@@ -2,17 +2,22 @@ import { Button, Textarea } from "@components/inputs"
 import Modal, { ModalProps } from "@components/Modal"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import React from "react"
+import React, { useState } from "react"
 import CloseButton from "./CloseButton.svg"
-interface Props extends ModalProps {}
 
-const BookmarkModal: React.FC<Props> = ({ onClose, ...props }) => {
+interface Props extends ModalProps {
+  postTitle?: string
+}
+
+const BookmarkModal: React.FC<Props> = ({ postTitle, onClose, ...props }) => {
+  const [input, setInput] = useState("")
+
   return (
     <Modal onClose={onClose} {...props}>
       <StyledWrapper>
         <div className="top">
           <div className="lt common-h5-rg">
-            {`'test'`}를 북마크에 저장했어요.
+            {`'${postTitle}'`}를 북마크에 저장했어요.
           </div>
           <div className="close-btn" onClick={onClose}>
             <CloseButton />
@@ -23,11 +28,13 @@ const BookmarkModal: React.FC<Props> = ({ onClose, ...props }) => {
           placeholder="저장한 글에 메모를 작성해보세요 :)"
           maxLength={150}
           rows={4}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
         <div className="btm">
-          <div className="lt">0/150</div>
+          <div className="lt">{input.length}/150</div>
           <Button className="rt common-h5-rg" variant="outline">
-            건너뛰기
+            {input.length > 0 ? "저장하기" : "건너뛰기"}
           </Button>
         </div>
       </StyledWrapper>

@@ -12,6 +12,15 @@ interface IUser {
 // }
 
 export class UsersRepository extends Repository {
+  public async readUserInfo(id: number): Promise<IUser> {
+    const response = await this.client.get(`/users/${id}/read`, {
+      headers: { AUTH: this.authToken },
+    })
+
+    // TODO: 백엔드에 data.data가 아니라 data로 바꾸기
+    return response.data as IUser
+  }
+
   public async readMyInfo(): Promise<IUser> {
     const response = await this.client.get(`/users/read`, {
       headers: { AUTH: this.authToken },

@@ -47,8 +47,6 @@ const ArticleEditor: ForwardRefRenderFunction<Editor, Props> = (
     onBlur(generateOnChangeEvent(name, editorInstanse.getMarkdown()))
   }
 
-  console.log(editorInstanse?.isViewer())
-
   return (
     <StyledWrapper css={toastCss}>
       <Editor

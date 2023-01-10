@@ -5,15 +5,19 @@ import React from "react"
 import UserAvatar from "./UserAvatar.svg"
 import { useQuery } from "@tanstack/react-query"
 import usersRepository from "@libs/api/users"
+import { useRouter } from "next/router"
 
 type Props = {}
 
 const ProfileBoxView: React.FC<Props> = ({}) => {
-  // const query = useQuery(
-  //   ["getCommentsOfPost", { postId }],
-  //   () => usersRepository.getCommentsOfPost(postId),
+  const router = useRouter()
+  const userId = +`${router.query["username"]}`
+
+  // const { data } = useQuery(
+  //   ["readUserInfo", { userId }],
+  //   () => usersRepository.readUserInfo(userId),
   //   {
-  //     enabled: !!postId,
+  //     enabled: !!userId,
   //   }
   // )
 

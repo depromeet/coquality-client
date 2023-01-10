@@ -1,28 +1,54 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import React, { useState } from "react"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import Hand from "./svgs/Hand.svg"
 import Bookmark from "./svgs/Bookmark.svg"
 import ShareBtn from "./svgs/ShareBtn.svg"
 import BookmarkModal from "./BookmarkModal"
 import useArticleQuery from "@containers/ArticleDetail/hooks/useArticleQuery"
+import clapsRepository from "@libs/api/claps"
+import { useRouter } from "next/router"
 
 type Props = {}
 
 const Toolbar: React.FC<Props> = ({}) => {
   const { data } = useArticleQuery()
+  const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
+  const router = useRouter()
+
+  const postId = +`${router.query["post-id"]}`
+  const userId = +`${router.query["username"]}`
+
+  const mutation = useMutation({
+    mutationFn: ({ postId }: { postId: number }) =>
+      clapsRepository.clapPost(postId),
+  })
 
   const handleBookmarkBtn = () => {
     setOpen(true)
+  }
+
+  const handleClapBtn = () => {
+    mutation.mutate(
+      {
+        postId: data!.id,
+      },
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries(["getPostById", { postId, userId }])
+        },
+      }
+    )
   }
 
   return (
     <>
       <StyledWrapper>
         <div className="top">
-          <div className="clap-btn">
+          <div className="clap-btn" onClick={handleClapBtn}>
             <Hand />
             <div className="common-h6-rg">{data?.clapCount}</div>
           </div>
@@ -34,7 +60,12 @@ const Toolbar: React.FC<Props> = ({}) => {
           <ShareBtn />
         </div>
       </StyledWrapper>
-      <BookmarkModal open={open} onClose={() => setOpen(false)} disableDimmed />
+      <BookmarkModal
+        postTitle={data?.title}
+        open={open}
+        onClose={() => setOpen(false)}
+        disableDimmed
+      />
     </>
   )
 }

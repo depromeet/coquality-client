@@ -54,6 +54,22 @@ interface IModifyPostRequest {
 }
 
 export class PostsRepository extends Repository {
+  public async getUserPosts(
+    id: number,
+    sort: PostSortType,
+    primaryCategory?: PostPrimaryCategoryType
+  ): Promise<IPostType[]> {
+    const response = await this.client.get(`/posts/users/${id}`, {
+      params: {
+        sort,
+        primaryCategory,
+      },
+      headers: { AUTH: this.authToken },
+    })
+
+    return response.data.data as IPostType[]
+  }
+
   public async getPosts(
     sort: PostSortType,
     primaryCategory?: PostPrimaryCategoryType
