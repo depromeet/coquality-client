@@ -7,6 +7,7 @@ import { toStringByFormatting } from "@libs/utils/time"
 import UserBtn from "./UserAvatar.svg"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/router"
+import { useAuthInjection } from "@hooks/useAuth"
 
 // TODO: username, user img
 // TODO: 로그인 연동시, 내 댓글만 삭제 가능하도록 수정
@@ -18,6 +19,7 @@ type Props = {
 const Comment: React.FC<Props> = ({ data }) => {
   const router = useRouter()
   const queryClient = useQueryClient()
+  const authInjectedCommentsRepository = useAuthInjection(commentsRepository)
   const postId = +`${router.query["post-id"]}`
 
   const mutation = useMutation({
@@ -27,7 +29,7 @@ const Comment: React.FC<Props> = ({ data }) => {
     }: {
       postId: number
       commentId: number
-    }) => commentsRepository.deleteCommentOnPost(postId, commentId),
+    }) => authInjectedCommentsRepository.deleteCommentOnPost(postId, commentId),
   })
 
   const handleDelete = () => {

@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import commentsRepository from "@libs/api/comments"
 import { useRouter } from "next/router"
+import { useAuthInjection } from "@hooks/useAuth"
 
 // TODO 댓글 작성시  message "User Entity is null" 발생 서버 확인 필요
 
@@ -23,6 +24,7 @@ type Props = {}
 const CommentForm: React.FC<Props> = ({}) => {
   const queryClient = useQueryClient()
   const router = useRouter()
+  const authInjectedCommentsRepository = useAuthInjection(commentsRepository)
 
   const postId = +`${router.query["post-id"]}`
   const userId = +`${router.query["username"]}`
@@ -32,7 +34,7 @@ const CommentForm: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: ({ postId, contents }: { postId: number; contents: string }) =>
-      commentsRepository.createCommentOnPost(postId, contents),
+    authInjectedCommentsRepository.createCommentOnPost(postId, contents),
   })
 
   const onSubmit = (data: CommentFormType) => {

@@ -10,6 +10,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import PostStatusToggle from "./PostStatusToggle"
 import { useRouter } from "next/router"
+import { useAuthInjection } from "@hooks/useAuth"
 
 // TODO: 태그 api 나오면 연동이 필요해요.
 
@@ -29,12 +30,13 @@ const ArticleEditor = dynamic(
 type Props = {}
 
 const ArticleWrite: React.FC<Props> = ({}) => {
+  const authInjectedPostsRepository = useAuthInjection(postsRepository)
   const router = useRouter()
   const { register, handleSubmit } = useForm<ArticleWriteFormType>()
 
   const mutation = useMutation({
     mutationFn: (params: ICreatePostRequest) =>
-      postsRepository.createPost(params),
+      authInjectedPostsRepository.createPost(params),
     onSuccess: (data, variables, context) => {
       router.push(`/${data.userId}/${data.id}`)
     },

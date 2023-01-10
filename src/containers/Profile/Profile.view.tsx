@@ -7,29 +7,32 @@ import WriterLevelChip from "./WriterLevelChip.svg"
 import Button from "@components/inputs/Button"
 import Dropdown from "@components/Dropdown"
 
-import PostCard from "@components/PostCard"  
+import PostCard from "@components/PostCard"
 import usersRepository from "@libs/api/users"
 import postsRepository from "@libs/api/posts"
 import followsRepository from "@libs/api/follows"
 import { IPostType } from "@libs/api/posts"
+import { useAuthInjection } from "@hooks/useAuth"
 
-type Props = {} 
+type Props = {}
 
 const Profile: React.FC<Props> = ({}) => {
-    
-  const { data: myInfo } = useQuery(
-    ["userInfo"], () => usersRepository.readMyInfo()
-  ) 
-  const { data: myPosts } = useQuery(
-    ["userPosts"], () => postsRepository.getMyPosts()
-  )    
-  const { data: myFollowerCount } = useQuery(
-    ["userFollowerCount"], () => followsRepository.getFollowerCount()
-  )    
-  const { data: myFollowingCount } = useQuery(
-    ["userFollowingCount"], () => followsRepository.getFollowingCount()
-  )     
-  console.log(myInfo);
+  const authInjectedFollowsRepository = useAuthInjection(followsRepository)
+  const authInjectedPostsRepository = useAuthInjection(postsRepository)
+  const authInjectedUsersRepository = useAuthInjection(usersRepository)
+  const { data: myInfo } = useQuery(["userInfo"], () =>
+    authInjectedUsersRepository.readMyInfo()
+  )
+  const { data: myPosts } = useQuery(["userPosts"], () =>
+    authInjectedPostsRepository.getMyPosts()
+  )
+  const { data: myFollowerCount } = useQuery(["userFollowerCount"], () =>
+    authInjectedFollowsRepository.getFollowerCount()
+  )
+  const { data: myFollowingCount } = useQuery(["userFollowingCount"], () =>
+    authInjectedFollowsRepository.getFollowingCount()
+  )
+  console.log(myInfo)
   return (
     <StyledWrapper className="common-container">
       <div className="profile-info">
@@ -39,16 +42,14 @@ const Profile: React.FC<Props> = ({}) => {
             <div className="top">
               <div className="common-h1-sb">{myInfo?.data?.nickname}</div>
               <div className="chip">
-                <Link href='/username/grade'> 
-                  <a> 
+                <Link href="/username/grade">
+                  <a>
                     <WriterLevelChip />
                   </a>
                 </Link>
               </div>
             </div>
-            <div className="mid common-h3-rg">
-              {myInfo?.data?.userSummary}
-            </div>
+            <div className="mid common-h3-rg">{myInfo?.data?.userSummary}</div>
             <div className="bottom common-h3-rg">
               <div>팔로워 {myFollowerCount}</div>
               <div>팔로잉 {myFollowingCount}</div>
@@ -81,7 +82,7 @@ const Profile: React.FC<Props> = ({}) => {
           </div>
           <Dropdown />
         </div>
-        <div className="post-list"> 
+        <div className="post-list">
           {myPosts!.map((post: IPostType) => (
             <PostCard key={post.id} data={post} />
           ))}

@@ -8,11 +8,13 @@ import postsRepository, {
   PostSortType,
 } from "@libs/api/posts"
 import PostListEmpty from "./PostList.empty"
+import { useAuthInjection } from "@hooks/useAuth"
 
 type Props = {}
 
 const PostListView: React.FC<Props> = ({}) => {
   const router = useRouter()
+  const authInjectedPostsRepository = useAuthInjection(postsRepository)
 
   const currentSort = useMemo<PostSortType>(() => {
     return `${router.query.sort || `VIEWS`}`.toUpperCase() as PostSortType
@@ -25,7 +27,7 @@ const PostListView: React.FC<Props> = ({}) => {
 
   const { data } = useQuery(
     ["posts", { currentSort, currentCategory }],
-    () => postsRepository.getPosts(currentSort, currentCategory),
+    () => authInjectedPostsRepository.getPosts(currentSort, currentCategory),
     {}
   )
 

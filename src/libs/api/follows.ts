@@ -17,16 +17,6 @@ interface IFollower {
 }
 
 export class FollowsRepository extends Repository {
-  // public async getFollowerCount(userId: number): Promise<number> {
-  //   const response = await this.client
-  //     .get(`/follows/`, {
-  //       headers: { AUTH: this.authToken },
-  //     })
-  //     .catch(logResponseErrorMessageAndBypass)
-
-  //   return response.data.data
-  // }
-
   public async followUser(targetUserId: number): Promise<void> {
     await this.client
       .post(
@@ -66,8 +56,7 @@ export class FollowsRepository extends Repository {
   } 
 }
 
-const followRepository = new FollowsRepository(
+const followsRepository = new FollowsRepository(
   coqualityAxiosClient,
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
 )
-export default followRepository
+export default followsRepository

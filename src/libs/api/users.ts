@@ -3,15 +3,6 @@ import Repository from "./repository"
 
 type IUser = any
 
-// function logAndBypass<T>(x: T) {
-//   console.log(x)
-//   return x
-// }
-
-interface IGetPostByIdParams {
-  userId?: number
-}
-
 export type PostSortType = "LATEST" | "VIEWS"
 
 export interface IPostType {
@@ -27,10 +18,10 @@ export interface IPostType {
   commentCount: number
   createdAt: string
 }
- 
-export interface ProfileModifyType { 
-  email: string,
-  nickname: string, 
+
+export interface ProfileModifyType {
+  email: string
+  nickname: string
   userSummary: string
 }
 
@@ -69,9 +60,6 @@ export class UsersRepository extends Repository {
   }
 }
 
-const usersRepository = new UsersRepository(
-  coqualityAxiosClient,
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
-)
+const usersRepository = new UsersRepository(coqualityAxiosClient)
 
 export default usersRepository

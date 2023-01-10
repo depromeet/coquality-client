@@ -11,6 +11,7 @@ import usersRepository, { ProfileModifyType } from "@libs/api/users"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { useAuthInjection } from "@hooks/useAuth"
 
 type Props = {}
 
@@ -21,6 +22,7 @@ ProfileModifyType,
 
 const ProfileEdit: React.FC<Props> = ({}) => { 
   const router = useRouter()
+  const authInjectedUsersRepository = useAuthInjection(usersRepository)
   const {
     register,
     handleSubmit,
@@ -30,7 +32,7 @@ const ProfileEdit: React.FC<Props> = ({}) => {
   const [upload, file] = useUpload();
 	const [imageSrc, setImageSrc] = useState("");
   const { data: myInfo } = useQuery(
-    ["userInfo"], () => usersRepository.readMyInfo()
+    ["userInfo"], () => authInjectedUsersRepository.readMyInfo()
   ) 
 
 	const inputRef = useRef(null);
@@ -65,7 +67,7 @@ const ProfileEdit: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: (params: ProfileModifyType) =>
-      usersRepository.modifyUser(params.email, params.nickname, params.userSummary),
+      authInjectedUsersRepository.modifyUser(params.email, params.nickname, params.userSummary),
     onSuccess: (data, variables, context) => {  
       router.push('/username')
       console.log(data)

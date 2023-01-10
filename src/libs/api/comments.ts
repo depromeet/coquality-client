@@ -62,7 +62,6 @@ export class CommentsRepository extends Repository {
 
 const commentsRepository = new CommentsRepository(
   coqualityAxiosClient,
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzI3NTIzNTIsImV4cCI6MTY3NTM0NDM1Mn0.vY4jYVKHw9pk8LvXu8WKlse9Ncjt9qeaosFFnydN0idewco6a1ZbWP6hu1PVStqUfN-JdhBfPe-ewrDtYOaqFg"
 )
 
 export default commentsRepository
