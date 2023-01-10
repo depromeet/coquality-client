@@ -75,9 +75,9 @@ const ProfileEdit: React.FC<Props> = ({}) => {
   const onSubmit = (data: ProfileModifyFormType) => {
     console.log(data)
     mutation.mutate({
-      email: data.email,
-      nickname: data.nickname,
-      userSummary: data.userSummary, 
+      email: data.email || inputs.email,
+      nickname: data.nickname || inputs.nickname,
+      userSummary: data.userSummary || inputs.userSummary, 
     })
   } 
 
