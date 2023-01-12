@@ -10,11 +10,13 @@ import React, { useMemo } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import DefaultImg from "./DefaultImg.svg"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const RelatedArticleListView: React.FC<Props> = ({}) => {
   const router = useRouter()
+  const auth = useAuth()
 
   const currentSort = useMemo<PostSortType>(() => {
     return `${router.query.sort || `VIEWS`}`.toUpperCase() as PostSortType
@@ -29,7 +31,13 @@ const RelatedArticleListView: React.FC<Props> = ({}) => {
 
   const { data } = useQuery(
     ["getUserPosts", { userId }],
-    () => postsRepository.getUserPosts(userId, currentSort, currentCategory),
+    () =>
+      postsRepository.getUserPosts(
+        userId,
+        currentSort,
+        auth.token,
+        currentCategory
+      ),
     {
       enabled: !!userId,
     }

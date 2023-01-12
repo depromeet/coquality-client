@@ -5,19 +5,19 @@ import styled from "@emotion/styled"
 import postsRepository from "@libs/api/posts"
 import { useRouter } from "next/router"
 import React from "react"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 type Props = {}
 
 const ArticleView: React.FC<Props> = ({}) => {
   const router = useRouter()
-  const authInjectedPostsRepository = useAuthInjection(postsRepository)
+  const auth = useAuth()
 
   const userId = +`${router.query["user-id"]}`
   const postId = +`${router.query["post-id"]}`
 
   const { data } = useQuery(
     ["getPostById", { postId, userId }],
-    () => authInjectedPostsRepository.getPostById(postId, { userId }),
+    () => postsRepository.getPostById(postId, { userId }, auth.token),
     {}
   )
 

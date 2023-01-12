@@ -9,8 +9,6 @@ type Props = {}
 const CommentBox: React.FC<Props> = ({}) => {
   const { data } = useArticleQuery()
 
-  console.log(data)
-
   return (
     <StyledWrapper>
       <div className="comment-wrapper">

@@ -9,7 +9,6 @@ type Props = {}
 
 const ProfileBoxView: React.FC<Props> = ({}) => {
   const router = useRouter()
-  const userId = +`${router.query["username"]}`
 
   return (
     <StyledWrapper>

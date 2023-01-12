@@ -12,25 +12,24 @@ import usersRepository from "@libs/api/users"
 import postsRepository from "@libs/api/posts"
 import followsRepository from "@libs/api/follows"
 import { IPostType } from "@libs/api/posts"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const Profile: React.FC<Props> = ({}) => {
-  const authInjectedFollowsRepository = useAuthInjection(followsRepository)
-  const authInjectedPostsRepository = useAuthInjection(postsRepository)
-  const authInjectedUsersRepository = useAuthInjection(usersRepository)
+  const auth = useAuth()
+
   const { data: myInfo } = useQuery(["userInfo"], () =>
-    authInjectedUsersRepository.readMyInfo()
+    usersRepository.readMyInfo(auth.token)
   )
   const { data: myPosts } = useQuery(["userPosts"], () =>
-    authInjectedPostsRepository.getMyPosts()
+    postsRepository.getMyPosts(undefined, auth.token)
   )
   const { data: myFollowerCount } = useQuery(["userFollowerCount"], () =>
-    authInjectedFollowsRepository.getFollowerCount()
+    followsRepository.getFollowerCount(auth.token)
   )
   const { data: myFollowingCount } = useQuery(["userFollowingCount"], () =>
-    authInjectedFollowsRepository.getFollowingCount()
+    followsRepository.getFollowingCount(auth.token)
   )
   console.log(myInfo)
   return (

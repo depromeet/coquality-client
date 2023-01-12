@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { useAuth } from "@hooks/useAuth"
 import React from "react"
 
 import Article from "./components/Article"
@@ -9,6 +10,7 @@ import Toolbar from "./components/Toolbar"
 type Props = {}
 
 const ArticleDetail: React.FC<Props> = ({}) => {
+  
   return (
     <StyledWrapper className="common-container">
       <div className="lt">

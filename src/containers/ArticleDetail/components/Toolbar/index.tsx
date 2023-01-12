@@ -10,13 +10,13 @@ import BookmarkModal from "./BookmarkModal"
 import useArticleQuery from "@containers/ArticleDetail/hooks/useArticleQuery"
 import clapsRepository from "@libs/api/claps"
 import { useRouter } from "next/router"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const Toolbar: React.FC<Props> = ({}) => {
   const { data } = useArticleQuery()
-  const authInjectedClapsRepository = useAuthInjection(clapsRepository)
+  const auth = useAuth()
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -26,7 +26,7 @@ const Toolbar: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: ({ postId }: { postId: number }) =>
-      authInjectedClapsRepository.clapPost(postId),
+      clapsRepository.clapPost(postId, auth.token),
   })
 
   const handleBookmarkBtn = () => {
