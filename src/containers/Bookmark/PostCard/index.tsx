@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import React, { useState } from "react"
