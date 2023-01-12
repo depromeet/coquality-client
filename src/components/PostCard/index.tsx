@@ -55,7 +55,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
       </div>
       <div className="rt">
         {data.thumbnail ? (
-          <Image src={data.thumbnail} width={190} height={190} />
+          <Image alt='' src={data.thumbnail} width={190} height={190} />
         ) : (
           <DefaultImg />
         )}

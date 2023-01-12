@@ -18,9 +18,18 @@ interface IGetPostByIdParams {
   userId?: number
 }
 
+export interface BookmarkType {
+  postId: number
+  title: string
+  nickname: string
+  createdAt: string
+  thumbnail: null
+  description: string
+} 
+
 export interface IPostType {
   id: number
-  userId: number
+  userId: number 
   title: string
   contents: string
   thumbnail: null
