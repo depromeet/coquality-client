@@ -20,7 +20,7 @@ describe("AuthRepository", () => {
                 "mymail1@gmail.com",
                 "mymail1",
                 "KAKAO",
-                "someToken"
+                "TkrugkAth-5x52kb7DJu4RfvQYpHV18MS2SElMslnfejcxPSUXc2r57a_A-us7zQdOjvHAoqJQ4AAAGFnCgvag"
             )
 
             console.log(posts)
