@@ -2,6 +2,10 @@ import { Button, Textarea } from "@components/inputs"
 import Modal, { ModalProps } from "@components/Modal"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
+import { useAuthInjection } from "@hooks/useAuth"
+import bookmarkRepository from "@libs/api/bookmarks"
+import { useMutation } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import React, { useState } from "react"
 import CloseButton from "./CloseButton.svg"
 
@@ -10,7 +14,25 @@ interface Props extends ModalProps {
 }
 
 const BookmarkModal: React.FC<Props> = ({ postTitle, onClose, ...props }) => {
+  const router = useRouter()
+  const postId = +`${router.query["post-id"]}`
+  const userId = +`${router.query["username"]}`
   const [input, setInput] = useState("")
+  const authInjectedBookmarkRepository = useAuthInjection(bookmarkRepository)
+
+  const updateBookmarkMutation = useMutation({
+    mutationFn: ({ postId, input }: { postId: number; input: string }) =>
+      authInjectedBookmarkRepository.updateBookmark(postId, input),
+  })
+
+  const handleClick = () => {
+    updateBookmarkMutation.mutate({
+      postId,
+      input,
+    })
+    setInput("")
+    onClose && onClose()
+  }
 
   return (
     <Modal onClose={onClose} {...props}>
@@ -33,7 +55,11 @@ const BookmarkModal: React.FC<Props> = ({ postTitle, onClose, ...props }) => {
         />
         <div className="btm">
           <div className="lt">{input.length}/150</div>
-          <Button className="rt common-h5-rg" variant="outline">
+          <Button
+            className="rt common-h5-rg"
+            variant="outline"
+            onClick={handleClick}
+          >
             {input.length > 0 ? "저장하기" : "건너뛰기"}
           </Button>
         </div>

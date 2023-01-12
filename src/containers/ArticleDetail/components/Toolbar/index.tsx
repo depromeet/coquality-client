@@ -11,12 +11,15 @@ import useArticleQuery from "@containers/ArticleDetail/hooks/useArticleQuery"
 import clapsRepository from "@libs/api/claps"
 import { useRouter } from "next/router"
 import { useAuthInjection } from "@hooks/useAuth"
+import { useQuery } from "@tanstack/react-query"
+import bookmarkRepository from "@libs/api/bookmarks"
 
 type Props = {}
 
 const Toolbar: React.FC<Props> = ({}) => {
   const { data } = useArticleQuery()
   const authInjectedClapsRepository = useAuthInjection(clapsRepository)
+  const authInjectedBookmarkRepository = useAuthInjection(bookmarkRepository)
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -24,13 +27,53 @@ const Toolbar: React.FC<Props> = ({}) => {
   const postId = +`${router.query["post-id"]}`
   const userId = +`${router.query["username"]}`
 
+  const { data: bookmarkData } = useQuery(
+    ["bookmarkCheck", { postId }],
+    () => authInjectedBookmarkRepository.bookmarkCheck(postId),
+    {
+      enabled: !!postId,
+    }
+  )
+
   const mutation = useMutation({
     mutationFn: ({ postId }: { postId: number }) =>
       authInjectedClapsRepository.clapPost(postId),
   })
+  const addBookmarkMutation = useMutation({
+    mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
+      authInjectedBookmarkRepository.addBookmark(postId, userId),
+  })
+  const removeBookmarkMutation = useMutation({
+    mutationFn: ({ postId }: { postId: number }) =>
+      authInjectedBookmarkRepository.removeBookmark(postId),
+  })
 
   const handleBookmarkBtn = () => {
-    setOpen(true)
+    if (!bookmarkData?.bookmarkYn) {
+      addBookmarkMutation.mutate(
+        {
+          postId,
+          userId,
+        },
+        {
+          onSuccess: () => {
+            queryClient.refetchQueries(["bookmarkCheck", { postId }])
+          },
+        }
+      )
+      setOpen(true)
+    } else {
+      removeBookmarkMutation.mutate(
+        {
+          postId,
+        },
+        {
+          onSuccess: () => {
+            queryClient.refetchQueries(["bookmarkCheck", { postId }])
+          },
+        }
+      )
+    }
   }
 
   const handleClapBtn = () => {
@@ -54,7 +97,11 @@ const Toolbar: React.FC<Props> = ({}) => {
             <Hand />
             <div className="common-h6-rg">{data?.clapCount}</div>
           </div>
-          <div className="bookmark-btn" onClick={handleBookmarkBtn}>
+          <div
+            className="bookmark-btn"
+            onClick={handleBookmarkBtn}
+            data-active={bookmarkData?.bookmarkYn}
+          >
             <Bookmark />
           </div>
         </div>
@@ -95,6 +142,12 @@ const StyledWrapper = styled.div`
     }
     .bookmark-btn {
       cursor: pointer;
+      &[data-active="false"] {
+        path {
+          stroke: white;
+          fill: white;
+        }
+      }
     }
   }
   .mid {
