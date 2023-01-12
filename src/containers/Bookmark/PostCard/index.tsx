@@ -6,8 +6,9 @@ import Link from "next/link"
 import DeleteOneModal from "../modals/DeleteOneModal"
 import DeleteIco from "./DeleteIco.svg"
 import { useQuery } from "@tanstack/react-query"
-import bookmarksRepository from "@libs/api/bookmark"
-import { IPostType, BookmarkType } from "@libs/api/posts"
+import bookmarksRepository from "@libs/api/bookmarks"
+import { IPostType } from "@libs/api/posts"
+import { BookmarkType } from "@libs/api/bookmarks"
 
 type Props = {
   data: BookmarkType

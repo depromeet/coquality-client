@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import DeleteAllModal from "./modals/DeleteAllModal"
 import PostCard from "./PostCard" 
-import bookmarksRepository from "@libs/api/bookmark"
+import bookmarksRepository from "@libs/api/bookmarks"
 
 type Props = {}
 
