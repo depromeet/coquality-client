@@ -1,29 +1,40 @@
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import React, { useState } from "react"
+import Link from "next/link"
 import DeleteOneModal from "../modals/DeleteOneModal"
 import DeleteIco from "./DeleteIco.svg"
+import { useQuery } from "@tanstack/react-query"
+import bookmarksRepository from "@libs/api/bookmark"
+import { IPostType, BookmarkType } from "@libs/api/posts"
 
-type Props = {}
+type Props = {
+  data: BookmarkType
+  data2: IPostType
+}
 
-const PostCard: React.FC<Props> = ({}) => {
+const PostCard: React.FC<Props> = ({ data, data2 }) => {
   const [open, setOpen] = useState(false)
+  const { data: myBookmarks } = useQuery(
+    ["userBookmarks"], () => bookmarksRepository.getBookmarkPosts()
+  )   
+
+  console.log("myBookmark", myBookmarks)
+
   return (
     <>
       <StyledWrapper>
         <div className="top">
-          <div className="lt">
-            <div className="title common-h4-sb">
-              쿠팡 로켓배송의 가치는 어떻게 측정할 수 있을까?
-            </div>
-            <div className="subtitle common-h6-rg">Jay | 2022.11.05</div>
+          <div className="lt"> 
+          <Link href={`/${data2.userId}`}>  {/* 수정 필요 */}
+            <a className="title common-h4-sb">{data.title}</a>
+          </Link> 
+            <div className="subtitle common-h6-rg">{data.nickname} | {data.createdAt}</div>
           </div>
-          <div className="rt"></div>
+          <img src={data.thumbnail} alt='저장된 글 썸네일' className="rt"></img>
         </div>
-        <div className="mid common-h5-rg">
-          기술은 항상 변화하고 있고 여러분의 프로세스와 관행은 이러한 변화를
-          따라잡아야 합니다. npm이 출시된 지 12년이 되었지만, npm 패키지 생성에
-          대한 당신의 관행은 훨씬 더 현대적이기를 바랍니다.
+        <div className="mid common-h5-rg"> 
+          {data.description}  
         </div>
         <div className="bottom">
           <div className="btn common-h6-rg">
@@ -47,8 +58,9 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    .lt {
-      display: flex;
+    .lt { 
+      width: 232px;
+      height: 54px;
       flex-direction: column;
       gap: 10px;
       .subtitle {
@@ -64,6 +76,7 @@ const StyledWrapper = styled.div`
     }
   }
   .mid {
+    height: 169px;
     padding: 12px 16px;
     border-radius: 10px;
     background-color: ${colors.grey200};
