@@ -30,7 +30,7 @@ const ToolbarView: React.FC<Props> = ({}) => {
     ["bookmarkCheck", { postId }],
     () => bookmarkRepository.bookmarkCheck(postId, auth.token),
     {
-      enabled: !!postId,
+      enabled: !!(postId && auth.token),
     }
   )
 
