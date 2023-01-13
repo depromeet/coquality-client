@@ -8,15 +8,16 @@ import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
-const Bookmark: React.FC<Props> = ({}) => {
+const BookmarkView: React.FC<Props> = ({}) => {
   const auth = useAuth()
   const [open, setOpen] = useState(false)
   const [myBookmarks, setMyBookmarks] = useState([])
-  
+
   useEffect(() => {
-    bookmarksRepository
-      .getBookmarkPosts(auth.token)
-      .then((data) => setMyBookmarks(data))
+    if (auth.token)
+      bookmarksRepository
+        .getBookmarkPosts(auth.token)
+        .then((data) => setMyBookmarks(data))
   }, [auth.token])
 
   return (
@@ -29,12 +30,8 @@ const Bookmark: React.FC<Props> = ({}) => {
           </div>
         </div>
         <div className="post-list">
-          {/* {JSON.stringify(myBookmarks)} */}
-          {myBookmarks?.map((bookmark: any) => (
-            <PostCard
-              key={`PostListView-${bookmark?.userId}`}
-              bookmark={bookmark}
-            />
+          {myBookmarks?.map((bookmark: any, idx) => (
+            <PostCard key={`PostListView-${idx}`} bookmark={bookmark} />
           ))}
         </div>
       </StyledWrapper>
@@ -43,7 +40,7 @@ const Bookmark: React.FC<Props> = ({}) => {
   )
 }
 
-export default Bookmark
+export default BookmarkView
 
 const StyledWrapper = styled.div`
   padding-top: 70px;
