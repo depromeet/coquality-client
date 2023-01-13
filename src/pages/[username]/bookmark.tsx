@@ -2,7 +2,7 @@ import { ReactElement } from "react"
 
 import { NextPageWithLayout } from "@pages/_app"
 import Layout from "@components/Layout"
-import Bookmark from "@containers/Bookmark"
+import Bookmark from "@containers/Bookmark/Bookmark.view"
 
 const BookmarkPage: NextPageWithLayout = () => {
   return <Bookmark />

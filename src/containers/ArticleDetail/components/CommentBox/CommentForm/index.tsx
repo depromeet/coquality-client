@@ -15,8 +15,6 @@ import commentsRepository from "@libs/api/comments"
 import { useRouter } from "next/router"
 import { useAuth } from "@hooks/useAuth"
 
-// TODO 댓글 작성시  message "User Entity is null" 발생 서버 확인 필요
-
 type CommentFormType = { contents: string }
 
 type Props = {}

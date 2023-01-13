@@ -9,7 +9,6 @@ import Textfield from "@components/inputs/Textfield"
 import Link from "next/link"
 import usersRepository, { ProfileModifyType } from "@libs/api/users"
 import { useMutation } from "@tanstack/react-query"
-import axios from "axios"
 import { useRouter } from "next/router"
 import { useAuth } from "@hooks/useAuth"
 

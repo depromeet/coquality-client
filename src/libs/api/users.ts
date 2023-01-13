@@ -39,7 +39,7 @@ export class UsersRepository extends Repository {
     })
 
     // TODO: 백엔드에 data.data가 아니라 data로 바꾸기
-    return response.data as IUser
+    return response.data.data as IUser
   }
 
   public async readMyInfo(authToken: string) {
