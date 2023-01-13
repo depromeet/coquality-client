@@ -17,7 +17,7 @@ export class AuthRepository extends Repository {
       token,
     })
 
-    return response.data
+    return response.data.data
   }
 
   public async signIn(socialType: string, token: string) {

@@ -43,6 +43,7 @@ export class UsersRepository extends Repository {
   }
 
   public async readMyInfo(authToken: string) {
+    console.log("GOOGOOGOO", authToken)
     const response = await this.client.get(`/users/read`, {
       headers: { AUTH: authToken },
     })
