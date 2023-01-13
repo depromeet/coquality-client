@@ -1,4 +1,4 @@
-// integation tests for coquality rest api
+s// integation tests for coquality rest api
 
 import { AuthRepository } from "./auth"
 import coqualityAxiosClient from "./client"

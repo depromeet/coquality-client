@@ -1,6 +1,5 @@
 import { useAuth } from "@hooks/useAuth"
 import React, { FormEvent, useEffect, useState } from "react"
-import Image from "next/image"
 import {
   Card,
   Flex,
@@ -54,7 +53,7 @@ const Signup: React.FC<Props> = ({}) => {
 
       const ingaCode = window.location.search.replace("?code=", "")
       const redirectUri = window.location.origin + "/oauth/"
-      
+
       // 인가 코드 -> 액세스 토큰 -> 코컬리티 토큰
       const data = await authRepository.requestAuthToken(
         ingaCode as string,
@@ -70,8 +69,10 @@ const Signup: React.FC<Props> = ({}) => {
       console.log({ userExists })
 
       if (userExists) {
-        const coqualityToken = (await authRepository.signIn("KAKAO", accessToken)).token
-        console.log({coqualityToken})
+        const coqualityToken = (
+          await authRepository.signIn("KAKAO", accessToken)
+        ).token
+        console.log({ coqualityToken })
         auth.login(coqualityToken)
       } else {
       }
@@ -86,7 +87,7 @@ const Signup: React.FC<Props> = ({}) => {
   }, [])
 
   if (isLoading) {
-    return <Spinner></Spinner>
+    return <Spinner />
   }
 
   return (

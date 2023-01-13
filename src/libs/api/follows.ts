@@ -3,10 +3,14 @@ import Repository from "./repository"
 import coqualityAxiosClient from "./client"
 
 export class FollowsRepository extends Repository {
+<<<<<<< HEAD
   public async followUser(
     targetUserId: number,
     authToken: string
   ): Promise<void> {
+=======
+  public async followUser(targetUserId: number): Promise<void> {
+>>>>>>> develop
     await this.client
       .post(`/follows/${targetUserId}`, {}, { headers: { AUTH: authToken } })
       
@@ -44,5 +48,12 @@ export class FollowsRepository extends Repository {
   }
 }
 
+<<<<<<< HEAD
 const followsRepository = new FollowsRepository(coqualityAxiosClient)
 export default followsRepository
+=======
+const followsRepository = new FollowsRepository(
+  coqualityAxiosClient,
+)
+export default followsRepository
+>>>>>>> develop
