@@ -13,16 +13,15 @@ import { useAuth } from "@hooks/useAuth"
 
 type Props = {
   data: BookmarkType
-  data2: IPostType
 }
 
-const PostCard: React.FC<Props> = ({ data, data2 }) => {
+const PostCard: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false)
   const auth = useAuth()
   const { data: myBookmarks } = useQuery(["userBookmarks"], () =>
     bookmarksRepository.getBookmarkPosts(auth.token)
   )
-
+  auth.userInfo?.userId
   console.log("myBookmark", myBookmarks)
 
   return (
@@ -30,9 +29,7 @@ const PostCard: React.FC<Props> = ({ data, data2 }) => {
       <StyledWrapper>
         <div className="top">
           <div className="lt">
-            <Link href={`/${data2.userId}`}>
-              {" "}
-              {/* 수정 필요 */}
+            <Link href={`/${auth.userInfo?.userId}/${data.postId}`}>
               <a className="title common-h4-sb">{data.title}</a>
             </Link>
             <div className="subtitle common-h6-rg">
