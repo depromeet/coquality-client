@@ -1,6 +1,9 @@
-import { useAuth } from "@hooks/useAuth"
+import React from "react"
+import { useAuth } from "../hooks/useAuth"
 
-export default function () {
+const Debug = () => {
   const auth = useAuth()
   return <div>{JSON.stringify(auth)}</div>
 }
+
+export default Debug

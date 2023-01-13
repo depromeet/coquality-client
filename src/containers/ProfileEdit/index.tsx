@@ -31,8 +31,12 @@ const ProfileEdit: React.FC<Props> = ({}) => {
 
   const [upload, file] = useUpload()
   const [imageSrc, setImageSrc] = useState("")
-  const { data: myInfo } = useQuery(["userInfo"], () =>
-    usersRepository.readMyInfo(auth.token)
+  const { data: myInfo } = useQuery(
+    ["userInfo"],
+    () => usersRepository.readMyInfo(auth.token),
+    {
+      enabled: !!auth.token,
+    }
   )
 
   const inputRef = useRef(null)

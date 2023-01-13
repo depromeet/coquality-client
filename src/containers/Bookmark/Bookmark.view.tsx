@@ -9,10 +9,10 @@ import { useAuth } from "@hooks/useAuth"
 type Props = {}
 
 const Bookmark: React.FC<Props> = ({}) => {
+  const auth = useAuth()
   const [open, setOpen] = useState(false)
   const [myBookmarks, setMyBookmarks] = useState([])
-
-  const auth = useAuth()
+  
   useEffect(() => {
     bookmarksRepository
       .getBookmarkPosts(auth.token)
