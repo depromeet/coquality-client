@@ -45,7 +45,7 @@
   </tr>
   <tr>  
     <th><a href="https://github.com/morethanmin"><b>이상민</b></a></th>
-    <th><a href="https://github.com/sebastianrcnt"><b>김해나</b></a></th>
-    <th><a href="https://github.com/zeroto99"><b>정시원</b></a></th>
+    <th><a href="https://github.com/kimhn0605"><b>김해나</b></a></th>
+    <th><a href="https://github.com/sebastianrcnt"><b>정시원</b></a></th>
   </tr>
 </table> 
