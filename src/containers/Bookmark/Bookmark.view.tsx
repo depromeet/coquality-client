@@ -1,17 +1,23 @@
 import styled from "@emotion/styled"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import DeleteAllModal from "./modals/DeleteAllModal"
 import PostCard from "./PostCard"
 import bookmarksRepository from "@libs/api/bookmarks"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const Bookmark: React.FC<Props> = ({}) => {
   const [open, setOpen] = useState(false)
-  const { data: myBookmarks } = useQuery(["userBookmarks"], () =>
-    bookmarksRepository.getBookmarkPosts()
-  )
+  const [myBookmarks, setMyBookmarks] = useState([])
+
+  const auth = useAuth()
+  useEffect(() => {
+    bookmarksRepository
+      .getBookmarkPosts(auth.token)
+      .then((data) => setMyBookmarks(data))
+  }, [auth.token])
 
   return (
     <>
@@ -23,11 +29,11 @@ const Bookmark: React.FC<Props> = ({}) => {
           </div>
         </div>
         <div className="post-list">
+          {/* {JSON.stringify(myBookmarks)} */}
           {myBookmarks?.map((bookmark: any) => (
             <PostCard
               key={`PostListView-${bookmark?.userId}`}
-              data={bookmark}
-              data2={bookmark}
+              bookmark={bookmark}
             />
           ))}
         </div>

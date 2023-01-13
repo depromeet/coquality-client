@@ -26,18 +26,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false)
   const [userInfo, setUserInfo] = React.useState<IUser>()
   const [isLoginInfoLoading, setIsLoginInfoLoading] = React.useState(true)
-  useEffect(() => {
-    if (!isLoginInfoLoading) {
-      if (
-        !["/", "/login", "/oauth", "/signup"].includes(router.pathname.trim())
-      ) {
-        if (!isLoggedIn) {
-          alert("로그인이 필요한 페이지입니다 ")
-          router.push("/")
-        }
-      }
-    }
-  }, [router.pathname, isLoggedIn, isLoginInfoLoading])
+  // useEffect(() => {
+  //   if (!isLoginInfoLoading) {
+  //     if (
+  //       !["/", "/login", "/oauth", "/signup"].includes(router.pathname.trim())
+  //     ) {
+  //       if (!isLoggedIn) {
+  //         alert("로그인이 필요한 페이지입니다 ")
+  //         router.push("/")
+  //       }
+  //     }
+  //   }
+  // }, [router.pathname, isLoggedIn, isLoginInfoLoading])
 
   useEffect(() => {
     const cachedToken = localStorage.getItem("token")

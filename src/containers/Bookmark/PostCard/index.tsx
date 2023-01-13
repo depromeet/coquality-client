@@ -12,36 +12,29 @@ import { BookmarkType } from "@libs/api/bookmarks"
 import { useAuth } from "@hooks/useAuth"
 
 type Props = {
-  data: BookmarkType
-  data2: IPostType
+  bookmark: BookmarkType
 }
 
-const PostCard: React.FC<Props> = ({ data, data2 }) => {
+const PostCard: React.FC<Props> = ({ bookmark }) => {
   const [open, setOpen] = useState(false)
-  const auth = useAuth()
-  const { data: myBookmarks } = useQuery(["userBookmarks"], () =>
-    bookmarksRepository.getBookmarkPosts(auth.token)
-  )
-
-  console.log("myBookmark", myBookmarks)
 
   return (
     <>
       <StyledWrapper>
         <div className="top">
           <div className="lt">
-            <Link href={`/${data2.userId}`}>
-              {" "}
-              {/* 수정 필요 */}
-              <a className="title common-h4-sb">{data.title}</a>
-            </Link>
+            <a className="title common-h4-sb">{bookmark.title}</a>
             <div className="subtitle common-h6-rg">
-              {data.nickname} | {data.createdAt}
+              {bookmark.nickname} | {bookmark.createdAt}
             </div>
           </div>
-          <img src={data.thumbnail} alt="저장된 글 썸네일" className="rt"></img>
+          <img
+            src={bookmark.thumbnail}
+            alt="저장된 글 썸네일"
+            className="rt"
+          ></img>
         </div>
-        <div className="mid common-h5-rg">{data.description}</div>
+        <div className="mid common-h5-rg">{bookmark.description}</div>
         <div className="bottom">
           <div className="btn common-h6-rg">
             <DeleteIco />
