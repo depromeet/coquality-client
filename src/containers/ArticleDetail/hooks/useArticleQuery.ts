@@ -15,7 +15,7 @@ const useArticleQuery = () => {
     ["getPostById", { postId, userId }],
     () => postsRepository.getPostById(postId, { userId }, auth.token),
     {
-      enabled: !!(userId && postId),
+      enabled: !!(userId && postId && auth.token),
     }
   )
 

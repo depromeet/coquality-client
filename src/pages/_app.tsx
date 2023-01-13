@@ -13,6 +13,7 @@ import { globalStyles } from "@styles/globals"
 import { theme } from "@libs/chakra/theme"
 import "@toast-ui/editor/dist/toastui-editor.css"
 import { AuthProvider } from "@hooks/useAuth"
+import Script from "next/script"
 
 export type NextPageWithLayout<PageProps = {}> = NextPage<PageProps> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -38,14 +39,21 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Global styles={globalStyles} />
-        <ChakraProvider theme={theme}>
-          {getLayout(<Component {...pageProps} />)}
-        </ChakraProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <>
+      <Script
+        src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.js"
+        integrity="sha384-OfbOqPoV2XcfZpqrLgqYCNSNBJW4JU/lLrtKk0cpkWvCrDRotHaQ9SSMGeP7u8NB"
+        crossOrigin="anonymous"
+      />
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Global styles={globalStyles} />
+          <ChakraProvider theme={theme}>
+            {getLayout(<Component {...pageProps} />)}
+          </ChakraProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </>
   )
 }
 
