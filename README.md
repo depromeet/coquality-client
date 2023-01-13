@@ -5,7 +5,7 @@
 
 <br>
 
-# 🖊️ FEATURES
+## 🖊️ FEATURES
 ![image](https://user-images.githubusercontent.com/77706631/212337297-8df9e48d-adf8-470a-8dba-b460cdeccac0.png)
 #### 글 작성 :: 작성 및 수정을 통해 글을 업로드할 수 있습니다.
 <br>
