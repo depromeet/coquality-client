@@ -4,13 +4,19 @@ import { useQuery } from "@tanstack/react-query"
 import DeleteAllModal from "./modals/DeleteAllModal"
 import PostCard from "./PostCard"
 import bookmarksRepository from "@libs/api/bookmarks"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const Bookmark: React.FC<Props> = ({}) => {
+  const auth = useAuth()
   const [open, setOpen] = useState(false)
-  const { data: myBookmarks } = useQuery(["userBookmarks"], () =>
-    bookmarksRepository.getBookmarkPosts()
+  const { data: myBookmarks } = useQuery(
+    ["userBookmarks"],
+    () => bookmarksRepository.getBookmarkPosts(auth.token),
+    {
+      enabled: !!auth.token,
+    }
   )
 
   return (

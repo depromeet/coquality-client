@@ -12,8 +12,7 @@ import {
 import { globalStyles } from "@styles/globals"
 import { theme } from "@libs/chakra/theme"
 import "@toast-ui/editor/dist/toastui-editor.css"
-import { AuthProvider, useAuth } from "@hooks/useAuth"
-import { useRouter } from "next/router"
+import { AuthProvider } from "@hooks/useAuth"
 
 export type NextPageWithLayout<PageProps = {}> = NextPage<PageProps> & {
   getLayout?: (page: ReactElement) => ReactNode
