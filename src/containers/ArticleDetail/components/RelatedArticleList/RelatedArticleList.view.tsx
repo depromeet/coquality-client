@@ -39,7 +39,7 @@ const RelatedArticleListView: React.FC<Props> = ({}) => {
         currentCategory
       ),
     {
-      enabled: !!userId,
+      enabled: !!(userId && auth.token),
     }
   )
 

@@ -100,7 +100,7 @@ const Profile: React.FC<Props> = ({}) => {
           <Dropdown />
         </div>
         <div className="post-list">
-          {myPosts!.map((post: IPostType) => (
+          {myPosts?.map((post: IPostType) => (
             <PostCard key={post.id} data={post} />
           ))}
         </div>
