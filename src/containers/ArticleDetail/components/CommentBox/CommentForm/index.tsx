@@ -25,7 +25,6 @@ const CommentForm: React.FC<Props> = ({}) => {
   const queryClient = useQueryClient()
   const auth = useAuth()
   const router = useRouter()
-  
 
   const postId = +`${router.query["post-id"]}`
   const userId = +`${router.query["username"]}`
@@ -35,11 +34,7 @@ const CommentForm: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: ({ postId, contents }: { postId: number; contents: string }) =>
-      commentsRepository.createCommentOnPost(
-        postId,
-        contents,
-        auth.token
-      ),
+      commentsRepository.createCommentOnPost(postId, contents, auth.token),
   })
 
   const onSubmit = (data: CommentFormType) => {

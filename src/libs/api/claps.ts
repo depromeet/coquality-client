@@ -11,7 +11,5 @@ export class ClapsRepository extends Repository {
   }
 }
 
-const clapsRepository = new ClapsRepository(
-  coqualityAxiosClient,
-)
+const clapsRepository = new ClapsRepository(coqualityAxiosClient)
 export default clapsRepository

@@ -20,9 +20,9 @@ type Props = {
 const Comment: React.FC<Props> = ({ data }) => {
   const router = useRouter()
   const queryClient = useQueryClient()
-    
+
   const auth = useAuth()
-  
+
   const postId = +`${router.query["post-id"]}`
 
   const mutation = useMutation({

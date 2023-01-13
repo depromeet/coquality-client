@@ -1,4 +1,4 @@
-s// integation tests for coquality rest api
+s // integation tests for coquality rest api
 
 import { AuthRepository } from "./auth"
 import coqualityAxiosClient from "./client"
@@ -12,27 +12,27 @@ beforeAll(() => {
 })
 
 describe("AuthRepository", () => {
-//   test("signUp", async () => {
-//     try {
-//       const posts = await authRepository.signUp(
-//         "mymail1@gmail.com",
-//         "mymail1",
-//         "KAKAO",
-//         "TkrugkAth-5x52kb7DJu4RfvQYpHV18MS2SElMslnfejcxPSUXc2r57a_A-us7zQdOjvHAoqJQ4AAAGFnCgvag"
-//       )
+  //   test("signUp", async () => {
+  //     try {
+  //       const posts = await authRepository.signUp(
+  //         "mymail1@gmail.com",
+  //         "mymail1",
+  //         "KAKAO",
+  //         "TkrugkAth-5x52kb7DJu4RfvQYpHV18MS2SElMslnfejcxPSUXc2r57a_A-us7zQdOjvHAoqJQ4AAAGFnCgvag"
+  //       )
 
-//       console.log(posts)
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   })
+  //       console.log(posts)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   })
 
   test("userExists", async () => {
     const userExists = await authRepository.userExists(
       "KAKAO",
       "2QPKIINi03kY4_13qZ8cXVLBAHa86PeBmand-Z-uCioljwAAAYWmWBay"
     )
-    
+
     expect(userExists).toBeTruthy()
   })
   //   test("signIn", async () => {

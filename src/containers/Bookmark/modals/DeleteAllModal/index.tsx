@@ -43,12 +43,12 @@ const StyledWrapper = styled.div`
   gap: 40px;
   justify-content: space-between;
   text-align: center;
-  .top > .common-h5-rg { 
+  .top > .common-h5-rg {
     margin-top: 12px;
   }
   .bottom {
     display: flex;
-    gap: 15px; 
+    gap: 15px;
     .cancle {
       outline: 1px solid ${colors.grey500};
       color: ${colors.grey500};

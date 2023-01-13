@@ -10,7 +10,6 @@ import Toolbar from "./components/Toolbar"
 type Props = {}
 
 const ArticleDetail: React.FC<Props> = ({}) => {
-  
   return (
     <StyledWrapper className="common-container">
       <div className="lt">
