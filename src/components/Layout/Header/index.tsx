@@ -18,14 +18,14 @@ const Header = () => {
           </a>
         </Link>
         <div className="rt">
-          <UserButton />
-          {/* <Link href={"/login"}>
+          {/* <UserButton /> */}
+          <Link href={"/login"}>
             <a>
               <Button className="login-btn" variant="outline">
                 로그인
               </Button>
             </a>
-          </Link> */}
+          </Link>
         </div>
       </div>
     </StyledWrapper>

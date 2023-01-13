@@ -23,7 +23,7 @@ const Bookmark: React.FC<Props> = ({}) => {
           </div>
         </div>
         <div className="post-list">
-          {myBookmarks!.map((bookmark) => (
+          {myBookmarks?.map((bookmark: any) => (
             <PostCard
               key={`PostListView-${bookmark?.userId}`}
               data={bookmark}
