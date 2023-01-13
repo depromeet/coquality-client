@@ -43,6 +43,7 @@ const Toolbar: React.FC<Props> = ({}) => {
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       authInjectedBookmarkRepository.addBookmark(postId, userId),
   })
+
   const removeBookmarkMutation = useMutation({
     mutationFn: ({ postId }: { postId: number }) =>
       authInjectedBookmarkRepository.removeBookmark(postId),
@@ -88,6 +89,7 @@ const Toolbar: React.FC<Props> = ({}) => {
       }
     )
   }
+  console.log(addBookmarkMutation.data)
 
   return (
     <>
@@ -110,6 +112,7 @@ const Toolbar: React.FC<Props> = ({}) => {
         </div>
       </StyledWrapper>
       <BookmarkModal
+        bookmarkId={addBookmarkMutation.data}
         postTitle={data?.title}
         open={open}
         onClose={() => setOpen(false)}

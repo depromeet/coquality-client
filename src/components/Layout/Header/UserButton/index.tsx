@@ -7,6 +7,8 @@ import React from "react"
 
 type Props = {}
 
+const username = 1
+
 const UserButton = (props: Props) => {
   const [menuRef, open, handleDropDownBtn] = useDropdown()
 
@@ -16,10 +18,10 @@ const UserButton = (props: Props) => {
         <UserBtn onClick={handleDropDownBtn} />
       </div>
       <div className="menu-list " data-open={open}>
-        <Link href={"/username"}>
+        <Link href={`/${username}`}>
           <a className="menu common-h6-sb">내 프로필</a>
         </Link>
-        <Link href={"/username/bookmark"}>
+        <Link href={`/${username}/bookmark`}>
           <a className="menu common-h6-sb">저장한 글</a>
         </Link>
       </div>

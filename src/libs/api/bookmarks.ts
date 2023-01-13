@@ -1,12 +1,6 @@
 import coqualityAxiosClient from "./client"
 import Repository from "./repository"
 
-interface IUser {
-  map(arg0: (bookmark: any) => import("@emotion/react/jsx-runtime").JSX.Element): import("react").ReactNode 
-  nickname: string
-  userId: number
-}
-
 export interface BookmarkType {
   postId: number
   title: string
@@ -14,7 +8,7 @@ export interface BookmarkType {
   createdAt: string
   thumbnail: string
   description: string
-} 
+}
 
 export class BookmarkRepository extends Repository {
   public async bookmarkCheck(id: number): Promise<any> {
@@ -35,13 +29,13 @@ export class BookmarkRepository extends Repository {
 
     return response.data.data
   }
-  public async getBookmarkPosts(): Promise<IUser> {
-    const response = await this.client.get(`/bookmarks/`, { 
+  public async getBookmarkPosts(): Promise<any> {
+    const response = await this.client.get(`/bookmarks/`, {
       headers: { AUTH: this.authToken },
     })
 
-    return response.data.data as IUser
-  } 
+    return response.data.data as any
+  }
   public async removeBookmark(id: number): Promise<any> {
     const response = await this.client.delete(`/bookmarks/${id}`, {
       headers: { AUTH: this.authToken },
@@ -69,7 +63,8 @@ export class BookmarkRepository extends Repository {
   }
 }
 
-const bookmarkRepository = new BookmarkRepository(coqualityAxiosClient, 
+const bookmarkRepository = new BookmarkRepository(
+  coqualityAxiosClient,
   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzM1MjIyMjMsImV4cCI6MTY3NjExNDIyM30.gpjAjEwxu-lKbCSoNn9IMXeycAGGTJMmUf7z7Gscvint4gfI0ZL4VhDzADRI0D75xMzRQksvojkhtm93Kf6L3w"
 )
 export default bookmarkRepository

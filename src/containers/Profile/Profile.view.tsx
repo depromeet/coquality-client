@@ -57,11 +57,13 @@ const Profile: React.FC<Props> = ({}) => {
           </div>
         </div>
         <div className="rt">
-          <Link href={"/username/edit"}>
-            <a>
-              <Button className="btn">내 정보 수정</Button>
-            </a>
-          </Link>
+          {myInfo?.data?.id && (
+            <Link href={`/${myInfo?.data?.id}/edit`}>
+              <a>
+                <Button className="btn">내 정보 수정</Button>
+              </a>
+            </Link>
+          )}
         </div>
       </div>
       <div className="two-box">
