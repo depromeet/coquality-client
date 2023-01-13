@@ -3,13 +3,16 @@ import styled from "@emotion/styled"
 import useDropdown from "@hooks/useDropdown"
 import UserBtn from "./UserBtn.svg"
 import Link from "next/link"
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
-const username = 1
 
 const UserButton = (props: Props) => {
+  
+  const auth = useAuth()
   const [menuRef, open, handleDropDownBtn] = useDropdown()
 
   return (
@@ -18,10 +21,10 @@ const UserButton = (props: Props) => {
         <UserBtn onClick={handleDropDownBtn} />
       </div>
       <div className="menu-list " data-open={open}>
-        <Link href={`/${username}`}>
+        <Link href={`/users/${auth?.userInfo?.userId}`}>
           <a className="menu common-h6-sb">내 프로필</a>
         </Link>
-        <Link href={`/${username}/bookmark`}>
+        <Link href={`/users/${auth?.userInfo?.userId}/bookmark`}>
           <a className="menu common-h6-sb">저장한 글</a>
         </Link>
       </div>

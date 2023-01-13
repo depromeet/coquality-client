@@ -32,13 +32,14 @@ type Props = {}
 const ArticleWrite: React.FC<Props> = ({}) => {
   const router = useRouter()
   const auth = useAuth()
+
   const { register, handleSubmit } = useForm<ArticleWriteFormType>()
 
   const mutation = useMutation({
     mutationFn: (params: ICreatePostRequest) =>
       postsRepository.createPost(params, auth.token),
     onSuccess: (data, variables, context) => {
-      router.push(`/${data.userId}/${data.id}`)
+      router.push(`/users/${data.userId}/posts/${data.id}`)
     },
   })
 

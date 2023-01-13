@@ -36,6 +36,7 @@ const Signup: React.FC<Props> = ({}) => {
         accessToken
       )
       auth.login(data.token)
+      router.push("/")
     } catch (error) {
       alert("오류가 발생했습니다. 콘솔을 확인하세요")
       console.error(error)
@@ -74,6 +75,7 @@ const Signup: React.FC<Props> = ({}) => {
         ).token
         console.log({ coqualityToken })
         auth.login(coqualityToken)
+        router.push("/")
       } else {
         setIsLoading(false)
         setAccessToken(accessToken)
