@@ -1,4 +1,3 @@
-import { AxiosError } from "axios"
 import Repository from "./repository"
 import coqualityAxiosClient from "./client"
 
