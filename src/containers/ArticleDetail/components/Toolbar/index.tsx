@@ -16,7 +16,7 @@ import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
-const Toolbar: React.FC<Props> = ({}) => {
+const ToolbarView: React.FC<Props> = ({}) => {
   const { data } = useArticleQuery()
   const auth = useAuth()
   const queryClient = useQueryClient()
@@ -121,7 +121,7 @@ const Toolbar: React.FC<Props> = ({}) => {
   )
 }
 
-export default Toolbar
+export default ToolbarView
 
 const StyledWrapper = styled.div`
   display: flex;
