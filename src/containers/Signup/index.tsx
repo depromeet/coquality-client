@@ -35,7 +35,6 @@ const Signup: React.FC<Props> = ({}) => {
         "KAKAO",
         accessToken
       )
-
       auth.login(data.token)
     } catch (error) {
       alert("오류가 발생했습니다. 콘솔을 확인하세요")
