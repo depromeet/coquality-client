@@ -4,22 +4,29 @@ import styled from "@emotion/styled"
 import React from "react"
 import UserAvatar from "./UserAvatar.svg"
 import { useRouter } from "next/router"
+import usersRepository from "@libs/api/users"
+import { useQuery } from "@tanstack/react-query"
 
 type Props = {}
 
 const ProfileBoxView: React.FC<Props> = ({}) => {
   const router = useRouter()
   const userId = +`${router.query["username"]}`
+  const { data } = useQuery(
+    ["readUserInfo", { userId }],
+    () => usersRepository.readUserInfo(userId),
+    {
+      enabled: !!userId,
+    }
+  )
 
   return (
     <StyledWrapper>
       <div className="profile">
         <UserAvatar />
       </div>
-      <div className="nickname common-h3-sb">미진</div>
-      <div className="bio common-h6-rg">
-        3년차 공유 모빌리티 서비스 UI/UX 기획자입니다 :)
-      </div>
+      <div className="nickname common-h3-sb">{data?.nickname}</div>
+      <div className="bio common-h6-rg">{data?.userSummary}</div>
       <Button className="btn">팔로우</Button>
     </StyledWrapper>
   )

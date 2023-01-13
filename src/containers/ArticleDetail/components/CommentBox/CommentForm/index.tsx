@@ -15,8 +15,6 @@ import commentsRepository from "@libs/api/comments"
 import { useRouter } from "next/router"
 import { useAuthInjection } from "@hooks/useAuth"
 
-// TODO 댓글 작성시  message "User Entity is null" 발생 서버 확인 필요
-
 type CommentFormType = { contents: string }
 
 type Props = {}
@@ -34,7 +32,7 @@ const CommentForm: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: ({ postId, contents }: { postId: number; contents: string }) =>
-    authInjectedCommentsRepository.createCommentOnPost(postId, contents),
+      authInjectedCommentsRepository.createCommentOnPost(postId, contents),
   })
 
   const onSubmit = (data: CommentFormType) => {

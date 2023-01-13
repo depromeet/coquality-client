@@ -2,18 +2,16 @@ import styled from "@emotion/styled"
 import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import DeleteAllModal from "./modals/DeleteAllModal"
-import PostCard from "./PostCard" 
+import PostCard from "./PostCard"
 import bookmarksRepository from "@libs/api/bookmarks"
 
 type Props = {}
 
 const Bookmark: React.FC<Props> = ({}) => {
   const [open, setOpen] = useState(false)
-  const { data: myBookmarks } = useQuery(
-    ["userBookmarks"], () => bookmarksRepository.getBookmarkPosts()
-  )   
-
-  console.log("myBookmark", myBookmarks)
+  const { data: myBookmarks } = useQuery(["userBookmarks"], () =>
+    bookmarksRepository.getBookmarkPosts()
+  )
 
   return (
     <>
@@ -26,8 +24,12 @@ const Bookmark: React.FC<Props> = ({}) => {
         </div>
         <div className="post-list">
           {myBookmarks!.map((bookmark) => (
-            <PostCard key={`PostListView-${bookmark?.userId}`} data={bookmark} data2={bookmark}/>
-          ))} 
+            <PostCard
+              key={`PostListView-${bookmark?.userId}`}
+              data={bookmark}
+              data2={bookmark}
+            />
+          ))}
         </div>
       </StyledWrapper>
       <DeleteAllModal open={open} onClose={() => setOpen(false)} />

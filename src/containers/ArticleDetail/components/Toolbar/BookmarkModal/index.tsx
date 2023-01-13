@@ -11,9 +11,15 @@ import CloseButton from "./CloseButton.svg"
 
 interface Props extends ModalProps {
   postTitle?: string
+  bookmarkId?: number
 }
 
-const BookmarkModal: React.FC<Props> = ({ postTitle, onClose, ...props }) => {
+const BookmarkModal: React.FC<Props> = ({
+  bookmarkId = 0,
+  postTitle,
+  onClose,
+  ...props
+}) => {
   const router = useRouter()
   const postId = +`${router.query["post-id"]}`
   const userId = +`${router.query["username"]}`
@@ -21,13 +27,18 @@ const BookmarkModal: React.FC<Props> = ({ postTitle, onClose, ...props }) => {
   const authInjectedBookmarkRepository = useAuthInjection(bookmarkRepository)
 
   const updateBookmarkMutation = useMutation({
-    mutationFn: ({ postId, input }: { postId: number; input: string }) =>
-      authInjectedBookmarkRepository.updateBookmark(postId, input),
+    mutationFn: ({
+      bookmarkId,
+      input,
+    }: {
+      bookmarkId: number
+      input: string
+    }) => authInjectedBookmarkRepository.updateBookmark(bookmarkId, input),
   })
 
   const handleClick = () => {
     updateBookmarkMutation.mutate({
-      postId,
+      bookmarkId,
       input,
     })
     setInput("")
