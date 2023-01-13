@@ -2,12 +2,13 @@ import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
 import React from "react"
 import TrashIco from "./TrashIco.svg"
-import commentsRepository, { IComment } from "@libs/api/comments"
+
 import { toStringByFormatting } from "@libs/utils/time"
 import UserBtn from "./UserAvatar.svg"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/router"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
+import commentsRepository, { IComment } from "@libs/api/comments"
 
 // TODO: username, user img
 // TODO: 로그인 연동시, 내 댓글만 삭제 가능하도록 수정
@@ -19,7 +20,9 @@ type Props = {
 const Comment: React.FC<Props> = ({ data }) => {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const authInjectedCommentsRepository = useAuthInjection(commentsRepository)
+
+  const auth = useAuth()
+
   const postId = +`${router.query["post-id"]}`
 
   const mutation = useMutation({
@@ -29,7 +32,7 @@ const Comment: React.FC<Props> = ({ data }) => {
     }: {
       postId: number
       commentId: number
-    }) => authInjectedCommentsRepository.deleteCommentOnPost(postId, commentId),
+    }) => commentsRepository.deleteCommentOnPost(postId, commentId, auth.token),
   })
 
   const handleDelete = () => {
@@ -46,8 +49,6 @@ const Comment: React.FC<Props> = ({ data }) => {
     )
   }
 
-  console.log(data)
-
   const createdAt = toStringByFormatting(new Date(data.createdAt), ".")
   return (
     <StyledWrapper>
@@ -57,7 +58,7 @@ const Comment: React.FC<Props> = ({ data }) => {
       <div className="rt">
         <div className="top common-h6-rg">
           <div className="lt">
-            <div className="nickname">{"username"}</div>
+            <div className="nickname">{data.nickname}</div>
             <div className="date">{createdAt}</div>
           </div>
           <a className="rt" onClick={handleDelete}>

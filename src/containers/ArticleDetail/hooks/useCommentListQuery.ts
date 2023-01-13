@@ -1,17 +1,18 @@
 import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
 import commentsRepository from "@libs/api/comments"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 
 // TODO options type
 const useCommentsQuery = () => {
   const router = useRouter()
-  const authInjectedCommentsRepository = useAuthInjection(commentsRepository)
+  const auth = useAuth()
+
   const postId = +`${router.query["post-id"]}`
 
   const query = useQuery(
     ["getCommentsOfPost", { postId }],
-    () => authInjectedCommentsRepository.getCommentsOfPost(postId),
+    () => commentsRepository.getCommentsOfPost(postId, auth.token),
     {
       enabled: !!postId,
     }

@@ -10,7 +10,7 @@ import Link from "next/link"
 import usersRepository, { ProfileModifyType } from "@libs/api/users"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/router"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
@@ -21,7 +21,8 @@ type ProfileModifyFormType = Pick<
 
 const ProfileEdit: React.FC<Props> = ({}) => {
   const router = useRouter()
-  const authInjectedUsersRepository = useAuthInjection(usersRepository)
+  const auth = useAuth()
+
   const {
     register,
     handleSubmit,
@@ -31,7 +32,7 @@ const ProfileEdit: React.FC<Props> = ({}) => {
   const [upload, file] = useUpload()
   const [imageSrc, setImageSrc] = useState("")
   const { data: myInfo } = useQuery(["userInfo"], () =>
-    authInjectedUsersRepository.readMyInfo()
+    usersRepository.readMyInfo(auth.token)
   )
 
   const inputRef = useRef(null)
@@ -67,10 +68,11 @@ const ProfileEdit: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: (params: ProfileModifyType) =>
-      authInjectedUsersRepository.modifyUser(
+      usersRepository.modifyUser(
         params.email,
         params.nickname,
-        params.userSummary
+        params.userSummary,
+        auth.token
       ),
     onSuccess: (data, variables, context) => {
       router.push("/username")
@@ -79,7 +81,6 @@ const ProfileEdit: React.FC<Props> = ({}) => {
   })
 
   const onSubmit = (data: ProfileModifyFormType) => {
-    console.log(data)
     mutation.mutate({
       email: data.email || inputs.email,
       nickname: data.nickname || inputs.nickname,

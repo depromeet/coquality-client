@@ -7,12 +7,16 @@ export interface IComment {
   userId: number
   postId: number
   createdAt: string
+  nickname: string
 }
 
 export class CommentsRepository extends Repository {
-  public async getCommentsOfPost(postId: number): Promise<IComment[]> {
+  public async getCommentsOfPost(
+    postId: number,
+    authToken: string
+  ): Promise<IComment[]> {
     const response = await this.client.get(`/comments/${postId}`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data
@@ -20,7 +24,8 @@ export class CommentsRepository extends Repository {
 
   public async createCommentOnPost(
     postId: number,
-    contents: string
+    contents: string,
+    authToken: string
   ): Promise<number> {
     const response = await this.client.post(
       `/comments/`,
@@ -28,7 +33,7 @@ export class CommentsRepository extends Repository {
         postId,
         contents,
       },
-      { headers: { AUTH: this.authToken } }
+      { headers: { AUTH: authToken } }
     )
     return response.data.data as number
   }
@@ -36,7 +41,8 @@ export class CommentsRepository extends Repository {
   public async updateCommentOnPost(
     commentId: number,
     contents: string,
-    postId: number
+    postId: number,
+    authToken: string
   ): Promise<IComment> {
     const response = await this.client.put(
       `/comments/${commentId}`,
@@ -44,7 +50,7 @@ export class CommentsRepository extends Repository {
         postId,
         contents,
       },
-      { headers: { AUTH: this.authToken } }
+      { headers: { AUTH: authToken } }
     )
 
     return response.data.data
@@ -52,16 +58,15 @@ export class CommentsRepository extends Repository {
 
   public async deleteCommentOnPost(
     postId: number,
-    commentId: number
+    commentId: number,
+    authToken: string
   ): Promise<void> {
     await this.client.delete(`/posts/${postId}/comments/${commentId}`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
   }
 }
 
-const commentsRepository = new CommentsRepository(
-  coqualityAxiosClient,
-)
+const commentsRepository = new CommentsRepository(coqualityAxiosClient)
 
 export default commentsRepository

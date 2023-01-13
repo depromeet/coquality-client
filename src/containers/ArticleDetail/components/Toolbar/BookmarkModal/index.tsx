@@ -2,7 +2,7 @@ import { Button, Textarea } from "@components/inputs"
 import Modal, { ModalProps } from "@components/Modal"
 import { colors } from "@constants/colors"
 import styled from "@emotion/styled"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 import bookmarkRepository from "@libs/api/bookmarks"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/router"
@@ -21,10 +21,10 @@ const BookmarkModal: React.FC<Props> = ({
   ...props
 }) => {
   const router = useRouter()
+  const auth = useAuth()
   const postId = +`${router.query["post-id"]}`
   const userId = +`${router.query["username"]}`
   const [input, setInput] = useState("")
-  const authInjectedBookmarkRepository = useAuthInjection(bookmarkRepository)
 
   const updateBookmarkMutation = useMutation({
     mutationFn: ({
@@ -33,7 +33,7 @@ const BookmarkModal: React.FC<Props> = ({
     }: {
       bookmarkId: number
       input: string
-    }) => authInjectedBookmarkRepository.updateBookmark(bookmarkId, input),
+    }) => bookmarkRepository.updateBookmark(bookmarkId, input, auth.token),
   })
 
   const handleClick = () => {

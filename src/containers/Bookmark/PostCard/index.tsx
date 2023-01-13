@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query"
 import bookmarksRepository from "@libs/api/bookmarks"
 import { IPostType } from "@libs/api/posts"
 import { BookmarkType } from "@libs/api/bookmarks"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {
   data: BookmarkType
@@ -17,9 +18,10 @@ type Props = {
 
 const PostCard: React.FC<Props> = ({ data, data2 }) => {
   const [open, setOpen] = useState(false)
-  const { data: myBookmarks } = useQuery(
-    ["userBookmarks"], () => bookmarksRepository.getBookmarkPosts()
-  )   
+  const auth = useAuth()
+  const { data: myBookmarks } = useQuery(["userBookmarks"], () =>
+    bookmarksRepository.getBookmarkPosts(auth.token)
+  )
 
   console.log("myBookmark", myBookmarks)
 
@@ -27,17 +29,19 @@ const PostCard: React.FC<Props> = ({ data, data2 }) => {
     <>
       <StyledWrapper>
         <div className="top">
-          <div className="lt"> 
-          <Link href={`/${data2.userId}`}>  {/* 수정 필요 */}
-            <a className="title common-h4-sb">{data.title}</a>
-          </Link> 
-            <div className="subtitle common-h6-rg">{data.nickname} | {data.createdAt}</div>
+          <div className="lt">
+            <Link href={`/${data2.userId}`}>
+              {" "}
+              {/* 수정 필요 */}
+              <a className="title common-h4-sb">{data.title}</a>
+            </Link>
+            <div className="subtitle common-h6-rg">
+              {data.nickname} | {data.createdAt}
+            </div>
           </div>
-          <img src={data.thumbnail} alt='저장된 글 썸네일' className="rt"></img>
+          <img src={data.thumbnail} alt="저장된 글 썸네일" className="rt"></img>
         </div>
-        <div className="mid common-h5-rg"> 
-          {data.description}  
-        </div>
+        <div className="mid common-h5-rg">{data.description}</div>
         <div className="bottom">
           <div className="btn common-h6-rg">
             <DeleteIco />
@@ -60,7 +64,7 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    .lt { 
+    .lt {
       width: 232px;
       height: 54px;
       flex-direction: column;

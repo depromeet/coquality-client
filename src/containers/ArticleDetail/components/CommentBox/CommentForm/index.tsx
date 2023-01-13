@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import commentsRepository from "@libs/api/comments"
 import { useRouter } from "next/router"
-import { useAuthInjection } from "@hooks/useAuth"
+import { useAuth } from "@hooks/useAuth"
 
 type CommentFormType = { contents: string }
 
@@ -21,8 +21,8 @@ type Props = {}
 
 const CommentForm: React.FC<Props> = ({}) => {
   const queryClient = useQueryClient()
+  const auth = useAuth()
   const router = useRouter()
-  const authInjectedCommentsRepository = useAuthInjection(commentsRepository)
 
   const postId = +`${router.query["post-id"]}`
   const userId = +`${router.query["username"]}`
@@ -32,7 +32,7 @@ const CommentForm: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: ({ postId, contents }: { postId: number; contents: string }) =>
-      authInjectedCommentsRepository.createCommentOnPost(postId, contents),
+      commentsRepository.createCommentOnPost(postId, contents, auth.token),
   })
 
   const onSubmit = (data: CommentFormType) => {

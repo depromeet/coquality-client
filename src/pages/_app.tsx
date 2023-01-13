@@ -2,7 +2,7 @@ import { NextPage } from "next"
 import type { AppProps } from "next/app"
 import { ReactElement, ReactNode, useEffect, useState } from "react"
 import { Global } from "@emotion/react"
-import { ChakraProvider } from "@chakra-ui/react"
+import { AlertDescription, ChakraProvider } from "@chakra-ui/react"
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,7 +12,8 @@ import {
 import { globalStyles } from "@styles/globals"
 import { theme } from "@libs/chakra/theme"
 import "@toast-ui/editor/dist/toastui-editor.css"
-import { AuthProvider } from "@hooks/useAuth"
+import { AuthProvider, useAuth } from "@hooks/useAuth"
+import { useRouter } from "next/router"
 
 export type NextPageWithLayout<PageProps = {}> = NextPage<PageProps> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -38,14 +39,14 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <Global styles={globalStyles} />
         <ChakraProvider theme={theme}>
           {getLayout(<Component {...pageProps} />)}
         </ChakraProvider>
-      </QueryClientProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   )
 }
 

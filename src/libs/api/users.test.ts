@@ -27,17 +27,17 @@ describe("UsersRepository", () => {
 
   describe("modifyUser", () => {
     it("should modify user", async () => {
-        const meBeforeModify = await repository.readMyInfo()
+      const meBeforeModify = await repository.readMyInfo()
 
-        const nickname = "test nickname"
-        const email = "test@gmail.com"
-        const userSummary = "test user summary"
+      const nickname = "test nickname"
+      const email = "test@gmail.com"
+      const userSummary = "test user summary"
 
-        await repository.modifyUser(email, nickname, userSummary)
+      await repository.modifyUser(email, nickname, userSummary)
 
-        const meAfterModify = await repository.readMyInfo()
-        expect(meAfterModify.nickname).toEqual(nickname)
-        expect(meAfterModify.userId).toEqual(meBeforeModify.userId)
+      const meAfterModify = await repository.readMyInfo()
+      expect(meAfterModify.nickname).toEqual(nickname)
+      expect(meAfterModify.userId).toEqual(meBeforeModify.userId)
     })
   })
 })

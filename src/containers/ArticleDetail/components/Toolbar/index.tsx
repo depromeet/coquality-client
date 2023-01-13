@@ -10,16 +10,15 @@ import BookmarkModal from "./BookmarkModal"
 import useArticleQuery from "@containers/ArticleDetail/hooks/useArticleQuery"
 import clapsRepository from "@libs/api/claps"
 import { useRouter } from "next/router"
-import { useAuthInjection } from "@hooks/useAuth"
 import { useQuery } from "@tanstack/react-query"
 import bookmarkRepository from "@libs/api/bookmarks"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const Toolbar: React.FC<Props> = ({}) => {
   const { data } = useArticleQuery()
-  const authInjectedClapsRepository = useAuthInjection(clapsRepository)
-  const authInjectedBookmarkRepository = useAuthInjection(bookmarkRepository)
+  const auth = useAuth()
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -29,7 +28,7 @@ const Toolbar: React.FC<Props> = ({}) => {
 
   const { data: bookmarkData } = useQuery(
     ["bookmarkCheck", { postId }],
-    () => authInjectedBookmarkRepository.bookmarkCheck(postId),
+    () => bookmarkRepository.bookmarkCheck(postId, auth.token),
     {
       enabled: !!postId,
     }
@@ -37,16 +36,16 @@ const Toolbar: React.FC<Props> = ({}) => {
 
   const mutation = useMutation({
     mutationFn: ({ postId }: { postId: number }) =>
-      authInjectedClapsRepository.clapPost(postId),
+      clapsRepository.clapPost(postId, auth.token),
   })
   const addBookmarkMutation = useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
-      authInjectedBookmarkRepository.addBookmark(postId, userId),
+      bookmarkRepository.addBookmark(postId, userId, auth.token),
   })
 
   const removeBookmarkMutation = useMutation({
     mutationFn: ({ postId }: { postId: number }) =>
-      authInjectedBookmarkRepository.removeBookmark(postId),
+      bookmarkRepository.removeBookmark(postId, auth.token),
   })
 
   const handleBookmarkBtn = () => {

@@ -11,62 +11,68 @@ export interface BookmarkType {
 }
 
 export class BookmarkRepository extends Repository {
-  public async bookmarkCheck(id: number): Promise<any> {
+  public async bookmarkCheck(id: number, authToken: string): Promise<any> {
     const response = await this.client.get(`/bookmarks/${id}/check`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data
   }
-  public async addBookmark(postId: number, userId: number): Promise<any> {
+  public async addBookmark(
+    postId: number,
+    userId: number,
+    authToken: string
+  ): Promise<any> {
     const response = await this.client.post(
       `/bookmarks/${postId}`,
       { id: userId },
       {
-        headers: { AUTH: this.authToken },
+        headers: { AUTH: authToken },
       }
     )
 
     return response.data.data
   }
-  public async getBookmarkPosts(): Promise<any> {
+  public async getBookmarkPosts(authToken: string): Promise<any> {
     const response = await this.client.get(`/bookmarks/`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data as any
   }
-  public async removeBookmark(id: number): Promise<any> {
+  public async removeBookmark(id: number, authToken: string): Promise<any> {
     const response = await this.client.delete(`/bookmarks/${id}`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data
   }
-  public async updateBookmark(id: number, description: string): Promise<any> {
+  public async updateBookmark(
+    id: number,
+    description: string,
+    authToken: string
+  ): Promise<any> {
     const response = await this.client.put(
       `/bookmarks/${id}`,
       { description },
       {
-        headers: { AUTH: this.authToken },
+        headers: { AUTH: authToken },
       }
     )
 
     return response.data.data
   }
-  public async removeAllBookmark(): Promise<any> {
+  public async removeAllBookmark(authToken: string): Promise<any> {
     const response = await this.client.delete(`/bookmarks/all`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data
   }
 }
 
-const bookmarkRepository = new BookmarkRepository(
-  coqualityAxiosClient,
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzM1MjIyMjMsImV4cCI6MTY3NjExNDIyM30.gpjAjEwxu-lKbCSoNn9IMXeycAGGTJMmUf7z7Gscvint4gfI0ZL4VhDzADRI0D75xMzRQksvojkhtm93Kf6L3w"
-)
+const bookmarkRepository = new BookmarkRepository(coqualityAxiosClient)
+
 export default bookmarkRepository
 
 // const bookmarksRepository = new BookmarksRepository(

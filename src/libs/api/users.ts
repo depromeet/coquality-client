@@ -1,7 +1,14 @@
 import coqualityAxiosClient from "./client"
 import Repository from "./repository"
 
-type IUser = any
+export interface IUser {
+  userId: number
+  nickname: string
+  profileImageUrl: string
+  email: string
+  userSummary: string | null
+  userRank: string
+}
 
 export type PostSortType = "LATEST" | "VIEWS"
 
@@ -26,27 +33,28 @@ export interface ProfileModifyType {
 }
 
 export class UsersRepository extends Repository {
-  public async readUserInfo(id: number): Promise<IUser> {
+  public async readUserInfo(id: number, authToken: string): Promise<IUser> {
     const response = await this.client.get(`/users/${id}/read`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     // TODO: 백엔드에 data.data가 아니라 data로 바꾸기
     return response.data.data as IUser
   }
 
-  public async readMyInfo(): Promise<IUser> {
+  public async readMyInfo(authToken: string) {
     const response = await this.client.get(`/users/read`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
-    return response.data as IUser
+    return response.data as any
   }
 
   public async modifyUser(
     email: string,
     nickname: string,
-    userSummary: string
+    userSummary: string,
+    authToken: string
   ): Promise<void> {
     await this.client.put(
       `/users/update`,
@@ -55,7 +63,7 @@ export class UsersRepository extends Repository {
         nickname,
         userSummary,
       },
-      { headers: { AUTH: this.authToken } }
+      { headers: { AUTH: authToken } }
     )
   }
 }

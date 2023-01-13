@@ -6,15 +6,17 @@ import UserAvatar from "./UserAvatar.svg"
 import { useRouter } from "next/router"
 import usersRepository from "@libs/api/users"
 import { useQuery } from "@tanstack/react-query"
+import { useAuth } from "@hooks/useAuth"
 
 type Props = {}
 
 const ProfileBoxView: React.FC<Props> = ({}) => {
   const router = useRouter()
+  const auth = useAuth()
   const userId = +`${router.query["username"]}`
   const { data } = useQuery(
     ["readUserInfo", { userId }],
-    () => usersRepository.readUserInfo(userId),
+    () => usersRepository.readUserInfo(userId, auth.token),
     {
       enabled: !!userId,
     }

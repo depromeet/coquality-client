@@ -25,11 +25,11 @@ export interface BookmarkType {
   createdAt: string
   thumbnail: null
   description: string
-} 
+}
 
 export interface IPostType {
   id: number
-  userId: number 
+  userId: number
   title: string
   contents: string
   thumbnail: null
@@ -66,6 +66,7 @@ export class PostsRepository extends Repository {
   public async getUserPosts(
     id: number,
     sort: PostSortType,
+    authToken: string,
     primaryCategory?: PostPrimaryCategoryType
   ): Promise<IPostType[]> {
     const response = await this.client.get(`/posts/users/${id}`, {
@@ -73,7 +74,7 @@ export class PostsRepository extends Repository {
         sort,
         primaryCategory,
       },
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data as IPostType[]
@@ -81,6 +82,7 @@ export class PostsRepository extends Repository {
 
   public async getPosts(
     sort: PostSortType,
+    authToken: string,
     primaryCategory?: PostPrimaryCategoryType
   ): Promise<IPostType[]> {
     const response = await this.client.get("/posts", {
@@ -88,7 +90,7 @@ export class PostsRepository extends Repository {
         sort,
         primaryCategory,
       },
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data as IPostType[]
@@ -96,21 +98,25 @@ export class PostsRepository extends Repository {
 
   public async getPostById(
     id: number,
-    params: IGetPostByIdParams
+    params: IGetPostByIdParams,
+    authToken: string
   ): Promise<IPostType> {
     const response = await this.client.get(`/posts/${id}`, {
       params: {
         userId: params.userId,
       },
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data as IPostType
   }
 
-  public async createPost(params: ICreatePostRequest): Promise<IPostType> {
+  public async createPost(
+    params: ICreatePostRequest,
+    authToken: string
+  ): Promise<IPostType> {
     const response = await this.client.post("/posts/", params, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     return response.data.data as IPostType
@@ -118,31 +124,33 @@ export class PostsRepository extends Repository {
 
   public async updatePost(
     id: number,
-    params: IModifyPostRequest
+    params: IModifyPostRequest,
+    authToken: string
   ): Promise<void> {
     await this.client.put(`/posts/${id}`, params, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
   }
 
-  public async deletePost(id: number): Promise<void> {
+  public async deletePost(id: number, authToken: string): Promise<void> {
     await this.client.delete(`/posts/${id}`, {
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
 
     // TODO: add result
   }
 
-  public async getMyPosts(sort: PostSortType = "LATEST"): Promise<IPostType[]> {
+  public async getMyPosts(
+    sort: PostSortType = "LATEST",
+    authToken: string
+  ): Promise<IPostType[]> {
     const response = await this.client.get("/posts/my/", {
       params: { sort: sort },
-      headers: { AUTH: this.authToken },
+      headers: { AUTH: authToken },
     })
     return response.data.data as IPostType[]
   }
 }
 
-const postsRepository = new PostsRepository(
-  coqualityAxiosClient,
-)
+const postsRepository = new PostsRepository(coqualityAxiosClient)
 export default postsRepository

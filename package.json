@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier ./src --write",
+    "format:check": "prettier ./src --check"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.3.7",

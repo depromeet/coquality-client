@@ -1,14 +1,14 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback } from "react"
 
 const useUpload = () => {
   const [file, setFile] = useState<File | null>(null)
   const upload = useCallback(() => {
     const promise = new Promise<File | null>((resolve, reject) => {
-      const input = document.createElement('input')
-      input.accept = 'image/*'
+      const input = document.createElement("input")
+      input.accept = "image/*"
 
       const timeout = setTimeout(reject, 1000 * 60 * 3)
-      input.type = 'file'
+      input.type = "file"
       input.onchange = () => {
         clearTimeout(timeout)
         if (!input.files) return reject()
@@ -23,4 +23,4 @@ const useUpload = () => {
   return [upload, file] as [typeof upload, typeof file]
 }
 
-  export default useUpload
+export default useUpload
