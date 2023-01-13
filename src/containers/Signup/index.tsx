@@ -75,6 +75,8 @@ const Signup: React.FC<Props> = ({}) => {
         console.log({ coqualityToken })
         auth.login(coqualityToken)
       } else {
+        setIsLoading(false)
+        setAccessToken(accessToken)
       }
 
       // if (userExists) {
@@ -104,7 +106,7 @@ const Signup: React.FC<Props> = ({}) => {
       >
         <Flex direction="column" alignItems="center" justifyContent="center">
           <Text fontSize="32px" fontWeight="bold">
-            코컬리티를 시작해 볼까요?{accessToken}
+            코컬리티를 시작해 볼까요?
           </Text>
           <Text fontSize="20px">
             아래의 정보를 입력하고 하이 - 퀄리티를 만나보세요
