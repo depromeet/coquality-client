@@ -19,17 +19,33 @@ type Props = {}
 const Profile: React.FC<Props> = ({}) => {
   const auth = useAuth()
 
-  const { data: myInfo } = useQuery(["userInfo"], () =>
-    usersRepository.readMyInfo(auth.token)
+  const { data: myInfo } = useQuery(
+    ["userInfo"],
+    () => usersRepository.readMyInfo(auth.token),
+    {
+      enabled: !!auth.token,
+    }
   )
-  const { data: myPosts } = useQuery(["userPosts"], () =>
-    postsRepository.getMyPosts(undefined, auth.token)
+  const { data: myPosts } = useQuery(
+    ["userPosts"],
+    () => postsRepository.getMyPosts(undefined, auth.token),
+    {
+      enabled: !!auth.token,
+    }
   )
-  const { data: myFollowerCount } = useQuery(["userFollowerCount"], () =>
-    followsRepository.getFollowerCount(auth.token)
+  const { data: myFollowerCount } = useQuery(
+    ["userFollowerCount"],
+    () => followsRepository.getFollowerCount(auth.token),
+    {
+      enabled: !!auth.token,
+    }
   )
-  const { data: myFollowingCount } = useQuery(["userFollowingCount"], () =>
-    followsRepository.getFollowingCount(auth.token)
+  const { data: myFollowingCount } = useQuery(
+    ["userFollowingCount"],
+    () => followsRepository.getFollowingCount(auth.token),
+    {
+      enabled: !!auth.token,
+    }
   )
   console.log(myInfo)
   return (
