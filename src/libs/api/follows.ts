@@ -22,20 +22,20 @@ export class FollowsRepository extends Repository {
     })
   }
 
-  public async getFollowerCount(authToken: string): Promise<number> {
-    const response = await this.client.get(`/follows`, {
+  public async getFollowerCount(userId: string, authToken: string): Promise<number> {
+    const response = await this.client.get(`/follows/${userId}`, {
       headers: { AUTH: authToken },
     })
 
     return response.data.data.followerCount
   }
 
-  public async getFollowingCount(authToken: string): Promise<number> {
-    const response = await this.client.get(`/follows`, {
+  public async getFollowingCount(userId: string, authToken: string): Promise<number> {
+    const response = await this.client.get(`/follows/${userId}`, {
       headers: { AUTH: authToken },
     })
 
-    return response.data.data.followerCount
+    return response.data.data.followingCount
   }
 }
 

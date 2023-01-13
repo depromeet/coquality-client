@@ -142,6 +142,10 @@ const StyledWrapper = styled.div`
       flex-direction: column;
       align-items: center;
     }
+    .clap-btn:hover {
+      transform: scale(1.2);
+      transition: 0.4s ease;
+    }
     .bookmark-btn {
       cursor: pointer;
       &[data-active="false"] {

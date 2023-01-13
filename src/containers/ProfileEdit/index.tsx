@@ -71,16 +71,17 @@ const ProfileEdit: React.FC<Props> = ({}) => {
   }
 
   const mutation = useMutation({
-    mutationFn: (params: ProfileModifyType) =>
-      usersRepository.modifyUser(
+    mutationFn: (params: ProfileModifyType) => {
+      return usersRepository.modifyUser(
         params.email,
         params.nickname,
         params.userSummary,
         auth.token
-      ),
+      )
+    },
     onSuccess: (data, variables, context) => {
-      router.push("/username")
-      console.log(data)
+      console.log(data, variables, context)
+      router.push("/")
     },
   })
 

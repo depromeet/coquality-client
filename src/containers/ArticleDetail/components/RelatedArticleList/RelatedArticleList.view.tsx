@@ -48,7 +48,7 @@ const RelatedArticleListView: React.FC<Props> = ({}) => {
     <StyledWrapper>
       {data?.slice(0, 3)?.map((el, idx) => (
         <div className="post" key={idx}>
-          <Link href={`/${el.userId}/${el.id}`}>
+          <Link href={`/users/${el.userId}/posts/${el.id}`}>
             <a className="lt common-h5-sb">{el.title}</a>
           </Link>
           <div className="rt">

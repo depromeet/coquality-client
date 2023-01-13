@@ -57,8 +57,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     console.info("updated user info. ", user)
     setUserInfo(user)
     localStorage.setItem("token", _token)
-    alert("로그인 되었습니다")
-    router.push("/")
+    // alert("로그인 되었습니다")
   }
 
   const logout = () => {

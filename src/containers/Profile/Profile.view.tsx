@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import styled from "@emotion/styled"
@@ -8,72 +8,110 @@ import Button from "@components/inputs/Button"
 import Dropdown from "@components/Dropdown"
 
 import PostCard from "@components/PostCard"
-import usersRepository from "@libs/api/users"
+import usersRepository, { IUser } from "@libs/api/users"
 import postsRepository from "@libs/api/posts"
 import followsRepository from "@libs/api/follows"
 import { IPostType } from "@libs/api/posts"
 import { useAuth } from "@hooks/useAuth"
+import { useRouter } from "next/router"
 
 type Props = {}
 
 const Profile: React.FC<Props> = ({}) => {
+  const router = useRouter()
+  const { username } = router.query
   const auth = useAuth()
 
-  const { data: myInfo } = useQuery(
-    ["userInfo"],
-    () => usersRepository.readMyInfo(auth.token),
-    {
-      enabled: !!auth.token,
+  const [myInfo, setMyInfo] = useState<IUser>()
+  const [followersCount, setFollowersCount] = useState(0)
+  const [followingsCount, setFollowingsCount] = useState(0)
+  const [posts, setPosts] = useState<IPostType[]>([])
+
+  useEffect(() => {
+    if (username) {
+      usersRepository
+        .readUserInfo(parseInt(username as string), auth.token)
+        .then((user) => {
+          setMyInfo(user)
+          Promise.all([
+            followsRepository.getFollowerCount(
+              user.userId.toString(),
+              auth.token
+            ),
+            followsRepository.getFollowingCount(
+              user.userId.toString(),
+              auth.token
+            ),
+          ]).then(([followers, followings]) => {
+            setFollowersCount(followers)
+            setFollowingsCount(followings)
+            postsRepository
+              .getUserPosts(user.userId, "LATEST", auth.token, undefined)
+              .then((posts) => {
+                setPosts(posts)
+              })
+          })
+        })
     }
-  )
-  const { data: myPosts } = useQuery(
-    ["userPosts"],
-    () => postsRepository.getMyPosts(undefined, auth.token),
-    {
-      enabled: !!auth.token,
-    }
-  )
-  const { data: myFollowerCount } = useQuery(
-    ["userFollowerCount"],
-    () => followsRepository.getFollowerCount(auth.token),
-    {
-      enabled: !!auth.token,
-    }
-  )
-  const { data: myFollowingCount } = useQuery(
-    ["userFollowingCount"],
-    () => followsRepository.getFollowingCount(auth.token),
-    {
-      enabled: !!auth.token,
-    }
-  )
-  console.log(myInfo)
+  }, [username])
+
+  // const auth = useAuth()
+
+  // const { data: myInfo } = useQuery(
+  //   ["userInfo"],
+  //   () => usersRepository.readMyInfo(auth.token),
+  //   {
+  //     enabled: !!auth.token,
+  //   }
+  // )
+  // const { data: myPosts } = useQuery(
+  //   ["userPosts"],
+  //   () => postsRepository.getMyPosts(undefined, auth.token),
+  //   {
+  //     enabled: !!auth.token,
+  //   }
+  // )
+  // const { data: myFollowerCount } = useQuery(
+  //   ["userFollowerCount"],
+  //   () => followsRepository.getFollowerCount(auth.token),
+  //   {
+  //     enabled: !!auth.token,
+  //   }
+  // )
+  // const { data: myFollowingCount } = useQuery(
+  //   ["userFollowingCount"],
+  //   () => followsRepository.getFollowingCount(auth.token),
+  //   {
+  //     enabled: !!auth.token,
+  //   }
+  // )
+
   return (
     <StyledWrapper className="common-container">
       <div className="profile-info">
         <div className="lt">
-          <img className="lt" src={myInfo?.data?.profileImageUrl}></img>
+          <img className="lt" src={myInfo?.profileImageUrl}></img>
           <div className="rt">
             <div className="top">
-              <div className="common-h1-sb">{myInfo?.data?.nickname}</div>
+              <div className="common-h1-sb">{myInfo?.nickname}</div>
               <div className="chip">
-                <Link href="/username/grade">
+                <Link href={`/users/${myInfo?.userId}/grade`}>
                   <a>
                     <WriterLevelChip />
                   </a>
                 </Link>
               </div>
             </div>
-            <div className="mid common-h3-rg">{myInfo?.data?.userSummary}</div>
+            <div className="mid common-h3-rg">{myInfo?.userSummary}</div>
             <div className="bottom common-h3-rg">
-              <div>팔로워 {myFollowerCount}</div>
-              <div>팔로잉 {myFollowingCount}</div>
+              <div>팔로워 {followersCount}</div>
+              <div>팔로잉 {followingsCount}</div>
             </div>
           </div>
         </div>
         <div className="rt">
-          {myInfo?.data?.id && (
-            <Link href={`/${myInfo?.data?.id}/edit`}>
+          {myInfo?.userId && (
+            <Link href={`/users/${myInfo?.userId}/edit`}>
               <a>
                 <Button className="btn">내 정보 수정</Button>
               </a>
@@ -94,13 +132,13 @@ const Profile: React.FC<Props> = ({}) => {
       <div className="my-article">
         <div className="header">
           <div className="lt">
-            <div className="common-h3-rg">내 글</div>
-            <div className="common-h3-rg">{myPosts?.length}</div>
+            <div className="common-h3-rg">작성한 글</div>
+            <div className="common-h3-rg">{posts?.length}</div>
           </div>
           <Dropdown />
         </div>
         <div className="post-list">
-          {myPosts?.map((post: IPostType) => (
+          {posts?.map((post: IPostType) => (
             <PostCard key={post.id} data={post} />
           ))}
         </div>
